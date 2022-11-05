@@ -1,0 +1,9 @@
+**/*.wasm
+*.wasm
+result
+result_only2
+tcs
+tcs_v128
+stack_data
+*_err_log
+
