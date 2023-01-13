@@ -1,54 +1,54 @@
 from pathlib import Path
+import re
 from data_comparer import are_different
+from exec_util import exec_one_tc_mth
+from extract_dump.extractor import dump_data_extractor
 from file_util import check_dir, save_json
-from wasm_impls import wasmi_dump
-from wasm_impls import wasmi_standard
-from wasm_impls import iwasm_classic_interp_dump
-from wasm_impls import iwasm_standard
-from wasm_impls import wasm3_dump
-from wasm_impls import wasmer_dump
-from wasm_impls import wasmedge_dump
+from test_a_dir import exec_one_tc, get_imlps
+import os
 
 
-def test_env(tested_dir):
-    different_tc_names = []
-    wasmer_dump_imlp = wasmer_dump()
-    wasm3_dump_imlp = wasm3_dump()
-    wasmedge_dump_imlp = wasmedge_dump()
-    wasmi_dump_imlp = wasmi_dump()
-    iwasm_classic_interp_dump_imlp = iwasm_classic_interp_dump()
-    imlps = [
-        # wasm3_dump_imlp,
-        wasmer_dump_imlp,
-        wasmedge_dump_imlp,
-        # wasmi_dump_imlp,
-        # iwasm_classic_interp_dump_imlp
-    ]
-    tc_name = 'f64.lt_15'
-    tc_path = './tcs/{}.wasm'.format(tc_name)
-    tc_path = 'f64.lt_16_m.wasm'
-    compare_result_base_dir = check_dir('./result')
-    tc_result_dir = check_dir(compare_result_base_dir/tc_name)
-    dumped_results = []
-    for imlp in imlps:
-        store_append_name = '-'.join((tc_name, 'store-part'))
-        store_path = str(imlp.name_generator(tc_result_dir, store_append_name))
-        stack_append_name = '-'.join((tc_name, 'stack-part'))
-        stack_path = str(imlp.name_generator(tc_result_dir, stack_append_name))
-        paras = {
-            'tgt_vstack_path': stack_path,
-            'tgt_store_path': store_path,
-            'tgt_data_path': store_path
-        }
-        result = imlp.execute_and_collect(tc_path, **paras)
-        dumped_results.append(result)
-
-        # print(are_same(dumped_results))
-    print(dumped_results, store_path)
-    if not are_different(dumped_results):
-        different_tc_names.append(tc_name)
-
+def test_env(tc_name, reload=False, reload_dir=None):
+    if Path(tc_name).exists():
+        tc_path = tc_name
+        tc_name = Path(tc_name).stem
+    else:
+        tc_path = 'tcs/{}.wasm'.format(tc_name)
+    imlps = get_imlps()
+    if reload:
+        reload_dir = Path(reload_dir)
+        name = Path(tc_path).name
+        name = re.sub(r'\.wasm', '', name)
+        tc_result_dir = reload_dir / name
+        print(tc_result_dir)
+    else:
+        result_dir = 'one_tc_result'
+        os.system('rm -rf {}'.format(result_dir))
+        compare_result_base_dir = check_dir(result_dir)
+        tc_result_dir = check_dir(compare_result_base_dir / tc_name)
+    # dumped_results = exec_one_tc(imlps, tc_name, tc_path, tc_result_dir, tc_result_dir)
+    dumped_results = exec_one_tc_mth(imlps, tc_name, tc_path, tc_result_dir, tc_result_dir)
+    difference_reason = are_different(dumped_results, tc_name)
+    for result in dumped_results:
+        assert isinstance(result, dump_data_extractor)
+        print('=' * 50)
+        print(result.name)
+        print(result.stack_bytes)
+        if result.stack_bytes:
+            print([hex(x) for x in result.stack_bytes[0]])
+        print('Content ', '-' * 30)
+        print(result.log_content, )
+    print('Difference reason:')
+    print(difference_reason)
 
 
 if __name__ == '__main__':
-    test_env('./tcs')
+    # test_env('i32.store16_465')
+    # test_env('/home/zph/DGit/wasm_projects/runtime_tester/diff_tcs/i64.ge_u_4_98_98_99_99_96_97_80_98_95_96_87_95_69.wasm')
+    # test_env('./test_nan/tt.wasm')
+    # test_env('diff_tcs/i32.rotl_83_90_96_99_96_85_98_58.wasm')
+    # test_env('diff_tcs4/f64.max_151_4_13_18_2_17_18_19_16_13_16_0_12_14_12_1.wasm')
+    # test_env('./diff_tcs4/i32.store_1160_8_1_0_16_4_13_0_19_9_11_12_17_19_18_6_7_7_5.wasm')
+    # test_env('tt.wasm')
+    # test_env('./diff_tcs/i32.rotl_88_96_93_98_95_99_93_97_99_97_98_97_91_90_99_98_94_88_99_98_99_98_95_93_96_96_93_86_48_88_0_35.wasm')
+    test_env('tcs_v2/v128.const_0.wasm', False, 'result')

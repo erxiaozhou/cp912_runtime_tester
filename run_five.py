@@ -1,6 +1,22 @@
+#!/home/zph/anaconda3/bin/python
 import os
-tc_name = 'f32.div_32'
-tc_path = 'tcs/{}.wasm'.format(tc_name)
+import sys
+from file_util import combine_path
+from impl_paras import impl_paras
+from pathlib import Path
+
+
+argv = sys.argv
+if len(argv) == 1:
+    tc_name = 'f32.div_32'
+    tc_path = 'tcs/{}.wasm'.format(tc_name)
+else:
+    tc_name = argv[1]
+    if Path(tc_name).exists():
+        tc_path = tc_name
+    else:
+        tc_path = 'tcs/{}.wasm'.format(tc_name)
+# tc_path = 'new_tcs_M/i64.shr_u_5_0.wasm'
 # tc_path = 'tcs/f32.ge_54.wasm'  # ???
 # tc_name = 'i64.add_2'  # ???
 # i32.rotl_98 # !!!
@@ -13,22 +29,12 @@ tc_path = 'tcs/{}.wasm'.format(tc_name)
 # tc_path = 'f64.lt_16_m.wasm'  # wasmedge上dump不出global值
 # tc_name = 'f32.abs_1' wasmedge没dump下来？
 # tc_path = 'tcs/i32.rotl_98.wasm'
-print('Wasmi-interp:')
-cmd = '/home/zph/DGit/wasm_projects/runtime_test/ori_wasmi/target/debug/wasmi_cli {} to_test'.format(tc_path)
-os.system(cmd)
-print('-' * 50)
-print('iwasm-interp-classic:')
-cmd = '/home/zph/DGit/wasm_projects/runtime_test/ori_iwasm_interp_classic/product-mini/platforms/linux/build/iwasm --heap-size=0 -f to_test {}'.format(tc_path)
-os.system(cmd)
-print('-' * 50)
-print('wasm3:')
-cmd = '/home/zph/DGit/wasm_projects/runtime_test/ori_wasm3_default/build/wasm3 --func to_test {}'.format(tc_path)
-os.system(cmd)
-print('-' * 50)
-print('wasmer:')
-cmd = '/home/zph/DGit/wasm_projects/runtime_test/wasmer_default/target/release/wasmer run {} -i to_test '.format(tc_path)
-os.system(cmd)
-print('-' * 50)
-print('wasmedge:')
-cmd = '/home/zph/DGit/wasm_projects/runtime_test/ori_WasmEdge_disableAOT/build/tools/wasmedge/wasmedge --reactor {} to_test'.format(tc_path)
-os.system(cmd)
+
+
+to_test_imlps = list(impl_paras.keys())
+for imlp_name in to_test_imlps:
+    print('===== {} ====='.format(imlp_name))
+    dict_ = impl_paras[imlp_name]
+    bin_path = combine_path(dict_['standard_dir'], dict_['bin_relative_path'])
+    cmd = dict_['cmd'].format(bin_path, tc_path)
+    os.system(cmd)

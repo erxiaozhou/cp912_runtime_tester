@@ -1,6 +1,6 @@
 
 from pathlib import Path
-from .process_dump_data_util import get_int, get_u64
+from .process_dump_data_util import get_f32_h10, get_f64_h13, get_int, get_u64
 from .process_dump_data_util import get_f32
 from .process_dump_data_util import get_f64
 from .extractor import dump_data_extractor
@@ -8,9 +8,8 @@ from .extractor import dump_data_extractor
 
 class wasmer_dumped_data(dump_data_extractor):
     name = 'wasmer'
-    def __init__(self, store_path, vstack_path):
-        self.store_path = store_path
-        self.vstack_path = vstack_path
+    def __init__(self, store_path, vstack_path=None, log_path=None, append_info=None):
+        super().__init__(store_path, vstack_path, log_path, append_info)
         self.global_bytes = []
         self.global_types = []
         self.global_infered_vals = []
@@ -25,9 +24,13 @@ class wasmer_dumped_data(dump_data_extractor):
         self.stack_num = -1
         self.stack_types = []
         self.stack_infered_vals = []
-        
+        self.stack_bytes = []
+        self.stack_bytes_process_nan = []
         if Path(vstack_path).exists():
             self._init_stack(vstack_path)
+        # log
+        self.log_content = None
+        self._init_log()
         
         if Path(store_path).exists():
             with open(store_path, 'rb') as f:
@@ -55,7 +58,7 @@ class wasmer_dumped_data(dump_data_extractor):
                         cur_bytes = f.read(8)
                         self.global_bytes.append(cur_bytes)
                         self.global_infered_vals.append(get_f64(cur_bytes))
-                    elif ty == b'\x7CB':
+                    elif ty == b'\x7B':
                         self.global_types.append('v128')
                         cur_bytes = f.read(16)
                         self.global_bytes.append(cur_bytes)
@@ -72,6 +75,7 @@ class wasmer_dumped_data(dump_data_extractor):
             self.stack_num = get_int(f.read(8))
             for i in range(self.stack_num):
                 ty = f.read(1)
+                processed_ba = None
                 if ty == b'\x7F':
                     self.stack_types.append('i32')
                     cur_bytes = f.read(4)
@@ -84,14 +88,20 @@ class wasmer_dumped_data(dump_data_extractor):
                     self.stack_types.append('f32')
                     cur_bytes = f.read(4)
                     self.stack_infered_vals.append(get_f32(cur_bytes))
+                    processed_ba = get_f32_h10(cur_bytes)
                 elif ty == b'\x7C':
                     self.stack_types.append('f64')
                     cur_bytes = f.read(8)
                     self.stack_infered_vals.append(get_f64(cur_bytes))
-                elif ty == b'\x7CB':
+                    processed_ba = get_f64_h13(cur_bytes)
+                elif ty == b'\x7B':
                     self.global_types.append('v128')
                     cur_bytes = f.read(16)
                     self.stack_infered_vals.append([x for x in bytearray(cur_bytes)])
+                self.stack_bytes.append(cur_bytes)
+                if processed_ba is None:
+                    processed_ba = bytearray(cur_bytes)
+                self.stack_bytes_process_nan.append(processed_ba)
 
     @property
     def can_initialized(self):

@@ -2,6 +2,22 @@ import os
 import json
 import time
 from pathlib import Path
+import pickle
+
+
+def pickle_dump(path, data):
+    if isinstance(path, str):
+        path = Path(path)
+    with path.open("wb") as f:
+        pickle.dump(data, f)
+
+
+def pickle_load(path):
+    if isinstance(path, str):
+        path = Path(path)
+    with path.open("rb") as f:
+        data = pickle.load(f)
+    return data
 
 
 def check_dir(path, mkdir=True):
@@ -20,22 +36,28 @@ def check_dir(path, mkdir=True):
 def read_json(path):
     if isinstance(path, str):
         path = Path(path)
-    data = json.load(path.open(encoding="utf8"))
+    f = path.open(encoding="utf8")
+    data = json.load(f)
+    f.close()
     return data
 
 
 def save_json(path, data):
     if isinstance(path, str):
         path = Path(path)
-    json.dump(data,
-              path.open("w", encoding="utf8"),
-              ensure_ascii=False,
-              indent=4)
+    f = path.open("w", encoding="utf8")
+    json.dump(data, f, ensure_ascii=False, indent=4)
+    f.close()
 
 
 def write_bytes(path, byte_seq):
     with open(path, 'wb') as fwriter:
         fwriter.write(byte_seq)
+
+
+def read_bytes(path):
+    with open(path, 'rb') as f:
+        return bytearray(f.read())
 
 
 def path_write(path, content):
@@ -55,6 +77,7 @@ def path_read(path):
 
 def rm_dir(dir):
     os.system("rm -rf {}".format(dir))
+    return dir
 
 
 def cp_file(src_path, tgt_path):
@@ -64,9 +87,15 @@ def cp_file(src_path, tgt_path):
 def get_time_string():
     return time.strftime('%m-%d-%H-%M-%S', time.localtime())
 
+
 def remove_file_without_exception(path):
     path = str(path)
     try:
         os.remove(path)
     except FileNotFoundError:
         pass
+
+
+def combine_path(p1, p2):
+    s = Path(p1) / p2
+    return str(s)

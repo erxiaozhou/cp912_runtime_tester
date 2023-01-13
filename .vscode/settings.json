@@ -1,0 +1,16 @@
+{
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/document": true,
+        // "**/*.wat": true,
+        "**/*.wasm": true,
+        "**/result": true,
+        "**/result/**": true,
+        "**/tcs/**": true,
+        "**/tcs_v2/**": true,
+        "**/diff_tcs/**": true,
+        "**/new_tcs_M/**": true,
+        "**/new_tcs_M_result/**": true
+      },
+}

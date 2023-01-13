@@ -1,4 +1,4 @@
-import os
+import subprocess
 from abc import ABC
 from abc import abstractclassmethod
 from pathlib import Path
@@ -10,19 +10,20 @@ class Wasm_impl(ABC):
     def move_output(self, *args, **kwads):
         pass
 
+    def clean(self):
+        pass
+
     def execute_and_collect(self, tc_path, **args_for_collect):
-        self.execute(tc_path)
-        return self.move_output(**args_for_collect)
+        self.clean()
+        append_info = self.execute(tc_path)
+        return self.move_output(**args_for_collect, append_info=append_info)
 
     def execute(self, tc_path):
         cmd = self.cmd_format.format(tc_path)
-        os.system(cmd)
-
-    def name_generator(self, base_dir, appended_part):
-        base_dir = Path(base_dir)
-        filename = '{}_{}'.format(self.name, appended_part)
-        return base_dir / filename
-
+        try:
+            subprocess.run(cmd,timeout=self.timeout, shell=True)
+        except subprocess.TimeoutExpired:
+            return ['Timeout']
 
 def check_mv_log(ori_log_path, tgt_log_path, need_mv):
     if need_mv and (tgt_log_path is not None):

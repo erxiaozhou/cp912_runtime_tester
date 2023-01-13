@@ -1,0 +1,4 @@
+operand_stack_overflow/i32.le_u_16_12_10_15_15_3_1_3_4_0_18_13_1_19_8_9_19_15_12_19_18_5_14_6_11_7_14_1_10_8_10_0_15_18_9.wasm
+这个test case里面定义了很多local，所以iwasm和wasm3会报Exception: wasm operand stack overflow和Error: compiling function overran its stack height limit
+
+
