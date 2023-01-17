@@ -4,7 +4,7 @@ from data_comparer import are_different
 from exec_util import exec_one_tc_mth
 from extract_dump.extractor import dump_data_extractor
 from file_util import check_dir, save_json
-from test_a_dir import exec_one_tc, get_imlps
+from get_imlps_util import get_std_imlps
 import os
 
 
@@ -14,7 +14,7 @@ def test_env(tc_name, reload=False, reload_dir=None):
         tc_name = Path(tc_name).stem
     else:
         tc_path = 'tcs/{}.wasm'.format(tc_name)
-    imlps = get_imlps()
+    imlps = get_std_imlps()
     if reload:
         reload_dir = Path(reload_dir)
         name = Path(tc_path).name
@@ -22,7 +22,7 @@ def test_env(tc_name, reload=False, reload_dir=None):
         tc_result_dir = reload_dir / name
         print(tc_result_dir)
     else:
-        result_dir = 'one_tc_result'
+        result_dir = 'results/one_tc_result'
         os.system('rm -rf {}'.format(result_dir))
         compare_result_base_dir = check_dir(result_dir)
         tc_result_dir = check_dir(compare_result_base_dir / tc_name)

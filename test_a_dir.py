@@ -3,32 +3,11 @@ from pathlib import Path
 from data_comparer import are_different
 from exec_util import exec_one_tc_mth, get_reason_path_to_save, load_results
 from file_util import check_dir, rm_dir, save_json
-from wasm_impls import common_runtime
-from impl_paras import impl_paras
-
-
-def get_wasms_from_a_path(dir_):
-    tc_paths = []
-    dir_ = Path(dir_)
-    for p in dir_.iterdir():
-        if p.suffix == '.wasm':
-            path = str(p)
-            tc_name = p.stem
-            tc_paths.append((tc_name, path))
-    return tc_paths
-
-
-def get_imlps():
-    imlp_names = list(impl_paras.keys())
-    imlps = []
-    for name in imlp_names:
-        imlp = common_runtime.from_dict(name, impl_paras[name])
-        imlps.append(imlp)
-    return imlps
-
+from exec_util import get_wasms_from_a_path
+from get_imlps_util import get_newer_imlps
 
 def exec_a_dir(tested_dir, result_dir):
-    imlps = get_imlps()
+    imlps = get_newer_imlps()
     os.system('rm -rf {}'.format(result_dir))
     compare_result_base_dir = check_dir(result_dir)
     #
@@ -49,7 +28,7 @@ def exec_a_dir(tested_dir, result_dir):
     save_json(path, reasons)
 
 def load_a_dir(tested_dir, result_dir):
-    imlps = get_imlps()
+    imlps = get_newer_imlps()
     reasons = {}
     for tc_result_dir in Path(result_dir).iterdir():
         tc_name = tc_result_dir.name

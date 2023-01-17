@@ -41,8 +41,11 @@ def mutate(s):
     mutators = [
         delete_random_character,
         insert_random_character,
-        flip_random_character,
+        # flip_random_character,
         replace_random_character
     ]
     mutator = random.choice(mutators)
     return mutator(s)
+
+def mutate_with_mask(s, mask):
+    pass

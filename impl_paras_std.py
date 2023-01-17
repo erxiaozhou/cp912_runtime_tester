@@ -6,7 +6,9 @@ from extract_dump import wasmedge_dumped_data
 from extract_dump import wasmer_dumped_data
 from extract_dump import iwasm_fast_interp_dumped_data
 from extract_dump import wavm_dumped_data
-impl_paras = {
+
+
+impl_paras_std = {
     'wasmer_default_dump':{
         # Sep 27
         # release-3.0.0-beta.2

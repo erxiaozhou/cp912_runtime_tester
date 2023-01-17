@@ -3,6 +3,7 @@ from extract_dump.extractor import get_extractor_from_pkl
 # from file_util import remove_file_without_exception, rm_dir, save_json, write_bytes
 from concurrent import futures
 from pathlib import Path
+from file_util import check_dir, save_json
 
 
 def get_imlp_combine_name(imlps):
@@ -19,18 +20,29 @@ def get_reason_path_to_save(tested_dir, imlps=None, append_content=None):
     if append_content is None:
         path = 'different_tcs_{}_{}.json'.format(dir_part, imlps_part)
     else:
-        path = 'different_tcs_{}_{}_{}.json'.format(dir_part, imlps_part, append_content)
+        path = 'different_tcs_{}_{}_{}.json'.format(dir_part, imlps_part,
+                                                    append_content)
     return path
 
 
-def get_reason_dir(tested_dir, imlps, append_content=None):
-    dir_part = Path(tested_dir).name
-    imlps_part = get_imlp_combine_name(imlps)
+def get_reason_dir(tested_dir, result_dir, imlps, append_content=None):
+    # result dir name
+    result_dir_name = Path(result_dir).name
+    tested_dir_name = Path(tested_dir).name
+    base_path = result_dir.parent
     if append_content is None:
-        dir = 'different_tcs_{}_{}.json'.format(dir_part, imlps_part)
+        dir_name = '{}_{}_reasons'.format(result_dir_name, tested_dir_name)
     else:
-        dir = 'different_tcs_{}_{}_{}.json'.format(dir_part, imlps_part, append_content)
-    return dir
+        dir_name = '{}_{}_{}_reasons'.format(result_dir_name, tested_dir_name, append_content)
+    dir_path = check_dir(base_path / dir_name)
+    # config_log
+    config_log = {}
+    config_log['result_dir'] = result_dir_name
+    config_log['tested_dir'] = tested_dir_name
+    config_log['runtimes'] = [imlp.name for imlp in imlps]
+    config_log_name = '{}_config_log.json'.format(result_dir_name)
+    save_json(base_path / config_log_name, config_log)
+    return dir_path
 
 
 def name_generator(imlp_name, base_dir, appended_part):
@@ -106,3 +118,14 @@ def load_results(save_data_dir):
             result = get_extractor_from_pkl(dumped_path)
             results.append(result)
     return results
+
+
+def get_wasms_from_a_path(dir_):
+    tc_paths = []
+    dir_ = Path(dir_)
+    for p in dir_.iterdir():
+        if p.suffix == '.wasm':
+            path = str(p)
+            tc_name = p.stem
+            tc_paths.append((tc_name, path))
+    return tc_paths
