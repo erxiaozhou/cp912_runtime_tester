@@ -10,6 +10,8 @@ stack_data
 temp_data
 diff_tcs
 __pycache__
+__pycache__/*
+__pycache__/**
 tt
 diff_tcs*
 diff_tcs*/**
@@ -20,3 +22,7 @@ except_dir
 ori_tcs
 mutate_tcs
 special_tcs
+v1_main_script
+tcs_v5
+tcs_v4
+tool_test/*

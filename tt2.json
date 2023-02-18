@@ -1,0 +1,3307 @@
+{
+    "i32.add_92_1_16744795470798724": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_37": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_8_5_1674479551299842": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_189_14_16744795562100987": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_9_12_16744796158044908": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_218_46_16744796649439383": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_4_10_16744796522421417": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_174_19_16744795418212597": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_78": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_178_3_16744797201582677": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_56_76_16744797220549903": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_210": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_98_16_16744797581084096": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_176_49_16744797000739021": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_176_51_16744797000739195": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_55_4_1674479578510817": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_0_46_1674479642481503": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_172_7_16744795646555228": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_56_70_16744797220156972": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_14_22_167447966854432": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_203_20_16744795343475435": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_176_16_16744796989774106": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_44": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_1_9_16744795278947148": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_214_16_16744796302198725": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_212_43_16744797691660213": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_217_19_16744796263791103": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_177_40_1674479687808044": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_32_8_1674479660050758": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_172": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_198": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_176_14_16744796989773927": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_71": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_174_18_16744795417106662": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_76": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_170_42_16744796002175932": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_0_44_16744796424814827": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_177_30_16744796874649827": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_70_16_1674479592009742": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_17": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_20": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_92_0_16744795466997042": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_37_7_16744796022710536": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_200_23_16744796771261365": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_174_15_16744795417106342": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_200": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_183_65_16744795950375028": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_47": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_176_10_16744796989773407": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_192_12_167447975339819": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_0_11_16744796421031225": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_28": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_192_15_16744797533982239": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_0_36_16744796423677845": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_92_13_16744795473058357": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_35_14_16744796286832743": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_3_29_16744796505541525": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_81_6_1674479691771106": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_49_2_16744797248246498": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_93_42_16744797046041064": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_175_13_1674479711756": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_83_14_167447977127546": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_176_17_16744796989774187": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_197_84_1674479781176876": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_27": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_174_3_16744795416716485": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_205_2_16744797922434714": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_201_17_16744797621511025": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_217_13_1674479624584618": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_172_8_16744795652550085": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_198_8_167447969734803": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_213": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_35_4_1674479628313985": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_49": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_19_17_16744795756946452": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_193_11_1674479777035003": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_204_23_16744797886100893": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_3_17_1674479648520876": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_212_10_16744797673104131": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_182_5_1674479566633656": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_171_9_16744796791152341": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_177_62_1674479687963632": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_197_4_16744797807146308": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_177_50_1674479687848112": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_94_1_16744795287170436": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_14_0_16744796673780248": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_189_25_16744795562482889": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_200_17_16744796764473705": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_189_24_16744795562482784": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_92_8_16744795473057902": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_4_17_1674479652849903": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_0_0_16744796413939629": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_201_13_1674479762073993": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_207_17_16744796717072897": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_170_25_1674479599547066": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_212_18_16744797683728044": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_45": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_202_42_16744797494427042": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_173_6_1674479741393354": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_201_21_16744797627925973": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_214_39_16744796308962219": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_187_28_16744797334304574": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_207_43_16744796721557956": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_56_48_16744797217510557": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_188_5_1674479584643918": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_202_10_16744797488733919": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_83_14_16744797719893641": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_212_16_16744797673104813": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_182_0_1674479566633596": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_0_32_1674479642367747": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_77": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_192_9_1674479753361961": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_189_46_16744795576659102": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_202": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_176_33_16744796995813391": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_87": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_55_18_16744795797005062": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_21_1_16744795317307522": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_171_7_16744796789997075": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_57": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_56_21_16744797213369555": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_92_2_1674479547079895": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_98_28_16744797589140553": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_217_18_16744796271649156": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_218": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_170_22_16744795994712307": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_197": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_37_30_16744796040784903": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_202_25_16744797491405325": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_30": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_218_8_16744796642945302": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_189_42_1674479557665875": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_83_7_16744797712753925": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_220_28_16744796951892707": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_212_13_16744797680715585": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_97_8_1674479709422029": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_70": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_0_22_16744796421413236": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_193": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_98_37_16744797595501614": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_3_23_1674479649089145": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_60": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_185_3_16744796060721471": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_3_8_16744796477466552": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_202_21_16744797490258327": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_202_39_16744797494426754": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_201_23_16744797639580178": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_187_26_16744797324003437": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_196": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_177_37_16744796878079975": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_0_45_1674479642481491": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_175_7_16744797116424031": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_32_1_16744796597869081": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_218_1_16744796635798666": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_207_7_16744796716682525": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_56_35_1674479721449711": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_55_1_1674479578510793": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_19_3_1674479574719671": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_80_9_16744795877935636": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_95_5_16744795597136328": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_183_15_1674479593766998": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_174": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_204_28_1674479790261502": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_201_29_167447976437331": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_0_2_16744796417660098": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_170_21_16744795994712214": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_204": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_214_6_16744796300684521": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_193_11_16744797790268047": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_25": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_190_7_16744796909731288": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_94_11_1674479529980965": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_189_15_1674479556210111": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_56_57_16744797217897801": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_47_5_16744795449551241": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_177_36_1674479687579425": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_83_26_16744797729625206": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_183_18_16744795937670248": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_35_20_16744796287223341": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_204_32_16744797891744645": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_204_26_16744797902614682": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_3_22_16744796505540874": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_3_4_16744796477466185": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_220_14_16744796927531009": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_95_17_16744795597521675": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_208_7_16744797847623014": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_207_74_16744796728316662": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_1_17_16744795260560412": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_205": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_170_18_16744795994711933": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_217_15_1674479624584646": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_184_10_167447963761516": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_189_5_16744795554962237": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_40": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_1": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_189_22_1674479556210172": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_177_33_16744796875793886": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_194": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_200_27_16744796764864838": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_94_15_16744795299810016": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_208_0_1674479784534231": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_7": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_213_1_1674479609612115": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_212_26_16744797686014042": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_19_16_16744795756172857": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_214": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_171": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_84_25_16744796585721817": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_202_45_1674479749442737": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_6_4_16744797193625243": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_214_58_1674479631836401": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_60_8_16744795976423204": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_94_21_1674479530093153": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_177_31_16744796874649892": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_172_10_16744795646555502": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_208": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_178": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_14": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_218_22_16744796646361825": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_204_24_16744797886101": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_217_22_16744796245846949": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_183_47_1674479594924408": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_186_5_16744796828090475": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_202_8_16744797488733723": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_203_21_16744795344590168": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_10_1_16744796072433648": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_83_36_16744797732645807": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_217_24_16744796254469407": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_204_25_16744797901158867": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_73_4_16744797930430126": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_4_5_16744796520907853": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_214_17_16744796302591457": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_183_55_16744795949625282": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_202_49_16744797494810266": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_184": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_202_35_1674479749367139": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_177_9_16744796867532477": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_1_22_16744795251637304": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_56_55_16744797217511203": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_207_67_1674479672642872": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_183_20_16744795938411639": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_214_31_16744796307068853": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_73": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_171_15_16744796800947893": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_24_0_16744797525303442": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_94_6_16744795287170842": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_191_8_16744796367866685": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_217_12_16744796242779615": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_17_8_1674479779925379": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_93_34_1674479704306224": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_177_54_16744796878481474": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_174_6_1674479540924899": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_14_16_16744796674158003": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_39_9_16744797400917954": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_93_27_1674479703446427": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_74_1_16744795858375723": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_83_23_16744797728865726": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_218_9_16744796635799575": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_204_8_16744797884595048": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_195": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_9_24_16744796158441896": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_14_12_16744796674157622": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_12_3_1674479735854997": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_97_15_1674479709422093": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_186": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_95_20_16744795609707646": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_192": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_170_27_1674479599547091": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_176_45_16744797000011418": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_220_25_16744796933877332": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_19_11_16744795749791698": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_207_55_1674479672304492": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_218_24_16744796646362002": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_207_61_16744796724540386": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_174_38_16744795429215565": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_21": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_183_13_16744795937669797": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_193_28_1674479777678281": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_47_3_1674479544696645": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_214_50_1674479631572428": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_192_17_16744797547108464": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_206": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_1_6_16744795278946867": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_202_9_16744797488733838": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_14_34_16744796686570065": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_174_47_1674479543145143": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_171_18_16744796791896217": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_203_12_16744795337895544": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_92_5_16744795470799248": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_218_25_16744796662573757": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_70_13_16744795919712827": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_177_21_16744796872819717": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_207_3_16744796716682084": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_37_26_16744796025360556": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_56_77_16744797220549996": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_14_9_16744796673781025": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_217": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_14_15_16744796674157913": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_21_7_16744795324563355": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_4_25_16744796530956616": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_214_25_1674479630259232": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_220_4_16744796926401365": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_32_5_1674479660050728": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_207_68_16744796726428816": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_92_26_16744795474947147": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_174_0_16744795409248276": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_193_12_16744797772587323": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_219_4_1674479536910353": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_218_10_16744796642945485": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_21_2_1674479532456273": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_202_26_16744797491405418": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_220_23_16744796933153124": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_184_27_1674479640230692": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_46_9_16744795733705168": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_34": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_10": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_98_25_16744797589140358": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_0_51_1674479643349383": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_207_41_16744796720792572": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_197_78_16744797811768122": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_37_27_16744796040784614": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_80_19_16744795879838943": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_177_23_16744796872819903": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_92_32_1674479548876505": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_204_18_16744797886100137": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_189_12_16744795560606759": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_97_22_16744797094974232": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_176_5_16744796981449435": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_171_16_16744796791153002": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_201_17_16744797635824902": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_177_8_16744796867532382": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_9_6_1674479615673383": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_93_22_1674479703407943": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_0_39_16744796424814363": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_189": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_214_26_16744796302592409": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_79_3_16744795870071578": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_97_6_1674479709272098": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_3_26_16744796490891705": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_9_11_16744796158044822": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_14_21_16744796683549967": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_220_15_167447969275311": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_197_50_16744797810239336": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_174_25_16744795425860734": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_204_17_16744797885345576": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_212_9_16744797672701168": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_56_68_16744797220156791": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_35_3_16744796280475333": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_92_22_16744795474186506": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_93_29_16744797034464452": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_220_26_16744796942122808": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_4_12_16744796525074959": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_189_39_16744795570674784": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_202_51_16744797503101754": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_189_32_1674479556956531": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_218_34_16744796646749659": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_42": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_203_22_1674479534832588": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_56_74_16744797220549738": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_192_4_16744797533619263": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_214_41_16744796310111823": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_46": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_92_17_16744795474186053": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_89_1_16744795505138345": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_97": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_202_6_16744797487209373": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_212": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_21_2_1674479531730763": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_93_31_16744797040493133": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_200_7_1674479676333712": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_176_36_16744796996967814": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_91_7_16744797452112212": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_173_13_16744797415462132": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_84_8_16744796574376657": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_84_11_16744796576267204": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_201_15_16744797621510777": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_92_21_16744795488004768": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_174_29_16744795427734432": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_183_25_16744795941767418": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_172_1_1674479564352972": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_54_6_16744797483026917": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_14_28_16744796685444052": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_187_22_16744797321363192": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_219_9_16744795369104114": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_212_27_16744797686014123": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_174_33_16744795427734866": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_177_46_16744796878080983": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_51": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_192_6_16744797533619401": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_26": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_41": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_29": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_9_35_16744796169031463": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_201_25_16744797639580388": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_201_16_16744797621510909": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_170_23_16744795994712403": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_56_31_1674479721410105": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_1_11_16744795250143728": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_8_3_16744795512998273": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_84_2_16744796563155565": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_92_41_16744795490655608": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_194_5_1674479765648049": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_1_4_16744795278946688": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_177_60_16744796879636118": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_94": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_7_6_16744796349411201": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_203": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_172_2_16744795643529809": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_18_9_16744795833771875": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_64": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_184_14_16744796401914756": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_175_6_16744797116423955": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_31": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_50": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_74_9_167447958583763": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_192_16_16744797535875063": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_3_18_1674479648708707": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_183_9_16744795937291737": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_56_12_16744797212596674": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_190": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_203_6_16744795336424572": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_95_41_16744795616114187": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_173_9_1674479741546176": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_204_31_1674479789174457": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_56_25_1674479721410052": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_218_14_16744796643711948": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_187_2_16744797316076214": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_37_34_16744796040785282": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_173_14_16744797416958604": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_95_25_16744795612737243": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_70_21_16744795920097933": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_174_21_16744795425860126": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_70_3_16744795916978047": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_39_1_16744797397501314": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_183_67_16744795950375206": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_95_32_16744795614977233": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_176_9_1674479698336804": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_192_19_16744797547108808": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_14_29_16744796685444157": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_3_7_16744796483513744": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_189_10_167447955606066": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_181": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_177_42_16744796878080628": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_37_34_16744796025361438": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_3_0_16744796477465644": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_187_6_16744797316076503": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_207_76_16744796728316884": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_87_7_1674479746006027": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_75": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_37_35_16744796026140244": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_31_0_16744795207384095": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_201_19_16744797621511238": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_212_35_16744797690894482": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_170_4_16744795984588227": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_92_26_16744795488005137": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_191": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_22": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_9_17_16744796158045366": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_37_43_16744796041188939": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_177_17_16744796872061098": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_95_43_16744795617249362": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_202_60_16744797504238272": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_176_14_1674479698336849": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_187_38_1674479732552432": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_4_26_16744796532127964": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_220": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_48": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_83_27_16744797732644863": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_207_75_16744796728316774": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_201_4_1674479761844199": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_56_60_16744797217898104": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_87_3_16744797460059984": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_185": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_211": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_184_13_16744796379962373": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_173": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_92_24_16744795474946978": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_187_29_16744797324003763": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_187": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_220_7_16744796926401622": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_216": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_170": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_220_21_16744796933152955": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_1_1_16744795249385023": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_93_40_16744797046040888": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_177_69_16744796880772119": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_94_7_16744795297927415": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_7_3_1674479634675721": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_24": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_0_23_16744796421778255": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_186_27_16744796828857677": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_202_53_1674479750423761": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_183_36_1674479594735705": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_200_21_1674479676486432": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_1_8_16744795249385684": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_199": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_192_27_16744797536260648": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_220_29_1674479694212301": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_203_15_16744795337895856": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_93_13_16744797028835287": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_176_25_16744796995072463": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_201_28_1674479764074876": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_19_5_16744795749791102": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_37_45_1674479604194509": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_170_14_16744795994333208": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_0_52_16744796433493938": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_40_6_16744796460147738": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_81": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_37_17_16744796023836296": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_188": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_54": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_184_23_16744796401915953": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_170_43_1674479600217604": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_192_25_16744797535876083": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_189_6_16744795560606182": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_207_13_1674479671707255": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_79": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_173_22_1674479741695948": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_0_28_16744796421778865": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_193_22_16744797776381073": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_207": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_174_23_16744795425860505": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_98_31_16744797594745965": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_217_3_1674479624238275": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_83_1_16744797710739408": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_207_9_16744796716682725": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_207_32_16744796719690466": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_214_45_16744796313462873": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_217_14_16744796245846355": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_180": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_183_43_16744795947743173": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_174_20_167447954220888": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_4_6_16744796520907931": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_46_4_16744795731447227": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_215_0_16744796080291433": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_184_4_16744796375762153": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_0": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_186_25_1674479682885749": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_183_53_167447959492446": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_80": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_184_9_16744796375762515": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_179": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_220_29_16744796951892836": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_171_12_16744796791152635": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_84": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_189_37_16744795570674615": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_220_30_16744796942123072": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_83_17_16744797719893858": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_170_29_1674479599807428": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_23": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_217_9_16744796242383277": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_182": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_174_41_16744795431450903": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_204_12_16744797885345137": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_220_37_1674479694288023": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_218_39_1674479664714802": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_55_10_16744795787305484": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_175_21_16744797119432065": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_11": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_56_3_16744797209948921": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_30_3_16744797261300755": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_174_14_16744795417106245": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_91": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_202_43_16744797494427154": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_170_9_16744795984588664": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_55_9_16744795795873017": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_202_57_1674479750423801": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_72": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_214_20_1674479630259188": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_74": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_200_30_16744796774652903": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_183_69_16744795950375392": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_173_17_167447974298647": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_62_7_16744796451966171": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_214_22_1674479630259205": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_185_7_167447960633459": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_94_14_16744795288641486": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_98_14_16744797581083918": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_37_25_16744796024216616": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_214_46_1674479631346297": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_4": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_0_12_1674479642103132": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_212_17_1674479768372795": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_95_33_16744795614977312": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_209": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_193_6_1674479776881357": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_189_45_16744795576659017": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_56_45_1674479721712879": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_93_4_16744797026571522": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_197_0_167447978071458": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_183_62_1674479594962592": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_177": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_1_15_1674479525014408": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_186_9_16744796828090746": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_80_16_16744795878316488": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_202_13_16744797488734186": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_56_41_16744797217128448": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_95_36_1674479561611366": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_189_9_16744795554962573": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_187_9_1674479731757959": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_174_26_16744795425860832": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_0_24_16744796421778471": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_1_9_16744795250143409": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_183": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_183_6_16744795937291534": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_184_12_16744796379962258": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_208_6_16744797847622874": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_98_22_1674479758220118": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_174_10_16744795416717107": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_176": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_217_5_16744796242382927": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_84_1_16744796559730666": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_217_28_16744796246233456": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_61": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_87_10_16744797470259748": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_175": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_207_24_16744796718226292": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_67": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_207_48_1674479672155845": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_187_18_16744797320614572": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_177_44_16744796878080812": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_90": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_43": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_197_42_16744797809081464": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_215": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_87_14_1674479746119121": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_13_9_1674479545898591": {
+        "WasmEdge_disableAOT_newer": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_170_38_16744796001437323": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_37_24_16744796024216514": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_219": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_84_14_16744796579312525": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_95_9_16744795597136657": {
+        "iwasm_fast_interp_dump": [
+            "CanExecute"
+        ],
+        "iwasm_classic_interp_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_203_18_16744795343475263": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_197_9_16744797807146757": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_201": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_183_26_16744795941767514": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_219_6_16744795369103854": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_92_30_16744795488764858": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_217_20_16744796245846813": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    },
+    "i32.add_193_3_1674479776881331": {
+        "wasm3_dump": [
+            "CanExecute"
+        ]
+    }
+}

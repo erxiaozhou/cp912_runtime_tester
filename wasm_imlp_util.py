@@ -13,21 +13,18 @@ class Wasm_impl(ABC):
     def clean(self):
         pass
 
-    def execute_and_collect(self, tc_path, **args_for_collect):
+    def execute_and_collect(self, tc_path, log_path, **args_for_collect):
         self.clean()
-        append_info = self.execute(tc_path)
+        append_info = self._execute(tc_path, log_path)
         return self.move_output(**args_for_collect, append_info=append_info)
 
-    def execute(self, tc_path):
-        cmd = self.cmd_format.format(tc_path)
+    def _execute(self, tc_path, log_path):
+        cmd = self.dump_cmd_fmt.format(tc_path, log_path)
         try:
             subprocess.run(cmd,timeout=self.timeout, shell=True)
         except subprocess.TimeoutExpired:
             return ['Timeout']
 
-def check_mv_log(ori_log_path, tgt_log_path, need_mv):
-    if need_mv and (tgt_log_path is not None):
-        shutil.move(ori_log_path, tgt_log_path)
 
 
 def single_file_dumped_data(ori_data_path, tgt_data_path, extractor_class):
@@ -56,20 +53,3 @@ def check_file_mv(path_pairs, both_exist_check=True):
         else:
             return False
     return True
-
-
-def common_dump_behavior(ori_store_path,
-                        tgt_store_path,
-                        ori_vstack_path,
-                        ori_log_path,
-                        tgt_log_path,
-                        tgt_vstack_path,
-                        mv_dump_log,
-                        dump_extractor_class):
-    mv_pairs = {
-        ori_store_path: tgt_store_path,
-        ori_vstack_path: tgt_vstack_path
-    }
-    check_mv_log(ori_log_path, tgt_log_path, mv_dump_log)
-    check_file_mv(mv_pairs, False)
-    return dump_extractor_class(tgt_store_path, tgt_vstack_path)

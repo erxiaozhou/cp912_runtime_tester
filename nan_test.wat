@@ -3,18 +3,12 @@
   (type (;1;) (func (param i32)))
   (type (;2;) (func))
   (type (;3;) (func (result f64)))
-  (func (;0;) (type 3) 
+  (func (;0;) (type 3) (result f64)
     (local i32 f32 i64 f64)
     i32.const 305419896
     local.set 0
-    ;; f32.const 0x1.8cp+6 (;=99;)
-    ;; local.set 1
-    ;; i64.const -72057589709208571
-    ;; local.set 2
-    ;; f64.const 0x1.5f0b08c960a79p+109 (;=8.9e+32;)
-    ;; local.set 3
-    f64.const -nan
-    f64.const nan
+    f64.const -nan:0x8000000000002 (;=-nan;)
+    f64.const nan:0x8000000000001 (;=nan;)
     f64.add)
   (memory (;0;) 1)
   (global (;0;) i32 (i32.const 541))

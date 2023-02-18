@@ -12,6 +12,8 @@ def is_failed_content(content):
         return True
     elif 'aborted' in content:
         return True
+    elif 'fault' in content:
+        return True
     else:
         return False
 
@@ -82,6 +84,7 @@ class dump_data_extractor(data_payload):
     @property
     def log_has_failed_content(self):
         return is_failed_content(self.log_content)
+
     @property
     def related_to_reference(self):
         related_to_reference = False
@@ -97,6 +100,7 @@ class dump_data_extractor(data_payload):
         elif 'unsupported opcode fd' in self.log_content:
             related_to_SIMD = True
         return related_to_SIMD
+
     @property
     def related_to_unknown_tyupe(self):
         related_to_unknown_tyupe = False
@@ -106,6 +110,7 @@ class dump_data_extractor(data_payload):
         elif 'no operation found for opcode' in self.log_content:
             related_to_unknown_tyupe = True
         return related_to_unknown_tyupe
+
     @property
     def related_to_bulk_mem(self):
         related_to_bulk_mem = False
@@ -137,8 +142,6 @@ class dump_data_extractor(data_payload):
         return sum(self.default_mem_data)
 
     def to_dict(self, path=None):
-        # if store_attrs is None:
-        #     store_attrs = _to_store_attrs
         data = {}
         data.update(self.__dict__)
         data['can_initialized'] = self.can_initialized
@@ -174,8 +177,8 @@ _to_compare_attrs = [
     # 'global_num',
     'stack_num',
     'stack_types',
+    'stack_bytes',
     # 'stack_infered_vals',
-    # 'stack_bytes',
     'log_has_failed_content',
     'has_timeout',
     'stack_bytes_process_nan'

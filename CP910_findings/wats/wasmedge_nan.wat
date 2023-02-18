@@ -1,21 +1,29 @@
 (module
-  (type (;0;) (func (param i32 i32 i32 i32) (result f32)))
+  (type (;0;) (func (param i32 i32 i32 i32) (result i32)))
   (type (;1;) (func (param i32)))
   (type (;2;) (func))
   (type (;3;) (func (result f64)))
-  (func (;0;) (type 3) 
+  (func (;0;) (type 3) (result f64)
     (local i32 f32 i64 f64)
     i32.const 305419896
     local.set 0
-    ;; f32.const 0x1.8cp+6 (;=99;)
-    ;; local.set 1
-    ;; i64.const -72057589709208571
-    ;; local.set 2
-    ;; f64.const 0x1.5f0b08c960a79p+109 (;=8.9e+32;)
-    ;; local.set 3
-    f64.const -nan
-    f64.const nan
-    f64.add)
+    f32.const 0x1.cc8p+6 (;=115.125;)
+    local.set 1
+    i64.const -36028792689605631
+    local.set 2
+    f64.const 0x1.5f0b88c960a79p+109 (;=8.90005e+32;)
+    local.set 3
+    f64.const nan:0x39 (;=nan;)
+    f64.const -nan:0x2f000000 (;=-nan;)
+    f64.max
+    local.get 0
+    global.set 8
+    local.get 1
+    global.set 9
+    local.get 2
+    global.set 10
+    local.get 3
+    global.set 11)
   (memory (;0;) 1)
   (global (;0;) i32 (i32.const 541))
   (global (;1;) (mut i32) (i32.const 191))

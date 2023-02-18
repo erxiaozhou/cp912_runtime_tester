@@ -1,0 +1,32 @@
+wasmedge timeout : 形成了call 0
+wasmedge nan / iwasm nan: 
+    f64.const nan:0x39 (;=nan;)
+    f64.const -nan:0x2f000000 (;=-nan;)
+    f64.max
+iwasm-nan
+    ????
+
+    f32.const -nan:0xefef4 (;=-nan;)
+    f32.const -0x1.44ceeep+127 (;=-2.15872e+38;)
+    f32.copysign
+
+    f32.const -nan:0x333804 (;=-nan;)
+    f32.abs
+
+
+iwasm code srection size check
+
+TBD
+
+undefined opcode
+
+wasm3 nan
+
+    f32.const -0x1.b6ff18p+126 (;=-1.45882e+38;)
+    f32.const -nan (;=-nan;)
+    f32.max
+
+wavm nan
+
+    f64.const nan:0x400028008003e (;=nan;)
+    f32.demote_f64

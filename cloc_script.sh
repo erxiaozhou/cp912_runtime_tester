@@ -1,0 +1,1 @@
+cloc --exclude-dir=results,tt,v1_main_script .

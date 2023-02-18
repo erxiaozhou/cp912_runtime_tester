@@ -4,6 +4,8 @@ import sys
 from file_util import combine_path
 from impl_paras import impl_paras
 from pathlib import Path
+from impl_paras_std import impl_paras_std
+import subprocess
 
 
 argv = sys.argv
@@ -30,11 +32,17 @@ else:
 # tc_name = 'f32.abs_1' wasmedge没dump下来？
 # tc_path = 'tcs/i32.rotl_98.wasm'
 
-
+impl_paras = impl_paras_std
 to_test_imlps = list(impl_paras.keys())
 for imlp_name in to_test_imlps:
     print('===== {} ====='.format(imlp_name))
     dict_ = impl_paras[imlp_name]
     bin_path = combine_path(dict_['standard_dir'], dict_['bin_relative_path'])
     cmd = dict_['cmd'].format(bin_path, tc_path)
-    os.system(cmd)
+    # os.system(cmd)
+
+    try:
+        subprocess.run(cmd,timeout=20, shell=True)
+    except subprocess.TimeoutExpired:
+        print('From pyth: timeout')
+    # print(cmd)

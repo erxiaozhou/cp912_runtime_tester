@@ -4,6 +4,7 @@ from extract_dump.extractor import get_extractor_from_pkl
 from concurrent import futures
 from pathlib import Path
 from file_util import check_dir, save_json
+from data_comparer import are_different
 
 
 def get_imlp_combine_name(imlps):
@@ -35,13 +36,13 @@ def get_reason_dir(tested_dir, result_dir, imlps, append_content=None):
     else:
         dir_name = '{}_{}_{}_reasons'.format(result_dir_name, tested_dir_name, append_content)
     dir_path = check_dir(base_path / dir_name)
-    # config_log
-    config_log = {}
-    config_log['result_dir'] = result_dir_name
-    config_log['tested_dir'] = tested_dir_name
-    config_log['runtimes'] = [imlp.name for imlp in imlps]
-    config_log_name = '{}_config_log.json'.format(result_dir_name)
-    save_json(base_path / config_log_name, config_log)
+    # # config_log
+    # config_log = {}
+    # config_log['result_dir'] = result_dir_name
+    # config_log['tested_dir'] = tested_dir_name
+    # config_log['runtimes'] = [imlp.name for imlp in imlps]
+    # config_log_name = '{}_config_log.json'.format(result_dir_name)
+    # save_json(base_path / config_log_name, config_log)
     return dir_path
 
 
@@ -70,7 +71,7 @@ def exec_one_runtime(imlp, tc_name, tc_result_dir, tc_path):
         'tgt_store_path': store_path,
         'tgt_log_path': log_path
     }
-    result = imlp.execute_and_collect(tc_path, **paras)
+    result = imlp.execute_and_collect(tc_path, log_path, **paras)
     return result
 
 
@@ -102,10 +103,6 @@ def exec_one_tc_mth(imlps,
             dumped_results.append(result)
             if save_data_dir is not None:
                 dumped_path = _get_dumped_path(save_data_dir, result.name)
-                # print('dumped_path', dumped_path)
-                # print(type(result))
-                # print(result.name)
-                # input()
                 result.to_dict(dumped_path)
     return dumped_results
 
@@ -120,6 +117,14 @@ def load_results(save_data_dir):
     return results
 
 
+def load_log_content(save_data_dir):
+    results = load_results(save_data_dir)
+    name_log = {}
+    for r in results:
+        name_log[r.name] = r.log_content
+    return name_log
+
+
 def get_wasms_from_a_path(dir_):
     tc_paths = []
     dir_ = Path(dir_)
@@ -129,3 +134,14 @@ def get_wasms_from_a_path(dir_):
             tc_name = p.stem
             tc_paths.append((tc_name, path))
     return tc_paths
+
+def load_a_result_base_dir(result_json_path, result_dir):
+    reasons = {}
+    for tc_result_dir in Path(result_dir).iterdir():
+        tc_name = tc_result_dir.name
+        dumped_results = load_results(tc_result_dir)
+        difference_reason = are_different(dumped_results, tc_name)
+        if difference_reason:
+            reasons[tc_name] = difference_reason
+    save_json(result_json_path, reasons)
+    return reasons

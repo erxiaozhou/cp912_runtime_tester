@@ -1,13 +1,9 @@
-提取Value和Condition时候, and和or的处理还是不大行
 
 需要确定需要提取的变量前面有没有\，比如应该提取的是\\sx还是sx
 至少确定应该匹配的是\\shape而不是shape
 
 
-assign_math_line 里的content要和三个parts解耦合
 
-str_condition和many_condition功能有很多重合
-elem.drop和data.drop是做什么的
 
 The data.drop instruction prevents further use of a passive data segment. This instruction is intended to be used as an optimization hint. After a data segment is dropped its data can no longer be retrieved, so the memory used by this segment may be freed.
 
@@ -19,30 +15,28 @@ retrieved, so the memory used by this segment may be freed.
 
 
 
-符号执行的部分全换成Z3,主要是目前觉得在构造NaN和Inf上做的不太行
-没匹配上的两个condition，也得安排上
+符号执行的部分全换成Z3
 ref的规则还没搞清楚
 operation上面，可以试试搞个 operation-tree，看看哪些节点是可以扔掉不看的
 
 
 
-一个隐患在于通过title info更新自身内容的操作。一方面有时候会解掉一些宏，造成预期外的行为。另一方面更新的操作很不优雅。
 
-
-select 指令准备处理
-
-
-注意更新 .type后重新生成.svalue的情况
-
-现在新加了avoid_type_relation这一属性，，以及基于store的type关系，后面要把这些信息一并用于 type扩散
 在处理Value的时候，:ref:`bit width <syntax-numtype>` :math:`|t|` of :ref:`number type <syntax-numtype>` :math:`t` 这个处理的不好
 
 
-special value里面可能会有违背条件的情况。这个暂时不做处理
+#1. mutate的操作是否存在问题，需要验证
+2. 众多runtime的reference的映射，如果没办法搞就只能不写很多东西了 
+3. nan的触发做的不好
 
-不给local的值初始化也会报错，这个应该也加进测试
 
 
-table.grow里面的最后一行有点意义不明
 
-multi memory要注意，现在只覆盖了只有一个memory的情况
+reference映射
+wasmi： stack上面只有f/1 32/64 四种类型，其他地方也没有ref.null
+
+iwasm table加了，stack有ref类型
+wasm3 没有Refer。null什么的，有table，table加了
+wasmer TBD
+WAVM TBD
+WASMEDGE TBD

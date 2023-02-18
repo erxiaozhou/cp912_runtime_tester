@@ -1,5 +1,6 @@
 from extract_dump import dump_data_extractor, get_diff_attr_names
 
+
 reasons = {
     # "NoneResult": "Some results are not dumped",
     "CanExecute": "CanExecute",
@@ -25,14 +26,14 @@ def common_difference(compare_result, tc_name, all_compare_names):
     
 
 def sort_dump_results(results):
-    
     for i, r in enumerate(results):
         if 'wasmer' in r.name:
             wasmer_idx = i
     results = [results[wasmer_idx]] + [results[i] for i in range(len(results)) if i != wasmer_idx]
     return results
 
-def are_different(dumped_results, tc_name=None):
+
+def are_different(dumped_results, tc_name=None, skip_common_difference=False):
     # 如果全部报错，不算difference
     # 如果存在报错，报错由于 simd / reference / multi memory相关且runtime不支持该特性，不算difference
     # 能run，不能dump的情况存在，就要记录，主要是自用
@@ -41,11 +42,8 @@ def are_different(dumped_results, tc_name=None):
     # all runtimes fail to run
     dumped_results = sort_dump_results(dumped_results)
     runtimes_failed = [1 for r in dumped_results if r.log_has_failed_content]
-    # print(len(runtimes_failed), len(dumped_results))
-    # assert 0
     if len(runtimes_failed) == len(dumped_results):
         return False
-    # assert 0, print(runtimes_failed)
     # some runtimes can run, but the base cannot run
     base = dumped_results[0]
     compare_result = {}
@@ -62,12 +60,15 @@ def are_different(dumped_results, tc_name=None):
         for to_compare in dumped_results[1:]:
             assert isinstance(to_compare, dump_data_extractor)
             if to_compare.log_has_failed_content:
-                if not to_compare.expected_error:
+                if not skip_common_difference:
+                    compare_result[to_compare.name] = [reasons["CannotExecute"]]
+                elif (not to_compare.expected_error):
                     compare_result[to_compare.name] = [reasons["CannotExecute"]]
                 else:
-                    continue
+                    pass
             else:
                 cur_different_attrs = get_diff_attr_names(base, to_compare)
+                # ! 这里是不是有问题
                 if len(cur_different_attrs):
                     compare_result[to_compare.name] = cur_different_attrs
     # * can run ; cannot dump是自己代码的问题
@@ -85,27 +86,28 @@ def are_different(dumped_results, tc_name=None):
                 compare_result[result.name] = []
             compare_result[result.name].append('Timeout')
     all_compare_names = [r.name for r in dumped_results]
-    if common_difference(compare_result, tc_name, all_compare_names):
-        return False
+    if skip_common_difference:
+        assert 0
+        if common_difference(compare_result, tc_name, all_compare_names):
+            return False
     if len(compare_result):
         return compare_result
     else:
         return False
 
 
-def all_can_dump(dumped_results):
+def _get_can_init_num(dumped_results):
     can_init_num = 0
     for result in dumped_results:
         assert isinstance(result, dump_data_extractor)
         if result.can_initialized:
             can_init_num += 1
-    return can_init_num == len(dumped_results)
+    return can_init_num
+
+
+def all_can_dump(dumped_results):
+    return _get_can_init_num(dumped_results) == len(dumped_results)
 
 
 def at_least_one_can_dump(dumped_results):
-    can_init_num = 0
-    for result in dumped_results:
-        assert isinstance(result, dump_data_extractor)
-        if result.can_initialized:
-            can_init_num += 1
-    return can_init_num > 0
+    return _get_can_init_num(dumped_results) > 0

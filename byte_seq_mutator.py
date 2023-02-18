@@ -46,6 +46,3 @@ def mutate(s):
     ]
     mutator = random.choice(mutators)
     return mutator(s)
-
-def mutate_with_mask(s, mask):
-    pass

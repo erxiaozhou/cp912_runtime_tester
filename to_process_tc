@@ -1,0 +1,103 @@
+
+1. （从未上报）
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/v128.load8_lane_5858_20_1674795280452851 wavm wasmer 不报错,wavm竟然没报错， 报错的align还是0x40
+
+2. （从未上报）
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/v128.bitselect_862_8_16748112806407068
+wasmedge不报错，原因是section size检查，但是这个问题好像被修复了
+
+3. wasm3_dump
+只有wasm3能跑，
+f64.le_15
+i64.or_0
+很常见了,是个问题
+
+4.WAVM没法跑v128
+i16x8.lt_s_1 很常见
+
+
+
+6. (应该没上报)
+(('WasmEdge_disableAOT_newer', ('CannotExecute',)),)
+v128.load8_lane_5858_20_1674795280452851
+也是alignment的问题
+
+7.
+ref.is_null_0
+(('iwasm_classic_interp_dump', ('CannotExecute',)), ('iwasm_fast_interp_dump', ('CannotExecute',)), ('wasm3_dump', ('CannotExecute',)), ('wasmi_interp', ('CannotExecute',)))
+iwasm理应可以执行，不过在template里面加上func后应该可以修复
+
+8. （从未上报）(误报)
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/i32.store8_1025_6_16747981616685019.wasm
+(('wasmi_interp', ('CanExecute',)),)
+因为unreachable
+
+9. （从未上报）(误报)
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/i32.load8_u_85_5_16747865804868178
+(('wasmi_interp', ('CanExecute',)),)
+因为memory oob
+
+10. 应该是wasmi section size check的问题
+(('iwasm_classic_interp_dump', ('CanExecute',)), ('iwasm_fast_interp_dump', ('CanExecute',)))
+(('WAVM_default', 'Error loading WebAssembly binary file: Module was malformed: section contained more data than expected\\n'), ('WasmEdge_disableAOT_newer', 'section size mismatch'), ('iwasm_classic_interp_dump', ''), ('iwasm_fast_interp_dump', ''), ('wasm3_dump', 'Error: [Fatal] repl_load: section underrun while parsing Wasm binaryError: section underrun while parsing Wasm binary'), ('wasmer_default_dump', 'trailing bytes at end of section'), ('wasmi_interp', 'trailing bytes at end of section'))
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/i32.rem_u_119_6_1674835275668864
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/i32.ge_u_3_2_16748003665274394
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/f32.convert_i32_u_5_2_16748208720997329
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/i32.store_446_3_16748277796120834
+
+11. iwasm的自定义opcode，
+(('iwasm_classic_interp_dump', ('CanExecute',)), ('iwasm_fast_interp_dump', ('CanExecute',)))
+(('WAVM_default', 'Unknown opcode'), ('WasmEdge_disableAOT_newer', 'illegal opcode'), ('iwasm_classic_interp_dump', ''), ('iwasm_fast_interp_dump', ''), ('wasm3_dump', 'Error: [Fatal] repl_load: section underrun while parsing Wasm binaryError: section underrun while parsing Wasm binary'), ('wasmer_default_dump', 'trailing bytes at end of section'), ('wasmi_interp', 'illegal opcode'))
+
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/memory.copy_153_16_1674838393492607
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/memory.copy_153_11_1674838393447346
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/memory.copy_153_13_16748383934925747
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/memory.copy_153_25_16748383940635097
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/memory.copy_153_21_16748383940203302
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/memory.copy_153_16_16748383938905694
+
+
+
+13. 不知道报没报，报了也不会回复,看起来是alignment的事情
+(('WAVM_default', ('CanExecute',)),)
+(('WAVM_default', ''), ('WasmEdge_disableAOT_newer', 'Mismatched memory alignment'), ('iwasm_classic_interp_dump', 'unsupported opcode fd'), ('iwasm_fast_interp_dump', 'unsupported opcode fd'), ('wasm3_dump', \"Error: no operation found for opcode ('termination')\"), ('wasmer_default_dump', 'alignment too large'), ('wasmi_interp', 'SIMD support is not enabled'))
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/v128.store8_lane_2374_11_1674838942670191
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/v128.store8_lane_9126_13_16748229063663747
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/v128.store8_lane_9126_13_16748229059214003
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/v128.store8_lane_717_13_16747924315480087
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/v128.store8_lane_9126_11_16748229059213703
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/v128.store8_lane_9126_5_1674822905680984
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/v128.store8_lane_9126_10_16748229058749347
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/v128.store8_lane_9126_7_16748229058749068
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/v128.store8_lane_717_16_16747924316357145
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/v128.store8_lane_9126_17_16748229065467393
+
+14. 不知道报没报，应该没有报，报了也不会回复
+(('WAVM_default', ('CanExecute',)),)
+(('WAVM_default', ''), ('WasmEdge_disableAOT_newer', 'illegal opcode'), ('iwasm_classic_interp_dump', 'unsupported opcode fc'), ('iwasm_fast_interp_dump', 'unsupported opcode fc'), ('wasm3_dump', 'Unknown opcode'), ('wasmer_default_dump', 'Unknown 0xfc subopcode'), ('wasmi_interp', 'Unknown 0xfc subopcode'))
+应该可以实锤
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/memory.copy_1029_18_16747874154445002
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/memory.copy_1029_14_1674787414785319
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/memory.copy_1029_12_16747874146851604
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/memory.fill_986_11_16748244360589511
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/memory.copy_1029_13_16747874147852979
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/memory.copy_1029_15_16747874154444716
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/memory.fill_143_15_1674840800532785
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/memory.copy_1029_17_1674787414966217
+
+
+
+15. 这个不像error,但是因为不支持reference的tc应该很多，而且wasm3 （待验证）
+(('wasmi_interp', ('CannotExecute',)),)
+
+(('WAVM_default', ''), ('WasmEdge_disableAOT_newer', ''), ('iwasm_classic_interp_dump', ''), ('iwasm_fast_interp_dump', ''), ('wasm3_dump', \"Error: no operation found for opcode ('BranchIfPrologue_s')\"), ('wasmer_default_dump', ''), ('wasmi_interp', 'reference types support is not enabled'))
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/f64.store_740_11_16748030027713342
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/f64.store_740_10_1674803002211269
+
+
+16.（待验证）
+(('wasm3_dump', ('CannotExecute',)), ('wasmi_interp', ('CannotExecute',)))
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/ref.is_null_7
+/media/hdd_xj1/cp910_data/main_testing/diff_tcs/ref.is_null_4
+is_null为什么会出这个问题
+

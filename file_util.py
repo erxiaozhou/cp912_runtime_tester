@@ -3,7 +3,7 @@ import json
 import time
 from pathlib import Path
 import pickle
-
+import chardet
 
 def pickle_dump(path, data):
     if isinstance(path, str):
@@ -70,8 +70,23 @@ def path_write(path, content):
 def path_read(path):
     if isinstance(path, str):
         path = Path(path)
-    with path.open('r', encoding='utf8') as f:
-        content = f.read()
+    try:
+        with path.open('r', encoding='utf8') as f:
+            content = f.read()
+    except UnicodeDecodeError:
+        with path.open('rb') as f:
+            rbs = f.read()
+            result = chardet.detect(rbs) 
+            encoding = result['encoding']
+            # print(result, rbs)
+            # # assert 0
+        if encoding is not None:
+            with path.open('r', encoding=encoding) as f:
+                content = f.read()
+        else:
+            with path.open('rb') as f:
+                content = f.read()
+            content = str(content)
     return content
 
 
