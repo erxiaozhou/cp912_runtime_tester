@@ -111,3 +111,21 @@ def all_can_dump(dumped_results):
 
 def at_least_one_can_dump(dumped_results):
     return _get_can_init_num(dumped_results) > 0
+    
+
+def _get_can_execute_num(dumped_results):
+    can_init_num = 0
+    for result in dumped_results:
+        assert isinstance(result, dump_data_extractor)
+        if result.log_has_failed_content:
+            can_init_num += 1
+    return can_init_num
+
+
+def all_can_execute(dumped_results):
+    return _get_can_execute_num(dumped_results) == len(dumped_results)
+
+
+def at_least_one_can_execute(dumped_results):
+    return _get_can_execute_num(dumped_results) > 0
+    

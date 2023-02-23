@@ -1,5 +1,5 @@
-from analyze_reslut_util import get_reason_summary
-from test_a_dir_std import test_with_mutation
+from analyze_reslut_util import reason_base_dir2reason_summary_json
+from run_dir_std_testing import test_with_mutation
 
 
 def get_paras(result_base_dir, tested_dir):
@@ -28,7 +28,7 @@ def general_main():
     tested_dir = '/media/hdd_xj1/cp910_data/main_testing/diff_tcs'
     paras, reason_dir, reason_summary_path = get_paras(result_base_dir, tested_dir)
     test_with_mutation(**paras)
-    get_reason_summary(reason_dir, reason_summary_path)
+    reason_base_dir2reason_summary_json(reason_dir, reason_summary_path)
 
 
 def test_f32():
@@ -36,7 +36,7 @@ def test_f32():
     tested_dir = 'to_test_wasm'
     paras, reason_dir, reason_summary_path = get_paras(result_base_dir, tested_dir)
     test_with_mutation(**paras)
-    get_reason_summary(reason_dir, reason_summary_path)
+    reason_base_dir2reason_summary_json(reason_dir, reason_summary_path)
 
 
 def test_findings():
@@ -44,7 +44,7 @@ def test_findings():
     tested_dir = 'CP910_findings/wasms'
     paras, reason_dir, reason_summary_path = get_paras(result_base_dir, tested_dir)
     test_with_mutation(**paras)
-    get_reason_summary(reason_dir, reason_summary_path)
+    reason_base_dir2reason_summary_json(reason_dir, reason_summary_path)
 
 
 def test_previous_tcs():
@@ -54,7 +54,7 @@ def test_previous_tcs():
     paras, reason_dir, reason_summary_path = get_paras(result_base_dir, tested_dir)
     # assert 0, print( reason_dir, reason_summary_path)
     test_with_mutation(**paras)
-    get_reason_summary(reason_dir, reason_summary_path)
+    reason_base_dir2reason_summary_json(reason_dir, reason_summary_path)
 
 
 if __name__ == '__main__':

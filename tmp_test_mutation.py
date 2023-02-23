@@ -10,8 +10,8 @@ from file_util import path_read
 from file_util import path_write
 import leb128
 import time
-from test_a_dir_std import tc_executable
-from test_a_dir_std import generate_code_sec_tcs_c
+from run_dir_std_testing import tc_executable
+from run_dir_std_testing import generate_code_sec_tcs_c
 
 
 def remove_unexecutable_i32():

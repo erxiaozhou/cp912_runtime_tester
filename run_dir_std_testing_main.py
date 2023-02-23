@@ -1,5 +1,5 @@
-from analyze_reslut_util import get_reason_summary
-from test_a_dir_std import test_with_mutation
+from analyze_reslut_util import reason_base_dir2reason_summary_json
+from run_dir_std_testing import test_with_mutation
 
 
 def get_paras(tested_dir, result_base_dir, one_tc_limit=50, mutate_num=5):
@@ -26,9 +26,13 @@ if __name__ == '__main__':
     result_base_dir = '/media/hdd_xj1/cp910_data/main_testing_10_200'
     result_base_dir = '/media/hdd_xj1/cp910_data/main_testing_v4.6'
     result_base_dir = '/media/hdd_xj1/cp910_data/main_testing_v6.2'
-    result_base_dir = '/media/hdd_xj1/cp910_data/main_testing_v8.1'
-    tested_dir = './tcs_v8'
-    paras, reason_dir, reason_summary_path = get_paras(tested_dir, result_base_dir, one_tc_limit=50, mutate_num=5)
+    result_base_dir = '/media/hdd_xj1/cp910_data/main_testing_v8.3'
+    result_base_dir = '/media/hdd_xj1/cp910_data/main_testing_v9.0'
+    tested_dir = './ori_tcs/tcs_v9'
+
+    # result_base_dir = '/media/hdd_xj1/cp910_data/f32_add_executable_v3'
+    # tested_dir = './ori_tcs/f32_add/executable'
+    paras, reason_dir, reason_summary_path = get_paras(tested_dir, result_base_dir, one_tc_limit=50, mutate_num=2)
     print(paras)
     print('-' * 10)
     print(reason_dir)
@@ -36,4 +40,4 @@ if __name__ == '__main__':
     print(reason_summary_path)
     # assert 0
     test_with_mutation(**paras)
-    get_reason_summary(reason_dir, reason_summary_path)
+    reason_base_dir2reason_summary_json(reason_dir, reason_summary_path)

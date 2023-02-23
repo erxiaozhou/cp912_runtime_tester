@@ -10,11 +10,12 @@ class Wasm_impl(ABC):
     def move_output(self, *args, **kwads):
         pass
 
-    def clean(self):
+    @abstractclassmethod
+    def clean_previous_dumped_data(self):
         pass
 
     def execute_and_collect(self, tc_path, log_path, **args_for_collect):
-        self.clean()
+        self.clean_previous_dumped_data()
         append_info = self._execute(tc_path, log_path)
         return self.move_output(**args_for_collect, append_info=append_info)
 

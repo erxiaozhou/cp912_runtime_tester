@@ -26,3 +26,5 @@ v1_main_script
 tcs_v5
 tcs_v4
 tool_test/*
+.vscode
+.vscode/**

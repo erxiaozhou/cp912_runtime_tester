@@ -48,7 +48,7 @@ class common_runtime(Wasm_impl):
                    ori_log_path, dump_extractor_class, ori_cmd, 
                    support_multi_mem, support_v128, support_ref)
 
-    def clean(self):
+    def clean_previous_dumped_data(self):
         remove_file_without_exception(self.ori_store_path)
         remove_file_without_exception(self.ori_vstack_path)
         remove_file_without_exception(self.ori_log_path)

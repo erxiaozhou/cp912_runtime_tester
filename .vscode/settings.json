@@ -9,9 +9,14 @@
         "**/except_dir": true,
         "**/result/**": true,
         "**/tcs/**": true,
+        "**/ori_tcs/**": true,
+        "**/tcs*/**": true,
         "**/tcs_v2/**": true,
+        "**/tcs_v[6-8]/**": true,
+        "**/tcs_v8/**": true,
         "**/diff_tcs/**": true,
         "**/new_tcs_M/**": true,
         "**/new_tcs_M_result/**": true
       },
+      "python.formatting.provider": "autopep8",
 }

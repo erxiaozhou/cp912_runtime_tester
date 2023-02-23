@@ -1,9 +1,11 @@
 import os
 import json
+import struct
 import time
 from pathlib import Path
 import pickle
 import chardet
+
 
 def pickle_dump(path, data):
     if isinstance(path, str):
@@ -76,7 +78,7 @@ def path_read(path):
     except UnicodeDecodeError:
         with path.open('rb') as f:
             rbs = f.read()
-            result = chardet.detect(rbs) 
+            result = chardet.detect(rbs)
             encoding = result['encoding']
             # print(result, rbs)
             # # assert 0
@@ -114,3 +116,31 @@ def remove_file_without_exception(path):
 def combine_path(p1, p2):
     s = Path(p1) / p2
     return str(s)
+
+
+def print_ba(ba):
+    ba = bytearray(ba)
+    print([hex(x) for x in ba])
+
+
+def bytes2uint(bs):
+    int_val = int.from_bytes(bs, byteorder='little', signed=False)
+    return int_val
+
+
+def uint2bytes(val, int_byte_num):
+    # int_byte_num: 4, 8, ...
+    return bytearray(int.to_bytes(val, int_byte_num,
+              byteorder='little', signed=False))
+
+
+def f32bytes(val):
+    return struct.pack('<f', val)
+
+
+def f64bytes(val):
+    return struct.pack('<d', val)
+
+
+def bytes2f32(bs):
+    return struct.unpack('=f', bs)

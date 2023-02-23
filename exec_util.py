@@ -26,26 +26,6 @@ def get_reason_path_to_save(tested_dir, imlps=None, append_content=None):
     return path
 
 
-def get_reason_dir(tested_dir, result_dir, imlps, append_content=None):
-    # result dir name
-    result_dir_name = Path(result_dir).name
-    tested_dir_name = Path(tested_dir).name
-    base_path = result_dir.parent
-    if append_content is None:
-        dir_name = '{}_{}_reasons'.format(result_dir_name, tested_dir_name)
-    else:
-        dir_name = '{}_{}_{}_reasons'.format(result_dir_name, tested_dir_name, append_content)
-    dir_path = check_dir(base_path / dir_name)
-    # # config_log
-    # config_log = {}
-    # config_log['result_dir'] = result_dir_name
-    # config_log['tested_dir'] = tested_dir_name
-    # config_log['runtimes'] = [imlp.name for imlp in imlps]
-    # config_log_name = '{}_config_log.json'.format(result_dir_name)
-    # save_json(base_path / config_log_name, config_log)
-    return dir_path
-
-
 def name_generator(imlp_name, base_dir, appended_part):
     base_dir = Path(base_dir)
     filename = '{}={}'.format(imlp_name, appended_part)

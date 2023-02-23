@@ -196,29 +196,8 @@ def log_content_categorize_reason_path(reason_json_path, result_base_dir, log_ca
         save_json(p, content_paths_dict)
 
 
-def test_one_path():
-    test_path = '/media/hdd_xj1/cp910_data/main_testing/result/f32.abs_10/'
-    content_dict = load_log_content(test_path)
-    processed_content_dict = _process_content_dict(content_dict)
-    for k,v in processed_content_dict.items():
-        print(k, '\n====\n',v)
-    pass
-    print('='* 50)
-    key = _get_key_from_log_content(processed_content_dict)
-    print(key)
-
-
 def test_log_content_categorize_reason_path():
     reason_json_path = '/media/hdd_xj1/cp910_data/main_testing/config_log.json'
     result_base_dir = '/media/hdd_xj1/cp910_data/main_testing/result'
     log_categorize_dir = 'tt_jsons'
     log_content_categorize_reason_path(reason_json_path, result_base_dir, log_categorize_dir)
-
-
-
-
-if __name__ == '__main__':
-    pass
-    # test_one_path()
-    # test_paths()
-    # test_log_content_categorize_reason_path()

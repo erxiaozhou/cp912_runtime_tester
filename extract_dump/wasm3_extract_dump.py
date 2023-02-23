@@ -1,8 +1,9 @@
 from pathlib import Path
-from .process_dump_data_util import get_f32_h10, get_f64_h13, get_int, get_u64
+from .process_dump_data_util import get_int, get_u64
 from .process_dump_data_util import get_f32
 from .process_dump_data_util import get_f64
 from .extractor import dump_data_extractor
+from nan_detect_util import process_f32_64
 
 
 class wasm3_dumped_data(dump_data_extractor):
@@ -94,12 +95,12 @@ class wasm3_dumped_data(dump_data_extractor):
                     self.stack_types.append('f32')
                     cur_bytes = f.read(4)
                     self.stack_infered_vals.append(get_f32(cur_bytes))
-                    processed_ba = get_f32_h10(cur_bytes)
+                    processed_ba = process_f32_64(cur_bytes)
                 elif ty == b'\x7C':
                     self.stack_types.append('f64')
                     cur_bytes = f.read(8)
                     self.stack_infered_vals.append(get_f64(cur_bytes))
-                    processed_ba = get_f64_h13(cur_bytes)
+                    processed_ba = process_f32_64(cur_bytes)
                 self.stack_bytes.append(cur_bytes)
                 if processed_ba is None:
                     processed_ba = bytearray(cur_bytes)
@@ -107,7 +108,6 @@ class wasm3_dumped_data(dump_data_extractor):
 
     @property
     def can_initialized(self):
-        # print('self.store_path:', self.store_path)
         if Path(self.store_path).exists():
             return True
         elif Path(self.vstack_path).exists():
