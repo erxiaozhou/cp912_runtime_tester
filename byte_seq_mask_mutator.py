@@ -47,15 +47,15 @@ def _insert_random_character(s, masks):
     return s
 
 
-def flip_random_character(s, masks):
-    """Returns s with a random bit flipped in a random position"""
-    if len(s) == 0:
-        return s
-    s = s.copy()
-    pos = get_pos_outof_masks(s, masks)
-    bit = 1 << random.randint(0, 7)
-    s[pos] = s[pos] ^ bit
-    return s
+# def flip_random_character(s, masks):
+#     """Returns s with a random bit flipped in a random position"""
+#     if len(s) == 0:
+#         return s
+#     s = s.copy()
+#     pos = get_pos_outof_masks(s, masks)
+#     bit = 1 << random.randint(0, 7)
+#     s[pos] = s[pos] ^ bit
+#     return s
 
 
 def _replace_random_character(s, masks):

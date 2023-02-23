@@ -1,5 +1,5 @@
 from pathlib import Path
-from generate_wasm_tc import _prepare_template, read_next_leb_num
+from generate_wasm_tc_util import _prepare_template, read_next_leb_num
 from run_dir_std_testing import generate_code_sec_tcs
 from file_util import check_dir, cp_file, rm_dir
 from file_util import print_ba
