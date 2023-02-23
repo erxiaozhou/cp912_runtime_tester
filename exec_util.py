@@ -55,13 +55,13 @@ def exec_one_runtime(imlp, tc_name, tc_result_dir, tc_path):
     return result
 
 
-def exec_one_tc(imlps, tc_name, tc_path, tc_result_dir, save_data_dir=None):
+def exec_one_tc(imlps, tc_name, tc_path, tc_result_dir, on_tc_result_dir=None):
     dumped_results = []
     for imlp in imlps:
         result = exec_one_runtime(imlp, tc_name, tc_result_dir, tc_path)
         dumped_results.append(result)
-        if save_data_dir is not None:
-            dumped_path = _get_dumped_path(save_data_dir, result.name)
+        if on_tc_result_dir is not None:
+            dumped_path = _get_dumped_path(on_tc_result_dir, result.name)
             result.to_dict(dumped_path)
     return dumped_results
 
@@ -70,7 +70,7 @@ def exec_one_tc_mth(imlps,
                     tc_name,
                     tc_path,
                     tc_result_dir,
-                    save_data_dir=None):
+                    on_tc_result_dir=None):
     dumped_results = []
     to_do = []
     with futures.ProcessPoolExecutor(max_workers=len(imlps)) as executor:
@@ -81,15 +81,15 @@ def exec_one_tc_mth(imlps,
         for future in to_do:
             result = future.result()
             dumped_results.append(result)
-            if save_data_dir is not None:
-                dumped_path = _get_dumped_path(save_data_dir, result.name)
+            if on_tc_result_dir is not None:
+                dumped_path = _get_dumped_path(on_tc_result_dir, result.name)
                 result.to_dict(dumped_path)
     return dumped_results
 
 
-def load_results(save_data_dir):
+def load_results_from_one_tc_result(on_tc_result_dir):
     results = []
-    for p in Path(save_data_dir).iterdir():
+    for p in Path(on_tc_result_dir).iterdir():
         if p.suffix == '.pkl':
             dumped_path = str(p)
             result = get_extractor_from_pkl(dumped_path)
@@ -97,31 +97,18 @@ def load_results(save_data_dir):
     return results
 
 
-def load_log_content(save_data_dir):
-    results = load_results(save_data_dir)
+def load_log_content_from_one_tc_result(on_tc_result_dir):
+    results = load_results_from_one_tc_result(on_tc_result_dir)
     name_log = {}
     for r in results:
         name_log[r.name] = r.log_content
     return name_log
 
 
-def get_wasms_from_a_path(dir_):
-    tc_paths = []
+def get_wasm_paths_iterator(dir_):
     dir_ = Path(dir_)
     for p in dir_.iterdir():
         if p.suffix == '.wasm':
             path = str(p)
             tc_name = p.stem
-            tc_paths.append((tc_name, path))
-    return tc_paths
-
-def load_a_result_base_dir(result_json_path, result_dir):
-    reasons = {}
-    for tc_result_dir in Path(result_dir).iterdir():
-        tc_name = tc_result_dir.name
-        dumped_results = load_results(tc_result_dir)
-        difference_reason = are_different(dumped_results, tc_name)
-        if difference_reason:
-            reasons[tc_name] = difference_reason
-    save_json(result_json_path, reasons)
-    return reasons
+            yield (tc_name, path)

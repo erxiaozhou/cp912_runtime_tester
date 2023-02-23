@@ -1,16 +1,16 @@
 from file_util import read_bytes, write_bytes
 
-local_set_nonv128_ba = read_bytes('./byte_mask/local_set_nonv128')
-local_get_nonv128_ba = read_bytes('./byte_mask/local_get_nonv128')
-local_set_v128_ba = read_bytes('./byte_mask/local_set_v128')
-local_get_v128_ba = read_bytes('./byte_mask/local_get_v128')
+local_set_nonv128_ba = read_bytes('./get_mask_util/byte_mask/local_set_nonv128')
+local_get_nonv128_ba = read_bytes('./get_mask_util/byte_mask/local_get_nonv128')
+local_set_v128_ba = read_bytes('./get_mask_util/byte_mask/local_set_v128')
+local_get_v128_ba = read_bytes('./get_mask_util/byte_mask/local_get_v128')
 
 
 def get_mask():
-    p1 = './get_mask_tcs/i32.add_12.wasm'
-    p2 = './get_mask_tcs/i32.add_13.wasm'
-    p3 = './get_mask_tcs/v128.const_0.wasm'
-    p4 = './get_mask_tcs/v128.const_1.wasm'
+    p1 = './get_mask_util/get_mask_tcs/i32.add_12.wasm'
+    p2 = './get_mask_util/get_mask_tcs/i32.add_13.wasm'
+    p3 = './get_mask_util/get_mask_tcs/v128.const_0.wasm'
+    p4 = './get_mask_util/get_mask_tcs/v128.const_1.wasm'
 
     ba1 = read_bytes(p1)
     ba2 = read_bytes(p2)
@@ -30,8 +30,8 @@ def get_mask():
 
     print([hex(x) for x in local_set_nonv128])
     print([hex(x) for x in local_get_nonv128])
-    write_bytes('./byte_mask/local_set_nonv128', local_set_nonv128)
-    write_bytes('./byte_mask/local_get_nonv128', local_get_nonv128)
+    write_bytes('./get_mask_util/byte_mask/local_set_nonv128', local_set_nonv128)
+    write_bytes('./get_mask_util/byte_mask/local_get_nonv128', local_get_nonv128)
 
 
     local_set_start_v128 = bytearray([0x41, 0xF8, 0xAC])
@@ -48,8 +48,8 @@ def get_mask():
 
     print([hex(x) for x in local_set_v128])
     print([hex(x) for x in local_get_v128])
-    write_bytes('./byte_mask/local_set_v128', local_set_v128)
-    write_bytes('./byte_mask/local_get_v128', local_get_v128)
+    write_bytes('./get_mask_util/byte_mask/local_set_v128', local_set_v128)
+    write_bytes('./get_mask_util/byte_mask/local_get_v128', local_get_v128)
 
 
 def _get_mask_idx(base, masks):
@@ -65,14 +65,14 @@ def _get_mask_idx(base, masks):
     return r
 
 
-def test_get_mask_idx():
-    base = read_bytes('./get_mask_tcs/i32.add_12.wasm')
-    m1 = local_set_nonv128_ba
-    m2 = local_get_nonv128_ba
-    r = _get_mask_idx(base, [m1, m2])
-    for r_ in r:
-        print([hex(x) for x in base[r_[0]: r_[1]]])
-    print(r)
+# def test_get_mask_idx():
+#     base = read_bytes('./get_mask_util/get_mask_tcs/i32.add_12.wasm')
+#     m1 = local_set_nonv128_ba
+#     m2 = local_get_nonv128_ba
+#     r = _get_mask_idx(base, [m1, m2])
+#     for r_ in r:
+#         print([hex(x) for x in base[r_[0]: r_[1]]])
+#     print(r)
 
 
 def get_byte_mask_range(base):
@@ -82,8 +82,3 @@ def get_byte_mask_range(base):
     # ! 有点严格，暂时先这样写，v2.0里也理应是这样
     assert len(r) == 2, print(len(r),r, [hex(x) for x in bytearray(base)], '\n', [hex(x) for x in local_set_nonv128_ba], [hex(x) for x in local_get_nonv128_ba])
     return r
-
-
-if __name__ == '__main__':
-    # get_mask()
-    test_get_mask_idx()

@@ -1,1 +1,1 @@
-cloc --exclude-dir=results,tt,v1_main_script,ori_tcs,tt.py,debug_util.py,test_one.py,run_five.py --exclude-ext=wasm,wat .
+cloc --exclude-dir=results,tt,v1_main_script,ori_tcs,tt.py,debug_util.py,test_one.py,run_five.py,imlp_paras.py --exclude-ext=wasm,wat,json .

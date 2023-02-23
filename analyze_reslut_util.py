@@ -1,8 +1,7 @@
 from data_comparer import are_different
-from exec_util import load_results, load_log_content
+from exec_util import load_results_from_one_tc_result
 from file_util import read_json, save_json
 from pathlib import Path
-import re
 
 
 def _get_key_from_reason_content(content):
@@ -45,7 +44,7 @@ def result_base_dir2reason_summary(result_json_path, result_dir, except_log):
     for tc_result_dir in Path(result_dir).iterdir():
         tc_name = tc_result_dir.name
         try:
-            dumped_results = load_results(tc_result_dir)
+            dumped_results = load_results_from_one_tc_result(tc_result_dir)
             difference_reason = are_different(dumped_results, tc_name)
             if difference_reason:
                 reason_key = _get_key_from_reason_content(difference_reason)

@@ -2,11 +2,10 @@
 from pathlib import Path
 import re
 from data_comparer import are_different
-from exec_util import exec_one_tc, exec_one_tc_mth
+from exec_util import exec_one_tc_mth
 from extract_dump.extractor import dump_data_extractor
-from file_util import check_dir, save_json
+from file_util import check_dir
 from get_imlps_util import get_std_imlps
-from get_imlps_util import get_newer_imlps
 import os
 import sys
 imlps = get_std_imlps()

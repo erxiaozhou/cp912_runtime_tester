@@ -1,4 +1,4 @@
-from exec_util import load_results, load_log_content
+from exec_util import load_log_content_from_one_tc_result
 from file_util import check_dir, read_json, save_json
 from pathlib import Path
 import re
@@ -153,7 +153,7 @@ def _process_content_dict(content_dict):
 
 
 def _get_content_key_from_dir(path):
-    content_dict = load_log_content(path)
+    content_dict = load_log_content_from_one_tc_result(path)
     processed_content_dict = _process_content_dict(content_dict)
     key = _get_key_from_log_content(processed_content_dict)
     return key

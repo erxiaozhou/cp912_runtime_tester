@@ -80,8 +80,6 @@ def path_read(path):
             rbs = f.read()
             result = chardet.detect(rbs)
             encoding = result['encoding']
-            # print(result, rbs)
-            # # assert 0
         if encoding is not None:
             with path.open('r', encoding=encoding) as f:
                 content = f.read()

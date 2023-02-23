@@ -4,13 +4,18 @@ from pathlib import Path
 import random
 import struct
 from extract_dump.extractor import is_failed_content
-from file_util import bytes2f32, bytes2uint, check_dir, f32bytes, pickle_dump, pickle_load, print_ba, read_bytes, remove_file_without_exception, rm_dir, save_json, uint2bytes, write_bytes
+from file_util import bytes2f32, bytes2uint, check_dir, f32bytes 
+from file_util import pickle_dump, pickle_load, print_ba, read_bytes
+from file_util import remove_file_without_exception, rm_dir, save_json
+from file_util import uint2bytes, write_bytes
 from nan_detect_util import is_anan, is_nan
 import numpy as np
 from file_util import path_read
 from file_util import path_write
 import leb128
 import time
+from get_mask_util import get_byte_mask_range
+
 
 def test_test():
     assert 123 == 123
@@ -37,4 +42,5 @@ def test_ty_transform_util():
 
 
 if __name__ == '__main__':
-    test_ty_transform_util()
+    # test_ty_transform_util()
+    pass

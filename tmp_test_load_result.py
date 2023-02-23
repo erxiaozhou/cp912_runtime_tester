@@ -1,11 +1,10 @@
 from extract_dump.extractor import dump_data_extractor
-from exec_util import load_log_content, load_results
+from exec_util import load_log_content_from_one_tc_result, load_results_from_one_tc_result
 
 
 if __name__ == '__main__':
     test_path = '/media/hdd_xj1/cp910_data/main_testing/result/f32.abs_10/'
-    result = load_results(test_path)
-    # load_results
+    result = load_results_from_one_tc_result(test_path)
     print(result)
     r = result[0]
     print(type(r))
@@ -17,7 +16,7 @@ if __name__ == '__main__':
     #     print(k, '\n====\n',v)
     # print(r.log_content)
     # print(r.name)
-    content_dict = load_log_content(test_path)
+    content_dict = load_log_content_from_one_tc_result(test_path)
     for k,v in content_dict.items():
         print(k, '\n====\n',v)
     print()

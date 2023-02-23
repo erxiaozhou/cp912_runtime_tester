@@ -1,16 +1,14 @@
-import os
 import random
 import time
 from pathlib import Path
 from byte_seq_mask_mutator import mutate_with_mask
 from data_comparer import are_different, at_least_one_can_execute, at_least_one_can_execute
 from exec_util import exec_one_tc, exec_one_tc_mth
-from file_util import (check_dir, cp_file, get_time_string, rm_dir, save_json,
-                       write_bytes)
-from generate_wasm_tc import _prepare_template, get_wasm_bytes_from_dict, read_next_leb_num
-from exec_util import get_wasms_from_a_path
+from file_util import check_dir, cp_file, get_time_string, rm_dir, save_json
+from generate_wasm_tc_util import prepare_template, read_next_leb_num, write_wasm_from_dict
+from exec_util import get_wasm_paths_iterator
 from get_imlps_util import get_std_imlps
-from util_get_mask import get_wasm_mask
+from get_mask_util import get_byte_mask_range
 import leb128
 
 
@@ -53,15 +51,15 @@ def first_func_info(ori_code_sec):
 
 def generate_code_sec_tcs(ori_tc_path, mutate_num, new_tc_dir):
     new_tc_dir = Path(new_tc_dir)
-    sec_template = _prepare_template(ori_tc_path)
+    sec_template = prepare_template(ori_tc_path)
     ori_code_sec = bytearray(sec_template['code'])
-    # 
+
     before_func, ori_func_body, content_after_func1 = first_func_info(ori_code_sec)
-    #
+
     print('ori_tc_path', ori_tc_path)
     print(content_after_func1)
     # 
-    masks = get_wasm_mask(ori_func_body + content_after_func1)
+    masks = get_byte_mask_range(ori_func_body + content_after_func1)
     change_num = 1  # random.randint(1,3)
     paths = _tc_name_generator(ori_tc_path, mutate_num, new_tc_dir)
     assert len(paths) == mutate_num
@@ -73,9 +71,7 @@ def generate_code_sec_tcs(ori_tc_path, mutate_num, new_tc_dir):
         func1_len = len(func_body) + random.choices([-1, 0, 1], [0.05, 0.9, 0.05], k=1)[0]
         func1_len_ba = leb128.u.encode(func1_len)
         sec_template['code'] = before_func +func1_len_ba+ func_body + content_after_func1
-        wasm_bytes = get_wasm_bytes_from_dict(sec_template)
-        assert not Path(new_path).exists()
-        write_bytes(new_path, wasm_bytes)
+        write_wasm_from_dict(new_path, sec_template)
     return paths
 
 
@@ -96,7 +92,7 @@ def test_with_mutation(tested_dir, new_tc_dir, diff_tc_dir, result_dir, config_l
     result_dir = check_dir(result_dir)
     new_tc_dir = check_dir(new_tc_dir)
     diff_tc_dir = check_dir(diff_tc_dir)
-    tc_paths = get_wasms_from_a_path(tested_dir)
+    tc_paths_iterator = get_wasm_paths_iterator(tested_dir)
     except_tc_dir = check_dir(except_dir)
     reason_dir = check_dir(reason_dir)
     # tc execution info
@@ -112,7 +108,7 @@ def test_with_mutation(tested_dir, new_tc_dir, diff_tc_dir, result_dir, config_l
     }
     assert isinstance(reason_dir, Path)
     start_time = time.time()
-    for tc_name, tc_path in tc_paths:
+    for tc_name, tc_path in tc_paths_iterator:
         exec_info['ori_tc_num'] += 1
         possible_m = [tc_path]
         generated_tc_num = 0

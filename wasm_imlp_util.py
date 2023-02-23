@@ -27,7 +27,6 @@ class Wasm_impl(ABC):
             return ['Timeout']
 
 
-
 def single_file_dumped_data(ori_data_path, tgt_data_path, extractor_class):
     if Path(ori_data_path).exists():
         shutil.move(ori_data_path, tgt_data_path)

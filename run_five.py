@@ -1,5 +1,4 @@
 #!/home/zph/anaconda3/bin/python
-import os
 import sys
 from file_util import combine_path
 from impl_paras import impl_paras
@@ -39,7 +38,6 @@ for imlp_name in to_test_imlps:
     dict_ = impl_paras[imlp_name]
     bin_path = combine_path(dict_['standard_dir'], dict_['bin_relative_path'])
     cmd = dict_['cmd'].format(bin_path, tc_path)
-    # os.system(cmd)
 
     try:
         subprocess.run(cmd,timeout=20, shell=True)
