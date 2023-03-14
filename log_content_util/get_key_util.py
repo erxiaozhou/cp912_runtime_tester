@@ -3,20 +3,37 @@ import re
 from pathlib import Path
 from .extract_keyword_from_content import extract_keyword_from_content, summary_level2
 from .load_log_content_from_one_tc_result import load_log_content_from_one_tc_result
+from concurrent import futures
 
 
-def group_tc_names_by_log_content_key(result_tc_dirs, strategy):
+def group_tc_names_by_log_content_key(tc_result_dirs, strategy):
     content_key2tc_names = {}
-    i=0
-    for tc_result_dir in result_tc_dirs:
-        tc_name = Path(tc_result_dir).name
-        i+=1
-        print(i)
-        key = _get_content_key_from_tc_result_dir(tc_result_dir, strategy)
+    for tc_name, key in _tc_name_key_pair_generator_mtx(tc_result_dirs, strategy):
         if key not in content_key2tc_names:
             content_key2tc_names[key] = []
         content_key2tc_names[key].append(tc_name)
     return content_key2tc_names
+
+
+def _tc_name_key_pair_generator(tc_result_dirs, strategy):
+    for tc_result_dir in tc_result_dirs:
+        yield _get_tc_name_key_pair(tc_result_dir, strategy)
+
+
+def _tc_name_key_pair_generator_mtx(tc_result_dirs, strategy):
+    tc_name_key_pairs = []
+    with futures.ProcessPoolExecutor(max_workers=30) as executor:
+        for tc_result_dir in tc_result_dirs:
+            future = executor.submit(_get_tc_name_key_pair, tc_result_dir, strategy)
+            tc_name_key_pairs.append(future)
+        for future in futures.as_completed(tc_name_key_pairs):
+            yield future.result()
+
+
+def _get_tc_name_key_pair(tc_result_dir, strategy):
+    tc_name = Path(tc_result_dir).name
+    key = _get_content_key_from_tc_result_dir(tc_result_dir, strategy)
+    return (tc_name, key)
 
 
 def _get_content_key_from_tc_result_dir(tc_result_dir, strategy):
@@ -29,12 +46,12 @@ def _get_content_key_from_tc_result_dir(tc_result_dir, strategy):
 class content_dict_class:
     def __init__(self, content_dict) -> None:
         self.content_dict = content_dict
-        self.processed_log_content = {}
-    
+
     def get_key_from_log_content(self, strategy):
         assert strategy in ['all', 's1', 's2']
-        processed_content_dict = _process_content_dict(self.content_dict, strategy)
-        key = _get_key_from_log_content(processed_content_dict)
+        processed_log_dict = _process_content_dict(self.content_dict, strategy)
+        processed_log_dict_repr = repr(processed_log_dict)
+        key = _get_key_from_processed_log_dict_repr(processed_log_dict_repr)
         key = re.sub(r'[\'"]', '', key)
         return key
 
@@ -43,9 +60,11 @@ class content_dict_class:
         return cls(load_log_content_from_one_tc_result(tc_result_dir))
 
 
-def _get_key_from_log_content(content_dict):
+@lru_cache(maxsize=4096, typed=False)
+def _get_key_from_processed_log_dict_repr(processed_log_dict_repr):
+    processed_log_dict = eval(processed_log_dict_repr)
     sorted_list = []
-    for k, v in content_dict.items():
+    for k, v in processed_log_dict.items():
         impl_repr = (k, v)
         sorted_list.append(impl_repr)
     sorted_list = sorted(sorted_list, key= lambda x : x[0])
@@ -66,19 +85,26 @@ def _process_content_dict(content_dict, strategy):
     return data
 
 
-
 class one_runtime_log():
     def __init__(self, s, key) -> None:
         s = filter_normal_output(s, key)
         s = s.strip('\'"\n\\ ')
         self.filter_normal = s
-        self.shorter = extract_keyword_from_content(self.filter_normal, strategy='all')
-        self.summary_key_s1 = extract_keyword_from_content(self.filter_normal, strategy='s1')
-        self.summary_key_s2 = summary_level2(self.shorter)
 
-        # s = extract_keyword_from_content(s, strategy)
+    @property
+    def shorter(self):
+        return extract_keyword_from_content(self.filter_normal, strategy='all')
 
-@lru_cache(maxsize=1024, typed=False)
+    @property
+    def summary_key_s1(self):
+        return extract_keyword_from_content(self.filter_normal, strategy='s1')
+
+    @property
+    def summary_key_s2(self):
+        return summary_level2(self.shorter)
+
+
+@lru_cache(maxsize=4096, typed=False)
 def filter_normal_output(s, key):
     hex_p = r'0[xX][0-9a-fA-F]+'
     num_p = r'^[\-\+]?(?:(?:\d+)|(?:[\.\+\d]+e[\-\+]?\d+)|(?:\d+\.\d+)|(?:nan)|(?:inf))\n?$'
