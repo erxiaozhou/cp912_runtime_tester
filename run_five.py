@@ -8,15 +8,9 @@ import subprocess
 
 
 argv = sys.argv
-if len(argv) == 1:
-    tc_name = 'f32.div_32'
-    tc_path = 'tcs/{}.wasm'.format(tc_name)
-else:
-    tc_name = argv[1]
-    if Path(tc_name).exists():
-        tc_path = tc_name
-    else:
-        tc_path = 'tcs/{}.wasm'.format(tc_name)
+assert len(argv) == 2
+tc_path = argv[1]
+
 # tc_path = 'new_tcs_M/i64.shr_u_5_0.wasm'
 # tc_path = 'tcs/f32.ge_54.wasm'  # ???
 # tc_name = 'i64.add_2'  # ???
@@ -40,7 +34,7 @@ for imlp_name in to_test_imlps:
     cmd = dict_['cmd'].format(bin_path, tc_path)
 
     try:
-        subprocess.run(cmd,timeout=20, shell=True)
+        subprocess.run(cmd,timeout=10, shell=True)
     except subprocess.TimeoutExpired:
         print('From pyth: timeout')
     # print(cmd)

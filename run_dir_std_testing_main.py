@@ -1,43 +1,54 @@
-from analyze_reslut_util import reason_base_dir2reason_summary_json
+#!/home/zph/anaconda3/bin/python
+import sys
+from run_dir_testing_util import detect_canrun_cannotdump, log_content_categorize
+from run_dir_testing_util import set_paras_with_mutation
 from run_dir_std_testing import test_with_mutation
-
-
-def get_paras(tested_dir, result_base_dir, one_tc_limit=50, mutate_num=5):
-    reason_dir = result_base_dir +  '/reasons'
-    reason_summary_path = result_base_dir +  '/reason.json'
-    paras = {
-        'tested_dir': tested_dir,  # 输入
-        'new_tc_dir': result_base_dir + '/test_std_new_tcs',  # 生成的所有 test case
-        'result_dir': result_base_dir + '/result',  # 有difference的数据， pkl, log什么的
-        'diff_tc_dir': result_base_dir + '/diff_tcs',  # 有difference 的tc
-        'except_dir': result_base_dir + '/except_dir',
-        'config_log_path': result_base_dir + '/config_log.json',
-        'reason_dir': reason_dir,
-        'one_tc_limit': one_tc_limit,
-        'mutate_num': mutate_num,
-        'skip_common_diff': False
-    }
-    return paras, reason_dir, reason_summary_path
+from analyze_reslut_util import get_reason_summarys
 
 
 if __name__ == '__main__':
-    result_base_dir = '/media/hdd_xj1/cp910_data/main_testing'
-    result_base_dir = '/media/hdd_xj1/cp910_data/main_testing2'
-    result_base_dir = '/media/hdd_xj1/cp910_data/main_testing_10_200'
-    result_base_dir = '/media/hdd_xj1/cp910_data/main_testing_v4.6'
-    result_base_dir = '/media/hdd_xj1/cp910_data/main_testing_v6.2'
-    result_base_dir = '/media/hdd_xj1/cp910_data/main_testing_v8.3'
-    result_base_dir = '/media/hdd_xj1/cp910_data/main_testing_v9.0'
-    tested_dir = './ori_tcs/tcs_v9'
+    argv = sys.argv
+    assert len(argv) in [1, 3]
+    if len(argv) == 1:
+        reason_base_dir = '/media/hdd_xj1/cp910_data/main_testing'
+        reason_base_dir = '/media/hdd_xj1/cp910_data/main_testing2'
+        reason_base_dir = '/media/hdd_xj1/cp910_data/main_testing_10_200'
+        reason_base_dir = '/media/hdd_xj1/cp910_data/main_testing_v4.6'
+        reason_base_dir = '/media/hdd_xj1/cp910_data/main_testing_v6.2'
+        reason_base_dir = '/media/hdd_xj1/cp910_data/main_testing_v8.3'
+        reason_base_dir = '/media/hdd_xj1/cp910_data/main_testing_v9.6'
+        reason_base_dir = '/media/hdd_xj1/cp910_data/main_testing_v10.1'
+        reason_base_dir = '/media/hdd_xj1/cp910_data/f64_max_base/50_5_nodatacount'
+        reason_base_dir = '/media/hdd_xj1/cp910_data/main_testing_v11.1_2_50'
+        reason_base_dir = '/media/hdd_xj1/cp910_data/main_testing_v12_550'
+        reason_base_dir = '/media/hdd_xj1/cp910_data/main_testing_v12_250'
+        reason_base_dir = '/media/hdd_xj1/cp910_data/main_testing_v12_5502'
+        reason_base_dir = '/media/hdd_xj1/cp910_data/main_testing_v12_450_9811'
+        reason_base_dir = '/media/hdd_xj1/cp910_data/main_testing_v12_350_9811'
+        reason_base_dir = '/media/hdd_xj1/cp910_data/main_testing_v12_250_9811'
+        reason_base_dir = '/media/hdd_xj1/cp910_data/main_testing_v12_250_9811_2'
+        reason_base_dir = '/media/hdd_xj1/cp910_data/main_testing_v125_250_9811'
+        reason_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_250_9811_2'
+        reason_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_350_9811'
+        reason_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_350_9811_2'
+        reason_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_350_9811_3'
+        reason_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_350_9811_4'
+        tested_dir = '../spec/extract_document/test_tcs/f64.max'
+        tested_dir = './ori_tcs/tcs_v11'
+        tested_dir = './ori_tcs/testing'
+        tested_dir = './ori_tcs/v12_5'
+    else:
+        reason_base_dir = argv[1]
+        tested_dir = argv[2]
+
 
     # result_base_dir = '/media/hdd_xj1/cp910_data/f32_add_executable_v3'
     # tested_dir = './ori_tcs/f32_add/executable'
-    paras, reason_dir, reason_summary_path = get_paras(tested_dir, result_base_dir, one_tc_limit=50, mutate_num=2)
-    print(paras)
-    print('-' * 10)
-    print(reason_dir)
-    print('-' * 10)
-    print(reason_summary_path)
-    # assert 0
+    reason_summary_base_dir, log_category_base_dir = get_analyze_result_dirs(reason_base_dir)
+    paras, exec_paths = set_paras_with_mutation(tested_dir, reason_base_dir, one_tc_limit=50, mutate_num=3)
     test_with_mutation(**paras)
-    reason_base_dir2reason_summary_json(reason_dir, reason_summary_path)
+    
+    detect_canrun_cannotdump(exec_paths, reason_base_dir)
+
+    paths = get_reason_summarys(reason_summary_base_dir, reason_base_dir)
+    log_content_categorize(paths['only_exec'], log_category_base_dir, exec_paths.dumped_data_base_dir)

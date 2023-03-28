@@ -1,14 +1,15 @@
 #!/home/zph/anaconda3/bin/python
 from pathlib import Path
 import re
-from data_comparer import are_different
-from exec_util import exec_one_tc_mth
-from extract_dump.extractor import dump_data_extractor
+from data_comparer import are_different, at_least_one_can_instantiate
+from exec_util import exec_one_tc, exec_one_tc_mth
+from extract_dump import dump_data
 from file_util import check_dir
 from get_imlps_util import get_std_imlps
 import os
 import sys
 imlps = get_std_imlps()
+
 
 def test_env(tc_name, reload=False, reload_dir=None):
     if Path(tc_name).exists():
@@ -20,36 +21,37 @@ def test_env(tc_name, reload=False, reload_dir=None):
         reload_dir = Path(reload_dir)
         name = Path(tc_path).name
         name = re.sub(r'\.wasm', '', name)
-        tc_result_dir = reload_dir / name
-        print(tc_result_dir)
+        tc_dumped_data_dir = reload_dir / name
+        print(tc_dumped_data_dir)
     else:
-        result_dir = 'results/one_tc_result'
-        os.system('rm -rf {}'.format(result_dir))
-        compare_result_base_dir = check_dir(result_dir)
-        tc_result_dir = check_dir(compare_result_base_dir / tc_name)
-    # dumped_results = exec_one_tc(imlps, tc_name, tc_path, tc_result_dir, tc_result_dir)
-    dumped_results = exec_one_tc_mth(imlps, tc_name, tc_path, tc_result_dir, tc_result_dir)
-    difference_reason = are_different(dumped_results, tc_name)
+        result_base_dir = 'results/one_tc_result'
+        os.system('rm -rf {}'.format(result_base_dir))
+        result_base_dir = check_dir(result_base_dir)
+        tc_dumped_data_dir = check_dir(result_base_dir / tc_name)
+    # dumped_results = exec_one_tc_mth(imlps, tc_path, tc_dumped_data_dir, tc_dumped_data_dir)
+    dumped_results = exec_one_tc(imlps, tc_path, tc_dumped_data_dir, tc_dumped_data_dir)
+    # print(dumped_results)
+    difference_reason = are_different(dumped_results)
+    # print(dumped_results)
     diff_keys = []
-    print(difference_reason)
-    if isinstance(difference_reason, bool):
-        return
-    for r in difference_reason.values():
-        diff_keys.extend(r)
+    if not isinstance(difference_reason, bool):
+        for r in difference_reason.values():
+            diff_keys.extend(r)
+        print('Difference reason:')
+        print(difference_reason)
     print(diff_keys)
+    print(at_least_one_can_instantiate(dumped_results))
     for result in dumped_results:
-        assert isinstance(result, dump_data_extractor)
+        assert isinstance(result, dump_data)
         print('=' * 50)
-        print(result.name)
+        print(result.name, result.has_instance, result.default_table_len)
         # print(result.stack_bytes)
         # if result.stack_bytes:
         #     print([hex(x) for x in result.stack_bytes[0]])
-        print('Content ', '-' * 30)
-        print(result.log_content, )
+        # print('Content ', '-' * 30)
+        print(result.log_content)
         # for diff_key in diff_keys:
         #     print('>    {}: {}'.format(diff_key, getattr(result, diff_key)))
-    print('Difference reason:')
-    print(difference_reason)
 
 
 if __name__ == '__main__':
@@ -63,9 +65,7 @@ if __name__ == '__main__':
     # test_env('./diff_tcs/i32.rotl_88_96_93_98_95_99_93_97_99_97_98_97_91_90_99_98_94_88_99_98_99_98_95_93_96_96_93_86_48_88_0_35.wasm')
     # test_env('/media/hdd_xj1/all_tcs/test_std_new_tcs/i32.add_0_7_16744796413940542.wasm', False, 'result/one')
     argv = sys.argv
-    if len(argv) == 1:
-        tc_path = 'tt.wasm'
-    else:
-        tc_path = argv[1]
+    assert len(argv) == 2
+    tc_path = argv[1]
     test_env(tc_path, False, 'result/one')
 

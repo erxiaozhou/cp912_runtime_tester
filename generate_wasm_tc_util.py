@@ -37,7 +37,7 @@ def read_next_leb_num(byte_seq, offset):
     return leb128.u.decode(a), offset
 
 
-def _get_wasm_bytes_from_dict(section_dict):
+def get_wasm_bytes_from_dict(section_dict):
     result = bytearray()
     result.extend(section_dict['pre'])
     for i in range(1, 12):
@@ -53,7 +53,7 @@ def _get_wasm_bytes_from_dict(section_dict):
 
 def write_wasm_from_dict(path, section_dict):
     assert not Path(path).exists()
-    wasm_bytes = _get_wasm_bytes_from_dict(section_dict)
+    wasm_bytes = get_wasm_bytes_from_dict(section_dict)
     write_bytes(path, wasm_bytes)
 
 
