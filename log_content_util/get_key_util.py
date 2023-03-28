@@ -1,66 +1,115 @@
+from collections import Counter
 from functools import lru_cache
 import re
 from pathlib import Path
-from .extract_keyword_from_content import extract_keyword_from_content, summary_level2
-from .load_log_content_from_one_tc_result import load_log_content_from_one_tc_result
+from .extract_keyword_from_content_util import extract_keyword_from_content, keyword_part2possible_common_reason, get_categorize_info_coarse_summary, get_categorize_info_fine_summary
+from .extract_keyword_from_content_util import func_sec_size_mismatch, runtime_self_unsupport
+from .load_log_from_one_tc_result_util import load_log_from_one_tc_result
 from concurrent import futures
+from .extract_keyword_from_content_util import fd_opcode, SIMD_unsupport, illegal_type, reference_unsupport
 
 
-def group_tc_names_by_log_content_key(tc_result_dirs, strategy):
-    content_key2tc_names = {}
-    for tc_name, key in _tc_name_key_pair_generator_mtx(tc_result_dirs, strategy):
-        if key not in content_key2tc_names:
-            content_key2tc_names[key] = []
-        content_key2tc_names[key].append(tc_name)
-    return content_key2tc_names
+
+supported_modes = ['all', 's1', 's2', 's3', 'only_interesting', 'only_highlight']
+
+
+def group_tc_names_by_log_key(tc_result_dirs, strategy):
+    log_key2tc_names = _group_tc_names_by_log_key_core(tc_result_dirs, strategy)
+    # 
+    if strategy == 'only_highlight':
+        rewritten_content_key2tc_names = rewrite_dict(log_key2tc_names)
+    else:
+        rewritten_content_key2tc_names = log_key2tc_names
+    # for k in log_key2tc_names.keys():
+    #     print(k)
+    rewritten_content_key2tc_names = {_dict2key(k):v for k,v in rewritten_content_key2tc_names.items()}
+    return rewritten_content_key2tc_names
+
+
+def rewrite_dict(log_key2tc_names):
+    log_keywords = set()
+    log_key_dict_reprs = list(log_key2tc_names.keys())
+    repr2log_keyword_freq = {}
+
+    for log_key_dict_repr in log_key_dict_reprs:
+        # print('log_key_dict_repr', log_key_dict_repr)
+        log_key_dict =eval(log_key_dict_repr)
+        values = list(log_key_dict.values())
+        log_keywords.update(values)
+        repr2log_keyword_freq[log_key_dict_repr] = {k:v/len(values) for k, v in Counter(values).items()}
+    # print('log_keywords', log_keywords)
+    # log_keywords = list(log_keywords)
+
+    to_save_reprs = set()
+    if '{}' in repr2log_keyword_freq:
+        to_save_reprs.add('{}')
+    for keyword in log_keywords:
+        max_v = -1
+        for log_key_dict_repr, c in repr2log_keyword_freq.items():
+            if c.get(keyword, -5) >= max_v:
+                max_v = c[keyword]
+        if max_v < 0.5:
+            continue
+        # print('max_v', max_v, keyword)
+        for log_key_dict_repr, c in repr2log_keyword_freq.items():
+            if c.get(keyword, -5) == max_v:
+                # print(keyword, max_v, c, log_key_dict_repr)
+                to_save_reprs.add(log_key_dict_repr)
+                # to_save_reprs.add(log_key_dict_repr)
+    log_key2tc_names = {k:log_key2tc_names[k] for k in to_save_reprs}
+    # assert 0, print(len(log_key2tc_names))
+
+    return log_key2tc_names
+
+
+def _group_tc_names_by_log_key_core(tc_result_dirs, strategy):
+    log_key2tc_names = {}
+    for tc_name, key in _tc_name_key_pair_generator(tc_result_dirs, strategy):
+        # print(tc_name)
+        if key not in log_key2tc_names:
+            log_key2tc_names[key] = []
+        log_key2tc_names[key].append(tc_name)
+    return log_key2tc_names
 
 
 def _tc_name_key_pair_generator(tc_result_dirs, strategy):
     for tc_result_dir in tc_result_dirs:
-        yield _get_tc_name_key_pair(tc_result_dir, strategy)
+        tc_name = Path(tc_result_dir).name
+        key = _get_log_dict_repr_key_from_tc_result_dir(tc_result_dir, strategy)
+        yield (tc_name, key)
 
 
-def _tc_name_key_pair_generator_mtx(tc_result_dirs, strategy):
-    tc_name_key_pairs = []
-    with futures.ProcessPoolExecutor(max_workers=30) as executor:
-        for tc_result_dir in tc_result_dirs:
-            future = executor.submit(_get_tc_name_key_pair, tc_result_dir, strategy)
-            tc_name_key_pairs.append(future)
-        for future in futures.as_completed(tc_name_key_pairs):
-            yield future.result()
+def _get_log_dict_repr_key_from_tc_result_dir(tc_result_dir, strategy):
+    log_dict_obj = log_dict_class.from_tc_result_dir(tc_result_dir)
+    dict_ = log_dict_obj.get_processed_log_dict(strategy)
+    # key =_dict2key(dict_)
+    return repr(dict_)
 
 
-def _get_tc_name_key_pair(tc_result_dir, strategy):
-    tc_name = Path(tc_result_dir).name
-    key = _get_content_key_from_tc_result_dir(tc_result_dir, strategy)
-    return (tc_name, key)
+class log_dict_class:
+    def __init__(self, log_dict) -> None:
+        self.log_dict = log_dict
+    
+    # def get_processed_log_dict()
+
+    def get_processed_log_dict(self, strategy):
+        assert strategy in supported_modes
+        processed_log_dict = _process_log_dict(self.log_dict, strategy)
+        return processed_log_dict
+
+    @classmethod
+    def from_tc_result_dir(cls, tc_result_dir):
+        return cls(load_log_from_one_tc_result(tc_result_dir))
 
 
-def _get_content_key_from_tc_result_dir(tc_result_dir, strategy):
-    content_dict_obj = content_dict_class.from_tc_result_dir(tc_result_dir)
-    key = content_dict_obj.get_key_from_log_content(strategy)
+def _dict2key(dict_data_repr):
+    processed_log_dict_repr = dict_data_repr
+    key = _get_key_from_processed_log_dict_repr(processed_log_dict_repr)
     key = re.sub(r'[\'"]', '', key)
     return key
 
 
-class content_dict_class:
-    def __init__(self, content_dict) -> None:
-        self.content_dict = content_dict
-
-    def get_key_from_log_content(self, strategy):
-        assert strategy in ['all', 's1', 's2']
-        processed_log_dict = _process_content_dict(self.content_dict, strategy)
-        processed_log_dict_repr = repr(processed_log_dict)
-        key = _get_key_from_processed_log_dict_repr(processed_log_dict_repr)
-        key = re.sub(r'[\'"]', '', key)
-        return key
-
-    @classmethod
-    def from_tc_result_dir(cls, tc_result_dir):
-        return cls(load_log_content_from_one_tc_result(tc_result_dir))
-
-
-@lru_cache(maxsize=4096, typed=False)
+@lru_cache(maxsize=4096 * 4, typed=False)
 def _get_key_from_processed_log_dict_repr(processed_log_dict_repr):
     processed_log_dict = eval(processed_log_dict_repr)
     sorted_list = []
@@ -72,16 +121,81 @@ def _get_key_from_processed_log_dict_repr(processed_log_dict_repr):
     return key
 
 
-def _process_content_dict(content_dict, strategy):
-    data = {}
-    for key, s in content_dict.items():
+def _process_log_dict(log_dict, strategy):
+    log_objs = {}
+    for key, s in log_dict.items():
         obj = one_runtime_log(s,key)
+        log_objs[key] = obj
+    # 
+    data = {}
+    for key, obj in log_objs.items():
         if strategy == 'all':
-            data[key] = obj.shorter
+            processed_log = obj.keyword_part
         elif strategy == 's1':
-            data[key] = obj.summary_key_s1
+            processed_log = obj.summary_key_s1
         elif strategy == 's2':
-            data[key] = obj.summary_key_s2
+            processed_log = obj.summary_key_s2
+        elif strategy == 's3':
+            processed_log = obj.summary_key_s3
+        elif strategy in ['only_interesting', 'only_highlight']:
+            processed_log = obj.summary_key_s3
+        if processed_log:
+            data[key] = processed_log
+    if strategy in ['only_interesting', 'only_highlight']:
+        for key, obj in log_objs.items():
+            processed_log = obj.summary_key_s3
+            if processed_log:
+                data[key] = processed_log
+        # 
+        vals = list(data.values())
+        # func_sec_size_mismatch 是所有runtime都不支持的
+        if 0 < vals.count(func_sec_size_mismatch) < len(vals):
+            for k in data.keys():
+                data[k] = '<masked because of {}>'.format(func_sec_size_mismatch)
+        # 先把一些模糊的log通过其他runtime的报错推出来
+        keys = list(data.keys())
+        has_fd = False
+        # rule1: fd_opcode
+        for v in data.values():
+            if v == fd_opcode:
+                has_fd = True
+        # rule2: SIMD_unsupport
+        if not has_fd:
+            for obj in log_objs.values():
+                if obj.summary_key_s2 == SIMD_unsupport:
+                    has_fd = True
+        # rule3: special runtimes
+        if not has_fd:
+            for k in ['iwasm_classic_interp_dump', 'iwasm_fast_interp_dump']:
+                # print(keys)
+                # print(data.get(k))
+                if data.get(k) == fd_opcode:
+                    # assert 0
+                    has_fd = True
+        if has_fd:
+            for k in keys:
+                if data[k] == illegal_type:
+                    # assert 0
+                    data[k] = runtime_self_unsupport
+            for k in ['wasm3_dump', 'wasmi_interp', 'iwasm_classic_interp_dump', 'iwasm_fast_interp_dump']:
+                if data.get(k) == fd_opcode:
+                    # assert 0
+                    data[k] = runtime_self_unsupport
+        # reference
+        has_ref = False
+        for obj in log_objs.values():
+            if obj.summary_key_s2 == reference_unsupport:
+                has_ref = True
+                break
+        if has_ref:
+            for k in keys:
+                if data[k] == illegal_type:
+                    data[k] = runtime_self_unsupport
+
+        # 某些runtime理应不支持的
+        for k in keys:
+            if data[k] == runtime_self_unsupport:
+                data.pop(k)
     return data
 
 
@@ -92,19 +206,24 @@ class one_runtime_log():
         self.filter_normal = s
 
     @property
-    def shorter(self):
-        return extract_keyword_from_content(self.filter_normal, strategy='all')
+    def keyword_part(self):
+        return extract_keyword_from_content(self.filter_normal)
 
     @property
     def summary_key_s1(self):
-        return extract_keyword_from_content(self.filter_normal, strategy='s1')
+        # set some as 
+        return keyword_part2possible_common_reason(self.keyword_part)
 
     @property
     def summary_key_s2(self):
-        return summary_level2(self.shorter)
+        return get_categorize_info_coarse_summary(self.keyword_part)
+
+    @property
+    def summary_key_s3(self):
+        return get_categorize_info_fine_summary(self.keyword_part)
 
 
-@lru_cache(maxsize=4096, typed=False)
+@lru_cache(maxsize=4096 * 4, typed=False)
 def filter_normal_output(s, key):
     hex_p = r'0[xX][0-9a-fA-F]+'
     num_p = r'^[\-\+]?(?:(?:\d+)|(?:[\.\+\d]+e[\-\+]?\d+)|(?:\d+\.\d+)|(?:nan)|(?:inf))\n?$'
@@ -139,6 +258,10 @@ def filter_normal_output(s, key):
         p = r'^0x[a-f\d]+:i(?:(?:64)|(?:32))$'
         s = re.sub(p, '', s)
         p = r'^.*:f(?:(?:64)|(?:32))$'
+        s = re.sub(p, '', s)
+        p = r'^\d:ref\.func$'
+        s = re.sub(p, '', s)
+        p = r'^(?:(?:func)|(?:extern)):ref\.null$'
         s = re.sub(p, '', s)
     elif key == 'WAVM_default':
         pass

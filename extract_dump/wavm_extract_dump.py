@@ -59,7 +59,10 @@ class wavm_dumped_data(common_result_initializer):
                 #     self.global_muts.append(False)
             self.table_num = get_int(f.read(8))
             for i in range(self.table_num):
-                f.read(8)
+                if i==0:
+                    self.default_table_len = get_int(f.read(8))
+            if self.table_num == 0:
+                self.default_table_len = 0
             self.mem_num = get_int(f.read(8))
             mem_page_nums = []
             mem_lengths = []
@@ -101,10 +104,23 @@ class wavm_dumped_data(common_result_initializer):
                     self.stack_infered_vals.append(get_f64(cur_bytes))
                     processed_ba = process_f32_64(cur_bytes)
                 elif ty == b'\x7B':
-                    self.global_types.append('v128')
+                    self.stack_types.append('v128')
                     cur_bytes = f.read(16)
                     self.stack_infered_vals.append(
                         [x for x in bytearray(cur_bytes)])
+                elif ty == b'\x70':
+                    cur_bytes = bytearray([])
+                    self.stack_infered_vals.append([])
+                    self.stack_types.append('funcref')
+                    # cur_bytes = f.read(8)
+                    # if bytearray(cur_bytes) == bytearray([0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff]):
+                    #     is_null = True
+                elif ty == b'\x6F':
+                    cur_bytes = bytearray([])
+                    self.stack_infered_vals.append([])
+                    self.stack_types.append('externref')
+                else:
+                    assert 0
                 self.stack_bytes.append(cur_bytes)
                 if processed_ba is None:
                     processed_ba = bytearray(cur_bytes)

@@ -2,15 +2,15 @@ from file_util import remove_file_without_exception
 import subprocess
 from pathlib import Path
 import shutil
-from path_group_util import ori_path_group
-from path_group_util import result_path_group
+from path_group_util import imlp_ori_path_group
+from path_group_util import imlp_result_path_group
 
 
 class move_based_executor:
     def __init__(self, ori_paths,
                 timeout_th,
                 dump_cmd_fmt):
-        assert isinstance(ori_paths, ori_path_group)
+        assert isinstance(ori_paths, imlp_ori_path_group)
         self._ori_paths = ori_paths
         self.timeout = timeout_th
         self.dump_cmd_fmt = dump_cmd_fmt
@@ -47,7 +47,7 @@ class move_based_executor:
         _check_file_mv(mv_pairs, False)
     
     def set_result_paths(self, result_paths):
-        assert isinstance(result_paths, result_path_group)
+        assert isinstance(result_paths, imlp_result_path_group)
         self._result_paths = result_paths
     
     @property
@@ -88,7 +88,7 @@ class resultGenerator:
         self.has_timeout = None
 
     def set_result_paths(self, result_paths):
-        assert isinstance(result_paths, result_path_group)
+        assert isinstance(result_paths, imlp_result_path_group)
         self._result_paths = result_paths
 
     @property
@@ -97,6 +97,7 @@ class resultGenerator:
         data = {}
         data['paths'] = self._result_paths
         data['features'] = self.features
+        assert self.has_timeout is not None
         data['has_timeout'] = self.has_timeout
         return data
 

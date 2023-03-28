@@ -1,7 +1,7 @@
 from pathlib import Path
 from file_util import path_read
 from .dump_data_util import dump_data
-from path_group_util import result_path_group
+from path_group_util import imlp_result_path_group
 
 
 def is_failed_content(content):
@@ -24,7 +24,7 @@ def is_failed_content(content):
 class common_result_initializer(dump_data):
     def __init__(self, paths, has_timeout, features=None):
         super().__init__()
-        assert isinstance(paths, result_path_group)
+        assert isinstance(paths, imlp_result_path_group)
         self.paths = paths
         self.has_timeout = has_timeout
         self.features = features
@@ -43,6 +43,9 @@ class common_result_initializer(dump_data):
 
     def _init_has_failed_content(self):
         self.log_has_failed_content = is_failed_content(self.log_content)
+        # print(self.has_failed_content, self.has_timeout)
+        # if self.has_timeout:
+        #     self.log_has_failed_content = True
 
     def _init_features(self):
         features = {k:v for k, v in self.features.items()}
@@ -57,7 +60,7 @@ class common_result_initializer(dump_data):
         self.can_initialize = False
 
     def _init_has_instance(self):
-        self.has_instance = has_instance(self.has_instance_path)
+        self.has_instance = _has_instance(self.has_instance_path)
     
     def to_dict(self, path=None):
         new_data = dump_data()
@@ -83,7 +86,7 @@ class common_result_initializer(dump_data):
         return self.paths.inst_path
 
 
-def has_instance(path):
+def _has_instance(path):
     has_instance_ = False
     path = Path(path)
     if path.exists():

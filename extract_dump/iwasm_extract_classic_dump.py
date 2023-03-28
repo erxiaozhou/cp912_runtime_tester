@@ -55,6 +55,8 @@ class iwasm_classic_interp_dumped_data(common_result_initializer):
                 self.default_table_func_idxs = []
                 for i in range(self.default_table_len):
                     self.default_table_func_idxs.append(get_int(f.read(4)))
+            else:
+                self.default_table_len = 0
                 # local
             local_num = get_int(f.read(4))
             # print('local_num ', local_num)
@@ -116,21 +118,25 @@ class iwasm_classic_interp_dumped_data(common_result_initializer):
                     cur_bytes = f.read(16)
                     self.stack_infered_vals.append([x for x in bytearray(cur_bytes)])
                 elif ty == b'\x70':
+                    cur_bytes = bytearray([])
+                    self.stack_infered_vals.append([])
                     self.stack_types.append('funcref')
-                    cur_bytes = f.read(4)
-                    func_idx = get_int(cur_bytes)
-                    is_null_bytes = f.read(4)
-                    is_null = get_int(is_null_bytes)
-                    processed_ba = bytearray(cur_bytes) + bytearray(is_null_bytes)
-                    self.stack_infered_vals.append((func_idx, is_null))
+                    # cur_bytes = f.read(4)
+                    # func_idx = get_int(cur_bytes)
+                    # is_null_bytes = f.read(4)
+                    # is_null = get_int(is_null_bytes)
+                    # processed_ba = bytearray(cur_bytes) + bytearray(is_null_bytes)
+                    # self.stack_infered_vals.append((func_idx, is_null))
                 elif ty == b'\x6F':
+                    cur_bytes = bytearray([])
+                    self.stack_infered_vals.append([])
                     self.stack_types.append('externref')
-                    cur_bytes = f.read(4)
-                    content_as_int = get_int(cur_bytes)
-                    is_null_bytes = f.read(4)
-                    is_null = get_int(is_null_bytes)
-                    processed_ba = bytearray(cur_bytes) + bytearray(is_null_bytes)
-                    self.stack_infered_vals.append((content_as_int, is_null))
+                    # cur_bytes = f.read(4)
+                    # content_as_int = get_int(cur_bytes)
+                    # is_null_bytes = f.read(4)
+                    # is_null = get_int(is_null_bytes)
+                    # processed_ba = bytearray(cur_bytes) + bytearray(is_null_bytes)
+                    # self.stack_infered_vals.append((content_as_int, is_null))
                 self.stack_bytes.append(cur_bytes)
                 if processed_ba is None:
                     processed_ba = bytearray(cur_bytes)

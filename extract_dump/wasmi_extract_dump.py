@@ -49,8 +49,11 @@ class wasmi_dumped_data(common_result_initializer):
                     cur_bytes = f.read(16)
                     self.global_bytes.append(cur_bytes)
                     self.global_infered_vals.append([x for x in bytearray(cur_bytes)])
-            self.table_num = None  # 这个没存，应该是0或1
             self.default_table_len = get_u64(f.read(8))
+            if self.default_table_len > 0:
+                self.table_num = 1
+            else:
+                self.table_num = 0
             self.default_table_guard_idxs = []
             self.default_table_func_idxs = []
             for i in range(self.default_table_len):

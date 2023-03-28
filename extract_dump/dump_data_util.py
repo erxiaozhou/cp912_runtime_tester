@@ -15,7 +15,9 @@ class dump_data:
         self.global_types = []
         self.global_infered_vals = []
         self.global_muts = []
+        self.global_num = -1
         self.table_num = -1
+        self.default_table_len = -1
         self.mem_num = -1
         self.default_mem_length = -1
         self.default_mem_page_num = -1
@@ -34,6 +36,9 @@ class dump_data:
         if path is not None:
             pickle_dump(path, data)
         return data
+    
+    def __repr__(self) -> str:
+        return str(self.__dict__)
 
 
 def get_extractor_from_pkl(path):
@@ -50,21 +55,22 @@ def get_extractor_from_pkl(path):
 _to_compare_attrs = [
     'global_bytes',
     'global_types',
+    'global_num',
     # 'global_infered_vals',
     # 'global_muts',
-    # 'table_num',
+    'default_table_len',
+    'table_num',
     'mem_num',
     'default_mem_length',
     'default_mem_page_num',
     'default_mem_data',
-    # 'global_num',
     'stack_num',
     'stack_types',
+    'stack_bytes_process_nan',
     # 'stack_bytes',
     # 'stack_infered_vals',
     'log_has_failed_content',
     'has_timeout',
-    'stack_bytes_process_nan'
 ]
 
 

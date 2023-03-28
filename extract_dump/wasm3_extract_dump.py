@@ -55,7 +55,11 @@ class wasm3_dumped_data(common_result_initializer):
                     self.global_muts.append(True)
                 else:
                     self.global_muts.append(False)
-            self.table_num = get_int(f.read(4))
+            self.default_table_len = get_int(f.read(4))
+            if self.default_table_len > 0:
+                self.table_num = 1
+            else:
+                self.table_num = 0
             # ! 先硬写成1,因为看起来只有一个memory
             self.mem_num = 1
             # if default_mem_length
