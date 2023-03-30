@@ -64,3 +64,20 @@ class tester_exec_paths:
             'reason_dir': result_base_dir / 'reasons',
         }
         return cls(**paths)
+
+
+class analyze_result_dirs:
+    def __init__(self, result_base_dir) -> None:
+        self.result_base_dir = Path(result_base_dir)
+    
+    @property
+    def log_category_base_dir(self):
+        return self.result_base_dir / 'log_category_base'
+
+    @property
+    def reason_summary_base_dir(self):
+        return self.result_base_dir / 'reason_summarys'
+    
+    @property
+    def stack_category_base_dir(self):
+        return self.result_base_dir / 'stack_category_base'

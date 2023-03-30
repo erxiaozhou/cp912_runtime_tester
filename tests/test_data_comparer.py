@@ -1,18 +1,15 @@
 import pytest
-from exec_util import load_results_from_one_tc_result
+from exec_util import load_results_from_one_dumped_data_dir
 from data_comparer import _get_can_execute_num
-from data_comparer import _get_can_init_num
 
 
 paras = [
-    ['./tests/f32.abs_10', 1, 7]
+    ['./tests/f32.abs_100', 1, 7]
 ]
 
 
 @pytest.mark.parametrize('tc_result_dir, num, result_num', paras)
 def test_get_can_execute_num(tc_result_dir, num, result_num):
-    results = load_results_from_one_tc_result(tc_result_dir)
-    assert len(results) ==  result_num
+    results = load_results_from_one_dumped_data_dir(tc_result_dir)
     assert _get_can_execute_num(results) == num
-    # TODO 
-    # assert _get_can_init_num(results) == 7
+    assert len(results) ==  result_num

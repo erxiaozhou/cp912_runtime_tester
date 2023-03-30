@@ -85,7 +85,7 @@ def test_after_func1_length1(tc_path):
 
 
 @pytest.mark.parametrize('tc_path', paras)
-def test_get_bytes(tc_path):
+def test_get_bytes_sec(tc_path):
     section_dict = prepare_template(tc_path)
     code_sec_bytes = section_dict['code']
     code_sec_info = _code_secion.from_code_sec_ba(code_sec_bytes)
@@ -97,7 +97,7 @@ test_random_length_paras = [10, 20, 30, 100]
 def test_get_bytes(func1_length):
     lengths_expected = set([func1_length + i for i in [-1, 0, 1]])
     lengths_collected = set()
-    for i in range(200):
+    for i in range(2000):
         lengths_collected.add(_get_random_length(func1_length))
     assert lengths_expected == lengths_collected
 

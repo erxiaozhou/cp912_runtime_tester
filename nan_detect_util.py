@@ -3,7 +3,7 @@ from file_util import bytes2uint
 
 def is_nan(bs):
     length = len(bs)
-    assert length in [4, 8]
+    assert length in [4, 8], print(length)
     if length == 4:
         N = 23
         epart_mask = 0b011111111 << N
@@ -24,7 +24,7 @@ def is_anan(bs):
     if not is_nan(bs):
         return False
     length = len(bs)
-    assert length in [4, 8]
+    assert length in [4, 8], print(length)
     int_val = bytes2uint(bs)
     if length == 4:
         N = 22
@@ -55,7 +55,7 @@ def process_64anan(bs):
     return val
 
 
-def process_anan(bs):
+def _process_anan(bs):
     assert is_anan(bs)
     if len(bs) == 4:
         val = process_32anan(bs)
@@ -64,9 +64,10 @@ def process_anan(bs):
         val = process_64anan(bs)
     return val
 
+
 def process_f32_64(bs):
     if is_anan(bs):
-        val = process_anan(bs)
+        val = _process_anan(bs)
     else:
         val = bs
     return val

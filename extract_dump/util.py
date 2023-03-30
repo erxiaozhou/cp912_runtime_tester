@@ -33,9 +33,13 @@ class common_result_initializer(dump_data):
     def common_initialize(self):
         self._init_log()
         self._init_has_failed_content()
+        self._init_failed_exec()
         self._init_features()
         self._init_can_initialize()
         self._init_has_instance()
+    
+    def _init_failed_exec(self):
+        self.failed_exec = self.log_has_failed_content or self.has_timeout
 
     def _init_log(self):
         content = path_read(self.log_path)
@@ -43,9 +47,6 @@ class common_result_initializer(dump_data):
 
     def _init_has_failed_content(self):
         self.log_has_failed_content = is_failed_content(self.log_content)
-        # print(self.has_failed_content, self.has_timeout)
-        # if self.has_timeout:
-        #     self.log_has_failed_content = True
 
     def _init_features(self):
         features = {k:v for k, v in self.features.items()}

@@ -28,12 +28,19 @@ def wasms_dir2wats(base_dir, result_dir):
 
 
 # common ===========================================================
-def is_executable_by_impl(impl, wasm_wat_path):
+
+
+def get_log_by_impl(impl, wasm_wat_path):
     if isinstance(impl, str):
         impl_name = impl
         impl = uninst_imlps_dict[impl_name]
     assert isinstance(impl, uninst_runtime)
     log = impl.execute(wasm_wat_path)
+    return log
+
+
+def is_executable_by_impl(impl, wasm_wat_path):
+    log = get_log_by_impl(impl, wasm_wat_path)
     if is_failed_content(log):
         return False
     else:

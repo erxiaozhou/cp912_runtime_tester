@@ -5,6 +5,7 @@ class dump_data:
     def __init__(self):
         self.log_content = None
         self.log_has_failed_content = None
+        self.failed_exec = None
         self.features = None
         self.name = None
         self.can_initialize = None

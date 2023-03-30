@@ -1,6 +1,0 @@
-[2023-01-27 15:54:10.971] [error] validation failed: type mismatch, Code: 0x41
-[2023-01-27 15:54:10.971] [error]     Mismatched value type. Expected: f32 , Got: i32
-[2023-01-27 15:54:10.971] [error]     At AST node: expression
-[2023-01-27 15:54:10.971] [error]     At AST node: code segment
-[2023-01-27 15:54:10.971] [error]     At AST node: code section
-[2023-01-27 15:54:10.971] [error]     At AST node: module

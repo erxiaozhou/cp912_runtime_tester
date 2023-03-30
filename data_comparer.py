@@ -99,7 +99,7 @@ def _get_can_execute_num(dumped_results):
     can_exec_num = 0
     for result in dumped_results:
         assert isinstance(result, dump_data)
-        if not result.log_has_failed_content:
+        if not result.failed_exec:
             can_exec_num += 1
     return can_exec_num
 

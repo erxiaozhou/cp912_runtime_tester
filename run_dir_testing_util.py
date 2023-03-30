@@ -2,7 +2,6 @@ from pathlib import Path
 from path_group_util import tester_exec_paths
 from run_dir_std_testing import test_with_mutation
 from file_util import check_dir, read_json, rm_dir
-from run_dir_testing_util import get_no_mutation_paras
 from log_content_util import log_content_categorize_by_one_reason_path
 
 
@@ -61,13 +60,6 @@ def detect_canrun_cannotdump(exec_paths, result_base_dir):
     paras, new_paths = get_no_mutation_paras(result_base_dir, new_dir)
     paras['check_result_dir_not_exist'] = False
     test_with_mutation(**paras)
-
-def get_analyze_result_dirs(result_base_dir):
-    result_base_dir = Path(result_base_dir)
-    reason_summary_base_dir = result_base_dir / 'reason_summarys'
-    log_category_base_dir = result_base_dir / 'log_category_base'
-    return reason_summary_base_dir, log_category_base_dir
-
 
 
 def log_content_categorize(reason_summary_path, log_category_base_dir, dumped_data_base_dir, modes=None):

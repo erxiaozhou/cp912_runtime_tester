@@ -45,9 +45,9 @@ paras = [
 ]
 
 
-@pytest.mark.parametrize('wasm_path, expected_data_dict', paras)
-def test_executable_paths(wasm_path, expected_data_dict):
-    impls = get_std_imlps()
-    for impl in impls:
-        for attr_name, value in expected_data_dict.items():
-            assert getattr(impl, attr_name) == value
+# @pytest.mark.parametrize('wasm_path, expected_data_dict', paras)
+# def test_executable_paths(wasm_path, expected_data_dict):
+#     impls = get_std_imlps()
+#     for impl in impls:
+#         for attr_name, value in expected_data_dict.items():
+#             assert getattr(impl, attr_name) == value

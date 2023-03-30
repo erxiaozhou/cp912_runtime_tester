@@ -1,6 +1,7 @@
 import os
 import json
 import struct
+import subprocess
 import time
 from pathlib import Path
 import pickle
@@ -126,17 +127,25 @@ def bytes2uint(bs):
     return int_val
 
 
+def dir_file_num(path):
+    cmd = 'ls {} | wc -l'.format(path)
+    p = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE, shell=True)
+    out_content = p.stdout.read().decode().strip('\n')
+    assert out_content.isdigit()
+    return int(out_content)
+
+
 def uint2bytes(val, int_byte_num):
     # int_byte_num: 4, 8, ...
     return bytearray(int.to_bytes(val, int_byte_num,
               byteorder='little', signed=False))
 
 
-def f32bytes(val):
+def f322bytes(val):
     return struct.pack('<f', val)
 
 
-def f64bytes(val):
+def f642bytes(val):
     return struct.pack('<d', val)
 
 
