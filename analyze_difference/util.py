@@ -24,7 +24,7 @@ def get_illegal_opcode(s):
     return r[0]
 
 
-def get_illegal_tyoe(s):
+def get_illegal_type(s):
     pass
     p = r'^WASM module load failed: invalid (.*)\n?$'
     r = re.compile(p).findall(s)
