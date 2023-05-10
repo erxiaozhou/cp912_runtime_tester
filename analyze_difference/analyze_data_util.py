@@ -26,9 +26,9 @@ class analyze_data:
                     self._tc_paths.extend(get_tc_paths(self.path, k, self.tcs_base_dir))
         return self._tc_paths
 
-    def get_logs(self, process=False, use_lastest=False):
+    def get_logs(self, process=False, use_lastest=False, keys=None):
         if self._logs is None:
-            self._logs = get_logs(self.tc_paths, process=process, use_lastest=use_lastest)
+            self._logs = get_logs(self.tc_paths, process=process, use_lastest=use_lastest, keys=keys)
         return self._logs
 
     @property
@@ -42,9 +42,9 @@ class analyze_data:
             print(k, v)
             print('-----------------')
     
-    def print_logs(self, process=False, use_lastest=False):
+    def print_logs(self, process=False, use_lastest=False, keys=None):
         print('All logs:')
-        print(get_logs(self.tc_paths, process=process, use_lastest=use_lastest))
+        print(get_logs(self.tc_paths, process=process, use_lastest=use_lastest, keys=keys))
 
     def illegal_iwasm_opcodes(self, runtime_name='iwasm_classic_interp_dump'):
         runtime_logs = self.get_logs()[runtime_name]
@@ -75,3 +75,10 @@ class analyze_data:
         for p in self.tc_paths:
             wasm2wat(p, 'tt/tt.wat')
             assert 'call 0'  in path_read('tt/tt.wat')
+
+    # def get_wasmedge_lasted_illegal_opcode(self):
+    #     illegal_opcodes = set()
+    #     for p in tqdm(self.tc_paths):
+    #         log = get_log_by_impl('wasmedge_lasted_dump', p)
+    #         illegal_opcodes.add(get_wasmer_illegal_opcode(log))
+    #     return illegal_opcodes

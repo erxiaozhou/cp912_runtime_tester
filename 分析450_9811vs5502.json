@@ -1,0 +1,54 @@
+keys only in 5502
+
+"((wasm3_dump, (CanExecute,)), (wasmi_interp, (CanExecute,)))"
+这条问题不大，因为450中有一条(wasmi_interp, (CanExecute,))，他们报的root cause应该是相同的，。但是由于wasm3 逃逸alignment的特性，在5502的这一条中没有报错（其他runtime报wrong alignment,但是wasm3不报错）。估计下面这两条是对应的：
+450:  
+"(WAVM_default, memory OOB), (WasmEdge_disableAOT_newer, illegal/unknown opcode), (iwasm_classic_interp_dump, <wrong alignment>), (iwasm_fast_interp_dump, <wrong alignment>), (wasm3_dump, Aborted))"
+"((WAVM_default, memory OOB), (WasmEdge_disableAOT_newer, malformed reference type), (iwasm_classic_interp_dump, <wrong alignment>), (iwasm_fast_interp_dump, <wrong alignment>), (wasm3_dump, Aborte"
+5502: "((WAVM_default, memory OOB), (WasmEdge_disableAOT_newer, <wrong alignment>), (iwasm_classic_interp_dump, <wrong alignment>), (iwasm_fast_interp_dump, <wrong alignment>))"
+
+
+"((WAVM_default, (stack_bytes_process_nan,)), (iwasm_classic_interp_dump, (CannotExecute,)), (iwasm_fast_interp_dump, (CannotExecute,)), (wasm3_dump, (CannotExecute,)), (wasmi_interp, (stack_bytes_process_nan,)))"
+nan和CannotExecute的排列组合
+
+
+
+
+"((iwasm_classic_interp_dump, (CannotExecute,)), (iwasm_fast_interp_dump, (CannotExecute,)), (wasm3_dump, (CannotExecute,)), (wasmi_interp, (CannotExecute,))"
+猜测,遇到了遇到了 wrong alignment>
+450: 
+"((iwasm_classic_interp_dump, illegal/unknown type), (iwasm_fast_interp_dump, illegal/unknown type), (wasm3_dump, illegal/unknown type))"
+5502: 
+"((WasmEdge_disableAOT_newer, <wrong alignment>), (iwasm_classic_interp_dump, illegal/unknown type), (iwasm_fast_interp_dump, illegal/unknown type), (wasm3_dump, illegal/unknown type))"
+
+
+猜测：
+"((WasmEdge_disableAOT_newer, (CannotExecute,)), (iwasm_classic_interp_dump, (CannotExecute,)), (iwasm_fast_interp_dump, (CannotExecute,)), (wasm3_dump, (CannotExecute,)))"
+"((WasmEdge_disableAOT_newer, (CannotExecute,)), (iwasm_classic_interp_dump, (CannotExecute,)), (iwasm_fast_interp_dump, (CannotExecute,)), (wasm3_dump, (CannotExecute,)), (wasmi_interp, (CannotExecute,)))"
+5502
+"((WasmEdge_disableAOT_newer, <wrong alignment>), (iwasm_classic_interp_dump, <wrong alignment>), (iwasm_fast_interp_dump, <wrong alignment>), (wasm3_dump, unreachable))"
+应该是wasmi躲过了/没躲过alignment，但WAVM躲过去了
+
+"((WasmEdge_disableAOT_newer, (stack_bytes_process_nan,)), (iwasm_classic_interp_dump, (stack_bytes_process_nan,)), (wasm3_dump, (CannotExecute,)), (wasmi_interp, (CannotExecute,)))"
+nan和CannotExecute的排列组合
+
+
+
+"((WasmEdge_disableAOT_newer, (CannotExecute,)), (iwasm_classic_interp_dump, (CannotExecute,)), (iwasm_fast_interp_dump, (CannotExecute,)), (wasmi_interp, (CannotExecute,))"
+
+450:
+估计对应于
+"/media/hdd_xj1/cp910_data/main_testing_v12_450_9811/log_category_only_interesting/19.json<-->((WAVM_default, (CanExecute,)), (wasm3_dump, (CanExecute,)))": [
+    "((WasmEdge_disableAOT_newer, <wrong alignment>), (iwasm_classic_interp_dump, <wrong alignment>), (iwasm_fast_interp_dump, <wrong alignment>), (wasmer_default_dump, <wrong alignment>), (wasmi_interp, <wrong alignment>))",
+    "((WasmEdge_disableAOT_newer, type mismatch), (iwasm_classic_interp_dump, type mismatch), (iwasm_fast_interp_dump, type mismatch), (wasmer_default_dump, type mismatch), (wasmi_interp, type mismatch))"
+]
+
+
+只在450里的
+"((iwasm_classic_interp_dump, (CanExecute,)), (iwasm_fast_interp_dump, (CanExecute,)), (wasm3_dump, (CanExecute,)))"
+
+两个iwasm能execute是因为有未定义的opcode
+wasm3能execute的原因比较多有一个也是ocpdoe
+
+除了一个canrun_cannotdump，其余都是nan和unexecute的组合
+

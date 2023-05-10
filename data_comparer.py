@@ -82,7 +82,7 @@ def _sort_dump_results(results):
     for i, r in enumerate(results):
         if 'wasmer' in r.name:
             wasmer_idx = i
-    results = [results[wasmer_idx]] + [results[i] for i in range(len(results)) if i != wasmer_idx]
+            results = [results[wasmer_idx]] + [results[i] for i in range(len(results)) if i != wasmer_idx]
 
     return results
 

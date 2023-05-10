@@ -1,0 +1,16 @@
+Test case:
+
+[v128.const_1.zip](https://github.com/WAVM/WAVM/files/10450801/v128.const_1.zip)
+
+## Command
+```
+build/bin/wavm run --function=to_test <test_case_name>
+```
+## Expected behavior
+There is no error
+## Actual behavior
+
+A failed execution with the error message 
+```
+Error loading WebAssembly binary file: Module was malformed: invalid initializer expression opcode
+```

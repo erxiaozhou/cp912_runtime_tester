@@ -7,8 +7,8 @@ from pathlib import Path
 
 
 class iwasm_fast_interp_dumped_data(common_result_initializer):
-    def __init__(self, paths, has_timeout, features=None):
-        super().__init__(paths, has_timeout, features)
+    def __init__(self, paths, has_timeout, features=None, log_content=None):
+        super().__init__(paths, has_timeout, features, log_content)
         self.name = 'iwasm_fast_interp_dump'
         if Path(self.vstack_path).exists():
             self._init_stack(self.vstack_path)

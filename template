@@ -1,0 +1,25 @@
+# Build commands
+I compile the code with commit id aaf671d688592784d1f8e000531cd98c2c22bfac.
+Platform: Ubuntu 20.04
+CPU: amd64 
+compile:
+```shell
+export CC=/usr/bin/clang-14
+export CXX=/usr/bin/clang++-14
+cd product-mini/platforms/linux/;rm -rf build
+cmake  -DWAMR_BUILD_INTERP=1 -DWAMR_BUILD_REF_TYPES=1 -DWAMR_BUILD_AOT=0 -DCMAKE_BUILD_TYPE=Debug -DWAMR_BUILD_FAST_INTERP=1 -DWASM_ENABLE_LIB_WASI_THREADS=1 -Bbuild
+cd build
+make -j40
+```
+execute:
+```shell
+iwasm --heap-size=0 -f to_test <tc_name>
+```
+xxxxx
+
+# Actual behavior:
+The value left on the stack is ['0x39', '0x0', '0x0', '0x0', '0x0', '0x0', '0xf0', '0x7f']
+
+# Expected behavior:
+The value left on the stack is ['0x39', '0x0', '0x0', '0x0', '0x0', '0x0', '0xf8', '0x7f'] (The most significant bit of payload is 1)
+

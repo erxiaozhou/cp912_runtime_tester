@@ -3,26 +3,27 @@ import os
 from pathlib import Path
 import random
 import struct
+from data_comparer import at_least_one_can_execute
 from debug_util import wasm2wat
-from extract_dump.extractor import is_failed_content
+from exec_util import exec_one_tc
 from file_util import check_dir, cp_file, pickle_dump, pickle_load, read_bytes, remove_file_without_exception, rm_dir, save_json, write_bytes
 import numpy as np
 from file_util import path_read
 from file_util import path_write
 import leb128
 import time
+from get_imlps_util import get_std_imlps
+from debug_util import wasms_dir2wats
 
-from run_dir_std_testing import tc_executable
 
-def unzip_cp910findings():
-    wasms = check_dir('../CP910_findings/wasms')
-    for p in Path('../CP910_findings').iterdir():
-        if p.suffix == '.zip':
-            os.system('unzip {}'.format(p))
-    # assert 0
-    for p in Path('../CP910_findings').iterdir():
-        if p.suffix == '.wasm':
-            os.system('mv {} {}'.format(p, wasms))
+def tc_executable(tc_path):
+    imlps = get_std_imlps()
+    tc_result_dir = 'results/one_tc_result'
+    dumped_results = exec_one_tc(imlps, tc_path, tc_result_dir, tc_result_dir)
+    if at_least_one_can_execute(dumped_results):
+        return True
+    else:
+        return False
 
 
 def rename_previous_tcs_to_the_same_dir():
@@ -51,6 +52,7 @@ def remove_unexecutable_i32():
         if not tc_executable(p):
             os.system('rm {}'.format(p))
 
+
 def get_inst_tcs(tgt_dir, inst_name, base_dir='./ori_tcs/tcs_v8'):
     tgt_dir = Path(tgt_dir)
     check_dir(tgt_dir)
@@ -78,14 +80,6 @@ def get_executable_tcs(base_dir, result_dir):
             cp_file(wasm_path, new_path)
 
 
-def wasms_dir2wats(base_dir, result_dir):
-    base_dir = Path(base_dir)
-    result_dir = check_dir(result_dir)
-    for wasm_path in base_dir.iterdir():
-        print(wasm_path)
-        stem = wasm_path.name[:-5]
-        wat_path = result_dir / (stem+'.wat')
-        wasm2wat(wasm_path, wat_path)
 
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-from file_util import remove_file_without_exception
+from file_util import byte2str, remove_file_without_exception
 import subprocess
 from pathlib import Path
 import shutil
@@ -9,33 +9,43 @@ from path_group_util import imlp_result_path_group
 class move_based_executor:
     def __init__(self, ori_paths,
                 timeout_th,
-                dump_cmd_fmt):
+                dump_cmd_fmt, err_channel):
         assert isinstance(ori_paths, imlp_ori_path_group)
         self._ori_paths = ori_paths
         self.timeout = timeout_th
         self.dump_cmd_fmt = dump_cmd_fmt
         self._result_paths = None
+        self.err_channel = err_channel
 
     def execute(self, tc_path):
         self._clean_previous_dumped_data()
-        has_timeout = self._execute(tc_path)
+        has_timeout, content = self._execute(tc_path, self.err_channel)
         self._move_output()
-        return has_timeout
+        return has_timeout, content
     
     def _clean_previous_dumped_data(self):
         for p in self._ori_paths.paths:
             remove_file_without_exception(p)
         for p in self._result_paths.paths:
             remove_file_without_exception(p)
-
-    def _execute(self, tc_path):
-        cmd = self.dump_cmd_fmt.format(tc_path, self.tgt_log_path)
+    
+    def _execute(self, wasm_path, channel='stdout'):
+        assert channel in ['stdout', 'stderr']
         has_timeout = False
+        cmd = self.dump_cmd_fmt.format(wasm_path)
         try:
-            subprocess.run(cmd,timeout=self.timeout, shell=True)
+            p = subprocess.run(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE, shell=True, timeout=self.timeout)
+            err_byte_content = byte2str(p.stderr).strip(' \n\t')
+            if channel == 'stdout':
+                content = byte2str(p.stdout).strip(' \n\t')
+                if len(err_byte_content):
+                    content += '\n' + err_byte_content
+            else:
+                content = err_byte_content
         except subprocess.TimeoutExpired:
             has_timeout = True
-        return has_timeout
+            content = ''
+        return has_timeout, content
 
     def _move_output(self):
         mv_pairs = {
@@ -49,11 +59,7 @@ class move_based_executor:
     def set_result_paths(self, result_paths):
         assert isinstance(result_paths, imlp_result_path_group)
         self._result_paths = result_paths
-    
-    @property
-    def tgt_log_path(self):
-        return self._result_paths.log_path
-        
+
     @property
     def tgt_vstack_path(self):
         return self._result_paths.vstack_path
@@ -86,6 +92,7 @@ class resultGenerator:
         self.features = features
         self._result_paths = None
         self.has_timeout = None
+        self.log_content = None
 
     def set_result_paths(self, result_paths):
         assert isinstance(result_paths, imlp_result_path_group)
@@ -99,6 +106,7 @@ class resultGenerator:
         data['features'] = self.features
         assert self.has_timeout is not None
         data['has_timeout'] = self.has_timeout
+        data['log_content'] = self.log_content
         return data
 
     @property

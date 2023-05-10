@@ -5,7 +5,7 @@ from path_group_util import imlp_result_path_group
 
 
 def is_failed_content(content):
-    assert isinstance(content, str)
+    assert isinstance(content, str), print(content)
     content = content.lower()
     if 'error' in content:
         return True
@@ -17,21 +17,23 @@ def is_failed_content(content):
         return True
     elif 'fault' in content:
         return True
+    elif 'aborting' in content:
+        return True
     else:
         return False
 
 
 class common_result_initializer(dump_data):
-    def __init__(self, paths, has_timeout, features=None):
+    def __init__(self, paths, has_timeout, features=None, log_content=None):
         super().__init__()
         assert isinstance(paths, imlp_result_path_group)
         self.paths = paths
         self.has_timeout = has_timeout
         self.features = features
+        self.log_content = log_content
         self.common_initialize()
 
     def common_initialize(self):
-        self._init_log()
         self._init_has_failed_content()
         self._init_failed_exec()
         self._init_features()
@@ -40,10 +42,6 @@ class common_result_initializer(dump_data):
     
     def _init_failed_exec(self):
         self.failed_exec = self.log_has_failed_content or self.has_timeout
-
-    def _init_log(self):
-        content = path_read(self.log_path)
-        self.log_content = content
 
     def _init_has_failed_content(self):
         self.log_has_failed_content = is_failed_content(self.log_content)
@@ -77,10 +75,6 @@ class common_result_initializer(dump_data):
     @property
     def vstack_path(self):
         return self.paths.vstack_path
-    
-    @property
-    def log_path(self):
-        return self.paths.log_path
 
     @property
     def has_instance_path(self):
@@ -93,7 +87,7 @@ def _has_instance(path):
     if path.exists():
         with open(path,'rb') as f:
             content = f.read()
-        assert bytearray(content) == bytearray([0xff, 0xff, 0xff, 0xff])
+        assert bytearray(content) == bytearray([0xff, 0xff, 0xff, 0xff]), print(content)
         has_instance_ = True
     else:
         pass

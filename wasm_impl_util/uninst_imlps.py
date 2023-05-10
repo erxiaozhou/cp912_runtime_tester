@@ -10,12 +10,18 @@ class uninst_runtime:
         self.cmd_fmt = cmd_fmt
         self.err_channel = err_channel
 
-    def execute(self, wasm_path):
+    def execute(self, wasm_path, channel='stdout'):
+        assert channel in ['stdout', 'stderr', None]
         cmd = self.cmd_fmt.format(wasm_path)
-        p = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE, shell=True)
-        out_byte_content = byte2str(p.stdout.read()).strip(' \n\t')
-        err_byte_content = byte2str(p.stderr.read()).strip(' \n\t')
-        if self.err_channel == 'stdout':
+        try:
+            p = subprocess.run(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE, shell=True, timeout=10)
+        except subprocess.TimeoutExpired:
+            return 'Z exec : timeout'
+        out_byte_content = byte2str(p.stdout).strip(' \n\t')
+        err_byte_content = byte2str(p.stderr).strip(' \n\t')
+        if channel is None:
+            channel = self.err_channel
+        if channel == 'stdout':
             content = out_byte_content
             if len(err_byte_content):
                 content += '\n' + err_byte_content
@@ -37,15 +43,10 @@ class uninst_runtime:
 def _get_paras_from_dict(dict_, runtime_dir_name):
     assert runtime_dir_name in ['standard_dir', 'lastest_dir']
     bin_path = combine_path(dict_[runtime_dir_name], dict_['bin_relative_path'])
-    cmd_fmt = dict_['cmd'].format(bin_path, '{}')
-    err_channel = detect_channel(dict_['dump_cmd'])
-    return cmd_fmt, err_channel
-
-
-def detect_channel(dump_cmd):
-    if ' 2>' in dump_cmd:
-        err_channel = 'stderr'
+    if runtime_dir_name == 'standard_dir':
+        cmd_fmt = dict_['std_cmd'].format(bin_path, '{}')
     else:
-        assert ' >' in dump_cmd
-        err_channel = 'stdout'
-    return err_channel
+        cmd_fmt = dict_['lastest_cmd'].format(bin_path, '{}')
+    err_channel = dict_['err_channel']
+    assert err_channel in ['stdout', 'stderr']
+    return cmd_fmt, err_channel

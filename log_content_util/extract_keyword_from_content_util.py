@@ -20,6 +20,8 @@ illegal_local_type = 'invalid local type'
 large_alignment = 'large alignment'
 illegal_alignment = 'illegal alignment'
 memory_OOB = 'memory OOB'
+export_memory_OOB = 'export memory OOB'
+export_table_OOB = 'export table OOB'
 # table related
 table_OOB = 'table OOB'
 elem_seg_oob = 'element segment OOB'
@@ -86,6 +88,8 @@ categorize_info_coarse = {
     'bulk memory support is not enabled': multi_memory_unsupport,
     'multi-memory support is not enabled': multi_memory_unsupport,
     'memoryIndex must be less than module.memories.size': memory_OOB,
+    'exportIt.index must be less than module.memories.size': export_memory_OOB,
+    'exportIt.index must be less than module.tables.size': export_table_OOB,
     'reachedUnreachable': unreachable,
     'unreachable executed': unreachable,
     'Unknown 0xfc subopcode': fc_opcode,
@@ -199,6 +203,7 @@ content_relation0_list = [
     'reachedUnreachable',
     'Unknown 0xfc subopcode',
     'memoryIndex must be less than module.memories.size',
+    'exportIt.index must be less than module.memories.size',
     'function index out of bounds',
     'invalid function type',
     'Unknown 0xfd subopcode',

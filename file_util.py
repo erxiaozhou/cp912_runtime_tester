@@ -151,3 +151,15 @@ def f642bytes(val):
 
 def bytes2f32(bs):
     return struct.unpack('=f', bs)
+
+
+def byte2str(bs):
+    if len(bs) == 0:
+        return ''
+    result = chardet.detect(bs)
+    encoding = result['encoding']
+    if encoding is not None:
+        s = bs.decode(encoding)
+    else:
+        s = str(bs)
+    return s

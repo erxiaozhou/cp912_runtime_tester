@@ -3,23 +3,26 @@ from path_group_util import tester_exec_paths
 from run_dir_std_testing import test_with_mutation
 from file_util import check_dir, read_json, rm_dir
 from log_content_util import log_content_categorize_by_one_reason_path
+from tqdm import tqdm
 
 
-def set_paras_with_mutation(tested_dir, result_base_dir, one_tc_limit=50, mutate_num=5):
+def set_paras_with_mutation(tested_dir, result_base_dir, one_tc_limit=50, mutate_num=5, p10_mutate_coarse=None, use_release=False):
     result_base_dir = Path(result_base_dir)
     paths = tester_exec_paths.from_result_base_dir(result_base_dir)
     paras = {
         'tested_dir': tested_dir,  # 输入
         'one_tc_limit': one_tc_limit,
         'mutate_num': mutate_num,
-        'skip_common_diff': False
+        'skip_common_diff': False,
+        'p10_mutate_coarse':p10_mutate_coarse,
+        'use_release': use_release
     }
     paras.update(paths.to_dict)
     return paras, paths
 
 
 def get_no_mutation_paras(result_base_dir, tested_dir):
-    paras, paths = set_paras_with_mutation(tested_dir, result_base_dir, one_tc_limit=0, mutate_num=0)
+    paras, paths = set_paras_with_mutation(tested_dir, result_base_dir, one_tc_limit=0, mutate_num=0, p10_mutate_coarse=None)
     # 
     result_base_dir = Path(result_base_dir)
     paras_append = {
@@ -34,7 +37,7 @@ def detect_canrun_cannotdump(exec_paths, result_base_dir):
     assert isinstance(exec_paths, tester_exec_paths)
     canrun_cannotdump_tc_names = []
     # init canrun_cannotdump_tc_names
-    for reason_file in exec_paths.reason_dir.iterdir():
+    for reason_file in tqdm(exec_paths.reason_dir.iterdir(), desc='detect_canrun_cannotdump'):
         assert reason_file.suffix == '.json'
         data = read_json(reason_file)
         if 'CanRun_CannotDump' in repr(data):

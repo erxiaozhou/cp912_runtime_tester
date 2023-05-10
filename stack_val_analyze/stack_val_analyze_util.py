@@ -8,10 +8,10 @@ from tqdm import tqdm
 import re
 import numpy as np
 
-from nan_detect_util import is_anan
+from nan_detect_util import is_anan, is_cnan, is_illegal_anan, is_nan
 
 
-def category_satck(reason_json_path, dumped_data_base_dir, result_dir):
+def category_stack(reason_json_path, dumped_data_base_dir, result_dir):
     reason2tc_result_dirs = get_reason2result_dirs_from_reason_json(
         reason_json_path, dumped_data_base_dir)
     assert isinstance(reason2tc_result_dirs, dict)
@@ -51,7 +51,7 @@ def group_tc_names_by_stack_key(tc_result_dirs):
     for tc_result_dir in tc_result_dirs:
         dumped_results = load_results_from_one_dumped_data_dir(tc_result_dir)
         # print('tc_result_dir', tc_result_dir)
-        stack_vals = cleaned_stack_vals.from_dumped_results(dumped_results)
+        stack_vals = cleaned_stack_vals.from_dumped_results(dumped_results, tc_result_dir)
         key = stack_vals.key
         name = Path(tc_result_dir).name
         if key not in stack_key2tc_names:
@@ -78,8 +78,13 @@ class cleaned_stack_vals:
         return key
 
     @classmethod
-    def from_dumped_results(cls, dumped_results):
-        return cls(get_stack_val_from_dumped_results(dumped_results))
+    def from_dumped_results(cls, dumped_results, tc_result_dir):
+        try:
+            r = cls(get_stack_val_from_dumped_results(dumped_results))
+        except Exception as e:
+            print('tc_result_dir', tc_result_dir)
+            raise e 
+        return r
 
 
 # @lru_cache(maxsize=4096 * 4, typed=False)
@@ -98,9 +103,7 @@ def get_stack_val_from_dumped_results(dumped_results):
     stack_val_dict = {}
     for r in dumped_results:
         assert isinstance(r, dump_data)
-        # print('***********************',r.log_content.strip('\n'), r.log_has_failed_content)
-        if (not r.log_has_failed_content) and (not r.has_timeout):
-            # print(r.name, r.stack_types, '=', r.log_content, '=')
+        if not r.failed_exec:
             stack_val_dict[r.name] = cleaned_stack_val.from_dump_data(r)
     return stack_val_dict
 
@@ -112,7 +115,8 @@ class cleaned_stack_val:
         self.stack_bytes_process_nan = None
         self.stack_infered_vals = None
         self.stack_num = stack_num
-        self.is_anan = None
+        self.nan_ty =None
+        self.is_nan = None
         # self.is_inf = None
         if self.stack_num > 0:
             assert self.stack_num == 1, print(self.stack_num)
@@ -120,17 +124,26 @@ class cleaned_stack_val:
             self.stack_bytes = stack_bytes
             self.stack_infered_vals = stack_infered_vals
             self.stack_bytes_process_nan = stack_bytes_process_nan
+            # 
             if self.stack_types[0] in ['f32', 'f64']:
-                self.is_anan = is_anan(self.stack_bytes[0])
+                self.is_nan = is_nan(self.stack_bytes[0])
+                if self.is_nan:
+                    if is_anan(self.stack_bytes[0]):
+                        self.nan_ty = 'anan'
+                    elif is_cnan(self.stack_bytes[0]):
+                        self.nan_ty = 'cnan'
+                    else:
+                        assert is_illegal_anan(self.stack_bytes[0])
+                        self.nan_ty = 'illegal_anan'
             else:
-                self.is_anan = False
+                self.is_nan = False
 
     @property
     def key(self):
         # fmt = '{}_{}'
         # key = fmt.format(self.stack_types, self.is_anan)
         assert self.stack_num != -1, print('Except', self.stack_num, self.stack_types, self.stack_bytes)
-        if self.stack_num > 0:
+        if self.stack_num == 0:
             key = ''
         else:
             try:
@@ -139,8 +152,9 @@ class cleaned_stack_val:
                 # print(self.stack_types, self.stack_num, self.stack_bytes)
                 raise
             key = repr(self.stack_types[0])
-        if self.is_anan:
-            key += '_{}'.format(self.is_anan)
+        key += '_{}'.format(self.is_nan)
+        if self.is_nan:
+            key += '_{}'.format(self.nan_ty)
         if self.stack_infered_vals is not None:
             if self.stack_infered_vals[0] == np.inf:
                 key += '_inf'
@@ -151,7 +165,7 @@ class cleaned_stack_val:
     @classmethod
     def from_dump_data(cls, dump_data_obj):
         assert isinstance(dump_data_obj, dump_data)
-        assert not dump_data_obj.log_has_failed_content
+        assert not dump_data_obj.failed_exec
         paras = {
             'stack_num': dump_data_obj.stack_num,
             'stack_types': dump_data_obj.stack_types,

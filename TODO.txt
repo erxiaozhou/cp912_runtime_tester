@@ -1,35 +1,10 @@
 
 需要确定需要提取的变量前面有没有\，比如应该提取的是\\sx还是sx
-至少确定应该匹配的是\\shape而不是shape
 
 
-
-
-The data.drop instruction prevents further use of a passive data segment. This instruction is intended to be used as an optimization hint. After a data segment is dropped its data can no longer be retrieved, so the memory used by this segment may be freed.
-
-The data count section is used to simplify single-pass validation. Since the data section occurs after the code section, the memory.init and data.drop instructions would not be able to check whether the data segment index is valid until the data section is read. The data count section occurs before the code section, so a single-pass validator can use this count instead of deferring validation.
-
-The elem.drop instruction prevents further use of a passive element segment. This instruction is
-intended to be used as an optimization hint. After an element segment is dropped its elements can no longer be
-retrieved, so the memory used by this segment may be freed.
-
-
-
-符号执行的部分全换成Z3
 ref的规则还没搞清楚
-operation上面，可以试试搞个 operation-tree，看看哪些节点是可以扔掉不看的
 
-
-
-
-在处理Value的时候，:ref:`bit width <syntax-numtype>` :math:`|t|` of :ref:`number type <syntax-numtype>` :math:`t` 这个处理的不好
-
-
-#1. mutate的操作是否存在问题，需要验证
 2. 众多runtime的reference的映射，如果没办法搞就只能不写很多东西了 
-3. nan的触发做的不好
-
-
 
 
 reference映射
@@ -40,3 +15,81 @@ wasm3 没有Refer。null什么的，有table，table加了
 wasmer TBD
 WAVM TBD
 WASMEDGE TBD
+
+
+
+wasmi的报错：print reference的时候会报错，这个要修一下
+
+
+
+
+这个报错很新，之前没见到过
+"(\"(('iwasm_classic_interp_dump', ('CanExecute',)), ('iwasm_fast_interp_dump', ('CanExecute',)))\", '===', \"(('WAVM_default', 'Error loading WebAssembly binary file: Module was invalid: invalid index: depth must be less than controlStack.size() (depth=4294967295, controlStack.size()=1)\\\\n'), ('WasmEdge_disableAOT_newer', 'section size mismatch'), ('iwasm_classic_interp_dump', ''), ('iwasm_fast_interp_dump', ''), ('wasm3_dump', 'Error: invalid block depth'), ('wasmer_default_dump', 'error: failed to run`\\\\n│   1: module instantiation failed (compiler: cranelift)\\\\n╰─▶ 2: Validation error: unknown label: branch depth too large \\\\n'), ('wasmi_interp', 'Error: failed to parse and validate Wasm module: unknown label: branch depth too large \\\\n'))\")": "/media/hdd_xj1/cp910_data/main_testing_v9.4/log_category/6.json"
+
+
+下面两个timeout都有点奇怪，为什么会timeout，机器不忙的时候反而不会timeout，需要想一想
+"(\"(('wasmi_interp', ('CanRun_CannotDump', 'Timeout', 'default_mem_data', 'default_mem_length', 'default_mem_page_num', 'global_bytes', 'global_types', 'has_timeout', 'mem_num', 'stack_bytes', 'stack_bytes_process_nan', 'stack_num', 'stack_types')),)\", '===', \"(('WAVM_default', ''), ('WasmEdge_disableAOT_newer', ''), ('iwasm_classic_interp_dump', '\\\\n'), ('iwasm_fast_interp_dump', '\\\\n'), ('wasm3_dump', ''), ('wasmer_default_dump', ''), ('wasmi_interp', ''))\")": "/media/hdd_xj1/cp910_data/main_testing_v9.4/log_category/21.json",
+
+"(\"(('WAVM_default', ('CanRun_CannotDump', 'Timeout', 'default_mem_data', 'default_mem_length', 'default_mem_page_num', 'global_bytes', 'global_types', 'mem_num', 'stack_bytes', 'stack_bytes_process_nan', 'stack_num')), ('WasmEdge_disableAOT_newer', ('has_timeout',)), ('iwasm_classic_interp_dump', ('CannotExecute',)), ('iwasm_fast_interp_dump', ('CannotExecute',)), ('wasm3_dump', ('CannotExecute',)), ('wasmer_default_dump', ('Timeout',)), ('wasmi_interp', ('CannotExecute',)))\", '===', \"(('WAVM_default', ''), ('WasmEdge_disableAOT_newer', ''), ('iwasm_classic_interp_dump', 'WASM module load failed: unknown value type\\\\n'), ('iwasm_fast_interp_dump', 'WASM module load failed: unknown value type\\\\n'), ('wasm3_dump', 'Error: [Fatal] repl_load: unknown value_typeError: unknown value_type'), ('wasmer_default_dump', ''), ('wasmi_interp', 'SIMD support is not enabled'))\")": "/media/hdd_xj1/cp910_data/main_testing_v9.4/log_category/19.json",
+
+
+can_initialize 用法再检查下
+
+
+/media/hdd_xj1/cp910_data/main_testing_v12_550/log_category_s1/56.json
+
+
+wasmedge timeout的报错变了，需要看一下为什么，影响大不大
+
+
+wasm 混淆有的做
+
+
+
+
+
+为什么一个报错会出现？：
+1. 所有正常runtime都不该报错，但有一个实现错了的报错。由于扰动/其他因素的存在，会出现比较嘈杂的衍生报错，比如典型情况下只有两个报错，但有很多包括这两个的其他报错作何
+2. 均无bug的情况下，有个别会报错
+3. 均无bug下，全报错
+
+
+2. iwasm里有几个不支持的指令，看看怎么能让他们跑起来
+3. table里内容的compare
+
+6. v128专项测试：目前发现v128的special value可能不够有代表性
+7. i32.add i64.add f32.add f64.add或许可以作为一个较小的集合，去测mutation策略
+8. coverage实验跑通
+9. 
+
+
+
+/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/diff_tcs/select_4151_4_16789392011871257.wasm
+这里观察下，wasmedge的stack_type是不是i64，，，，
+
+
+哪些会在release下存在？这个要看看
+
+run_five等跑cmd的方法处理不好timeout，要修下
+
+
+
+select_ast
+Then the instruction is valid with type [𝑡 * 𝑡 * i32] → [𝑡 * ]
+
+local.tee
+
+
+global.set mutability
+
+store / load 的 alignment
+
+
+
+data section / element section的调研；
+wasmi instance里面没有这两个东西
+wasmer instance里面没有这两个东西
+iwasm没有
+
+
+先分析下为什么debug wasmi / wasmer 里面没有alignment的问题

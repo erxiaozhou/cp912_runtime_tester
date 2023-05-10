@@ -1,0 +1,83 @@
+{
+    "log_only_in_/media/ssd_wd1/cp910_data/main_testing_v125_250_9811/ori_log_category/log_category_only_highlight_only_highlight/0_reason_content_pair_inv_log.json": {
+        "((iwasm_classic_interp_dump, (CannotExecute,)), (iwasm_fast_interp_dump, (CannotExecute,)), (wasm3_dump, (CannotExecute,)), (wasmi_interp, (CannotExecute,)))": [
+            "((iwasm_classic_interp_dump, invalid local count), (iwasm_fast_interp_dump, invalid local count), (wasm3_dump, Aborted))",
+            "((iwasm_classic_interp_dump, undeclared function reference), (iwasm_fast_interp_dump, undeclared function reference))"
+        ],
+        "((wasm3_dump, (CanExecute,)),)": [
+            "((WAVM_default, memory OOB), (WasmEdge_disableAOT_newer, unknown memory), (iwasm_classic_interp_dump, unknown memory), (iwasm_fast_interp_dump, unknown memory), (wasmer_default_dump, unknown memory), (wasmi_interp, unknown memory))"
+        ],
+        "((WAVM_default, (CanExecute,)),)": [
+            "((WasmEdge_disableAOT_newer, illegal/unknown opcode), (iwasm_classic_interp_dump, illegal/unknown opcode), (iwasm_fast_interp_dump, illegal/unknown opcode), (wasm3_dump, Aborted), (wasmer_default_dump, unsupported opcode fd))"
+        ],
+        "((WasmEdge_disableAOT_newer, (stack_bytes_process_nan,)), (iwasm_classic_interp_dump, (CannotExecute,)), (iwasm_fast_interp_dump, (CannotExecute,)), (wasmi_interp, (stack_bytes_process_nan,)))": [
+            "((iwasm_classic_interp_dump, invalid local count), (iwasm_fast_interp_dump, invalid local count))"
+        ],
+        "((WAVM_default, (has_timeout,)),)": [
+            "((WasmEdge_disableAOT_newer, illegal/unknown type), (iwasm_classic_interp_dump, illegal/unknown type), (iwasm_fast_interp_dump, illegal/unknown type), (wasm3_dump, illegal/unknown type), (wasmer_default_dump, Invalid type))"
+        ],
+        "((WasmEdge_disableAOT_newer, (stack_bytes_process_nan,)), (iwasm_classic_interp_dump, (CannotExecute,)), (iwasm_fast_interp_dump, (CannotExecute,)), (wasm3_dump, (CannotExecute,)), (wasmi_interp, (stack_bytes_process_nan,)))": [
+            "((iwasm_classic_interp_dump, invalid local count), (iwasm_fast_interp_dump, invalid local count))"
+        ],
+        "((iwasm_classic_interp_dump, (CannotExecute,)), (iwasm_fast_interp_dump, (CannotExecute,)))": [
+            "()"
+        ],
+        "((WasmEdge_disableAOT_newer, (CannotExecute,)), (iwasm_classic_interp_dump, (CannotExecute,)), (iwasm_fast_interp_dump, (CannotExecute,)), (wasm3_dump, (CannotExecute,)))": [
+            "((WasmEdge_disableAOT_newer, <wrong alignment>), (iwasm_classic_interp_dump, <wrong alignment>), (iwasm_fast_interp_dump, <wrong alignment>), (wasm3_dump, unreachable))"
+        ],
+        "((wasmi_interp, (CanExecute,)),)": [
+            "((WAVM_default, memory OOB), (WasmEdge_disableAOT_newer, <wrong alignment>), (iwasm_classic_interp_dump, <wrong alignment>), (iwasm_fast_interp_dump, <wrong alignment>), (wasm3_dump, Aborted))"
+        ]
+    },
+    "log_only_in_/media/ssd_wd1/cp910_data/main_testing_v125_250_9811_2/log_category_base/log_category_only_highlight/0_reason_content_pair_inv_log.json": {
+        "((wasm3_dump, (CanExecute,)),)": [
+            "((WAVM_default, <wrong alignment>), (WasmEdge_disableAOT_newer, unknown memory), (iwasm_classic_interp_dump, unknown memory), (iwasm_fast_interp_dump, unknown memory), (wasmer_default_dump, unknown memory), (wasmi_interp, unknown memory))",
+            "((WAVM_default, memory index reserved byte must be zero), (WasmEdge_disableAOT_newer, zero byte expected), (iwasm_classic_interp_dump, zero byte expected), (iwasm_fast_interp_dump, zero byte expected), (wasmi_interp, zero byte expected))"
+        ],
+        "((iwasm_classic_interp_dump, (CannotExecute,)), (iwasm_fast_interp_dump, (CannotExecute,)), (wasm3_dump, (CannotExecute,)), (wasmi_interp, (CannotExecute,)))": [
+            "((iwasm_classic_interp_dump, illegal/unknown opcode), (iwasm_fast_interp_dump, illegal/unknown opcode))",
+            "((iwasm_classic_interp_dump, undeclared function reference), (iwasm_fast_interp_dump, undeclared function reference), (wasm3_dump, Aborted))",
+            "((iwasm_classic_interp_dump, undeclared function reference), (iwasm_fast_interp_dump, undeclared function reference), (wasm3_dump, illegal/unknown type))",
+            "((iwasm_classic_interp_dump, undeclared function reference), (iwasm_fast_interp_dump, undeclared function reference), (wasm3_dump, illegal/unknown opcode))"
+        ],
+        "((WAVM_default, (CanExecute,)),)": [
+            "((WasmEdge_disableAOT_newer, illegal/unknown opcode), (iwasm_classic_interp_dump, illegal/unknown opcode), (iwasm_fast_interp_dump, illegal/unknown opcode), (wasm3_dump, illegal/unknown opcode), (wasmer_default_dump, unsupported opcode fd))",
+            "((WasmEdge_disableAOT_newer, type mismatch), (iwasm_classic_interp_dump, illegal/unknown type), (iwasm_fast_interp_dump, illegal/unknown type), (wasm3_dump, illegal/unknown type), (wasmer_default_dump, type mismatch))"
+        ],
+        "((iwasm_classic_interp_dump, (CanExecute,)), (iwasm_fast_interp_dump, (CanExecute,)))": [
+            "((WAVM_default, <function or section size mismatch>), (WasmEdge_disableAOT_newer, <function or section size mismatch>), (wasm3_dump, <function or section size mismatch>), (wasmer_default_dump, <function or section size mismatch>), (wasmi_interp, <function or section size mismatch>))",
+            "((WAVM_default, table OOB), (WasmEdge_disableAOT_newer, table OOB), (wasm3_dump, illegal/unknown opcode), (wasmer_default_dump, table OOB))",
+            "((WAVM_default, illegal/unknown opcode), (WasmEdge_disableAOT_newer, illegal/unknown opcode), (wasm3_dump, illegal/unknown opcode), (wasmer_default_dump, illegal/unknown opcode), (wasmi_interp, illegal/unknown opcode))"
+        ],
+        "((WasmEdge_disableAOT_newer, (CanExecute,)), (wasm3_dump, (CanExecute,)))": [
+            "((WAVM_default, illegal/unknown opcode), (iwasm_classic_interp_dump, illegal/unknown opcode), (iwasm_fast_interp_dump, illegal/unknown opcode), (wasmer_default_dump, illegal/unknown opcode))",
+            "((WAVM_default, <function or section size mismatch>), (iwasm_classic_interp_dump, <function or section size mismatch>), (iwasm_fast_interp_dump, <function or section size mismatch>), (wasmer_default_dump, <function or section size mismatch>), (wasmi_interp, <function or section size mismatch>))",
+            "((WAVM_default, <masked because of <function or section size mismatch>>), (iwasm_classic_interp_dump, <masked because of <function or section size mismatch>>), (iwasm_fast_interp_dump, <masked because of <function or section size mismatch>>), (wasmer_default_dump, <masked because of <function or section size mismatch>>), (wasmi_interp, <masked because of <function or section size mismatch>>))"
+        ],
+        "((WasmEdge_disableAOT_newer, (has_timeout,)),)": [
+            "()"
+        ],
+        "((wasm3_dump, (CannotExecute,)),)": [
+            "((wasm3_dump, Aborted),)"
+        ],
+        "((WAVM_default, (CanExecute,)), (iwasm_classic_interp_dump, (CanExecute,)), (iwasm_fast_interp_dump, (CanExecute,)))": [
+            "((WasmEdge_disableAOT_newer, table OOB), (wasm3_dump, illegal/unknown opcode), (wasmer_default_dump, table OOB))"
+        ],
+        "((WAVM_default, (CanExecute,)), (wasm3_dump, (CanExecute,)))": [
+            "((WasmEdge_disableAOT_newer, <wrong alignment>), (iwasm_classic_interp_dump, <wrong alignment>), (iwasm_fast_interp_dump, <wrong alignment>), (wasmer_default_dump, <wrong alignment>), (wasmi_interp, <wrong alignment>))"
+        ]
+    },
+    "key_only_in_/media/ssd_wd1/cp910_data/main_testing_v125_250_9811/ori_log_category/log_category_only_highlight_only_highlight/0_reason_content_pair_inv_log.json": [
+        "((WasmEdge_disableAOT_newer, (stack_bytes_process_nan,)), (iwasm_classic_interp_dump, (CannotExecute,)), (iwasm_fast_interp_dump, (CannotExecute,)), (wasmi_interp, (stack_bytes_process_nan,)))",
+        "((WAVM_default, (has_timeout,)),)",
+        "((WasmEdge_disableAOT_newer, (CannotExecute,)), (iwasm_classic_interp_dump, (CannotExecute,)), (iwasm_fast_interp_dump, (CannotExecute,)), (wasm3_dump, (CannotExecute,)))",
+        "((wasmi_interp, (CanExecute,)),)"
+    ],
+    "key_only_in_/media/ssd_wd1/cp910_data/main_testing_v125_250_9811_2/log_category_base/log_category_only_highlight/0_reason_content_pair_inv_log.json": [
+        "((iwasm_classic_interp_dump, (CanExecute,)), (iwasm_fast_interp_dump, (CanExecute,)))",
+        "((WasmEdge_disableAOT_newer, (CanExecute,)), (wasm3_dump, (CanExecute,)))",
+        "((wasm3_dump, (CannotExecute,)),)",
+        "((WAVM_default, (CanExecute,)), (iwasm_classic_interp_dump, (CanExecute,)), (iwasm_fast_interp_dump, (CanExecute,)))",
+        "((WAVM_default, (CanExecute,)), (wasm3_dump, (CanExecute,)))"
+    ]
+}

@@ -45,7 +45,7 @@ def reason_base_dir2reason_summary_json(reason_base_dir, save_path, considered_k
 def reason_base_dir2reason_summary(reason_base_dir, considered_keys):
     reason_summary = {}
     dir_path = Path(reason_base_dir)
-    for p in dir_path.iterdir():
+    for p in tqdm(dir_path.iterdir(), desc='In reason_base_dir2reason_summary'):
         tc_name = p.stem
         reason_key = _get_key_from_diff_result_p(p, considered_keys)
         if reason_key not in reason_summary:

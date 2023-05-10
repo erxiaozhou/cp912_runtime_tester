@@ -49,10 +49,8 @@ def exec_one_runtime(imlp, tc_result_dir, tc_path):
     imlp_name = imlp.name
     store_path = _path_generator(imlp_name, tc_result_dir, 'store-part')
     vstack_path = _path_generator(imlp_name, tc_result_dir, 'vstack-part')
-    tgt_log_path = _path_generator(imlp_name, tc_result_dir, 'log')
     tgt_inst_path = _path_generator(imlp_name, tc_result_dir, 'has_instance')
     result_paths = imlp_result_path_group(
-        tgt_log_path = tgt_log_path,
         tgt_vstack_path = vstack_path,
         tgt_store_path = store_path,
         tgt_inst_path = tgt_inst_path

@@ -5,13 +5,26 @@ from data_comparer import are_different, at_least_one_can_instantiate
 from exec_util import exec_one_tc, exec_one_tc_mth
 from extract_dump import dump_data
 from file_util import check_dir
+from file_util import print_ba
 from get_imlps_util import get_std_imlps
 import os
 import sys
-imlps = get_std_imlps()
+from stack_val_analyze.stack_val_analyze_util import cleaned_stack_val
+from data_comparer import _get_can_execute_num
+from get_imlps_util import get_std_release_impls
+debug_imlps = get_std_imlps()
+release_impls = get_std_release_impls()
 
 
-def test_env(tc_name, reload=False, reload_dir=None):
+
+def test_env(tc_name, reload=False, reload_dir=None, use_release=False):
+    if use_release:
+        imlps = release_impls
+    else:
+        imlps = debug_imlps
+    for impl in imlps:
+        print(impl.executor.dump_cmd_fmt)
+        print(impl.executor._result_paths)
     if Path(tc_name).exists():
         tc_path = tc_name
         tc_name = Path(tc_name).stem
@@ -28,8 +41,8 @@ def test_env(tc_name, reload=False, reload_dir=None):
         os.system('rm -rf {}'.format(result_base_dir))
         result_base_dir = check_dir(result_base_dir)
         tc_dumped_data_dir = check_dir(result_base_dir / tc_name)
-    # dumped_results = exec_one_tc_mth(imlps, tc_path, tc_dumped_data_dir, tc_dumped_data_dir)
-    dumped_results = exec_one_tc(imlps, tc_path, tc_dumped_data_dir, tc_dumped_data_dir)
+    dumped_results = exec_one_tc_mth(imlps, tc_path, tc_dumped_data_dir, tc_dumped_data_dir)
+    # dumped_results = exec_one_tc(imlps, tc_path, tc_dumped_data_dir, tc_dumped_data_dir)
     # print(dumped_results)
     difference_reason = are_different(dumped_results)
     # print(dumped_results)
@@ -41,15 +54,27 @@ def test_env(tc_name, reload=False, reload_dir=None):
         print(difference_reason)
     print(diff_keys)
     print(at_least_one_can_instantiate(dumped_results))
+    print('=' * 50)
     for result in dumped_results:
         assert isinstance(result, dump_data)
-        print('=' * 50)
-        print(result.name, result.has_instance, result.default_table_len)
+        print('-' * 25)
+        print(result.name)
+        print(result.can_initialize)
+        # print(result.name, result.has_instance, result.default_table_len)
+        # print(result.stack_types)
+        print(result.log_content)
+        # if not result.failed_exec:
+        #     print_ba(result.stack_bytes[0])
+        #     # print(result.stack_infered_vals[0])
+        #     print(cleaned_stack_val.from_dump_data(result).key)
+        #     print(result.failed_exec)
+    print(_get_can_execute_num(dumped_results))
+    
         # print(result.stack_bytes)
         # if result.stack_bytes:
         #     print([hex(x) for x in result.stack_bytes[0]])
         # print('Content ', '-' * 30)
-        print(result.log_content)
+        
         # for diff_key in diff_keys:
         #     print('>    {}: {}'.format(diff_key, getattr(result, diff_key)))
 
@@ -67,5 +92,6 @@ if __name__ == '__main__':
     argv = sys.argv
     assert len(argv) == 2
     tc_path = argv[1]
-    test_env(tc_path, False, 'result/one')
+    # test_env(tc_path, False, 'result/one',use_release=False)
+    test_env(tc_path, False, 'result/one',use_release=True)
 

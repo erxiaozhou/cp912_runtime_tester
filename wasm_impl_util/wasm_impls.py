@@ -5,6 +5,7 @@ from .util import move_based_executor
 from .util import resultGenerator
 from path_group_util import imlp_ori_path_group
 from path_group_util import imlp_result_path_group
+from pathlib import Path
 
 
 class common_runtime(Wasm_impl):
@@ -15,25 +16,28 @@ class common_runtime(Wasm_impl):
         self.result_generator = result_generator
 
     @classmethod
-    def from_dict(cls, name, dict_, timeout_th=10):
+    def from_dict(cls, name, dict_, timeout_th=20):
         dump_dir = dict_['dump_dir']
         store_path = combine_path(dump_dir, dict_['dump_store_rpath'])
         ori_vstack_path = combine_path(dump_dir, dict_['dump_vstack_rpath'])
         ori_inst_path = combine_path(dump_dir, dict_['dump_instante_rpath'])
         ori_paths = imlp_ori_path_group(store_path, ori_vstack_path, ori_inst_path)
         bin_path = combine_path(dump_dir, dict_['bin_relative_path'])
-        dump_cmd_fmt = dict_['dump_cmd'].format(bin_path, '{}', '{}')
+        assert Path(bin_path).exists()
+        dump_cmd_fmt = dict_['std_cmd'].format(bin_path, '{}')
         features = _get_features_from_dict(dict_)
-        executor = move_based_executor(ori_paths, timeout_th, dump_cmd_fmt)
+        err_channel = dict_['err_channel']
+        executor = move_based_executor(ori_paths, timeout_th, dump_cmd_fmt, err_channel)
         result_generator = resultGenerator(dict_['dump_extractor'], features)
         return cls(name, executor, result_generator)
 
     def execute_and_collect(self, tc_path, result_paths):
         assert isinstance(result_paths, imlp_result_path_group)
         self.executor.set_result_paths(result_paths)
-        has_timeout = self.executor.execute(tc_path)
+        has_timeout, content = self.executor.execute(tc_path)
         self.result_generator.set_result_paths(result_paths)
         self.result_generator.has_timeout = has_timeout
+        self.result_generator.log_content = content
         dumped_data = self._return_extracted_data()
         return dumped_data
 

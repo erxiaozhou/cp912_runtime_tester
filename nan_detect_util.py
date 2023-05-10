@@ -37,6 +37,33 @@ def is_anan(bs):
         return False
 
 
+def is_cnan(bs):
+    if not is_nan(bs):
+        return False
+    length = len(bs)
+    assert length in [4, 8], print(length)
+    int_val = bytes2uint(bs)
+    if length == 4:
+        N = 22
+    else:
+        N = 51
+    mask = 2 ** (N + 1) - 1
+    if (int_val & mask) == 2 ** N:
+        return True
+    else:
+        return False
+
+
+def is_illegal_anan(bs):
+    if not is_nan(bs):
+        return False
+    if is_anan(bs):
+        return False
+    if is_cnan(bs):
+        return False
+    return True
+
+
 def process_32anan(bs):
     assert is_anan(bs)
     int_val = bytes2uint(bs)

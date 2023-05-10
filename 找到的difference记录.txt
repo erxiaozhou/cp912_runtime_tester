@@ -1,0 +1,178 @@
+/media/ssd_wd1/cp910_data/main_testing_v14.1_550_9811_p10MC4 4.55小时 
+15 14 8 10 5 11 13 12   # wasm3 can run
+9 21 
+23                      # ((WAVM_default, Error loading WebAssembly binary file: Module was malformed: invalid initializer expression opcode),)
+2 3 20                  # ((iwasm_classic_interp_dump, (CanExecute,)), (iwasm_fast_interp_dump, (CanExecute,)))
+24 # ((WasmEdge_disableAOT_newer, (CanExecute,)),)
+1 6 7 18
+未发现：4 22
+待验证： 17 16 （大概率是有的）
+WasmEdge的op问题没统计进下面的表
+# 19先放一放，再研究下
+    "/media/ssd_wd1/cp910_data/main_testing_v14.1_550_9811_p10MC4/log_category_base/only_highlight_log_category/13.json<-->((WAVM_default, (CanExecute,)), (iwasm_classic_interp_dump, (CanExecute,)), (iwasm_fast_interp_dump, (CanExecute,)))": [
+        "((WasmEdge_disableAOT_newer, table OOB), (wasm3_dump, illegal/unknown opcode), (wasmer_default_dump, table OOB))"
+    ],
+    
+    "/media/ssd_wd1/cp910_data/main_testing_v14.1_550_9811_2/log_category_base/only_highlight_log_category/21.json<-->((WAVM_default, (has_timeout,)),)": [
+        "((WasmEdge_disableAOT_newer, type mismatch), (wasmer_default_dump, type mismatch))",
+        "((wasmer_default_dump, invalid result arity),)"
+    ],
+===========================================================================================
+/media/ssd_wd1/cp910_data/main_testing_v14.1_550_9811_p10MC3 4.91小时 
+21 19？9 10 5 15 8 11 13 24 23 7 16 17 6 1 20 2 3 12
+有wasmedge undefined opcode
+4中wasmer alignment没找到
+14 18 22没找到
+
+===========================================================================================
+/media/ssd_wd1/cp910_data/main_testing_v14.1_550_9811_p10MC2 4.91小时 很差
+===========================================================================================
+main_testing_v14.1_550_9811_3 29 h
+1 2 15 24 3 12 16 17 4 5 6 7 23 8 18 9 20 21 10 11 13 14 19?
+22 没有
+===========================================================================================
+main_testing_v14.1_550_9811_2 (其实是350的配置) 16h
+22没有
+
+
+===========================================================================================
+/media/ssd_wd1/cp910_data/v15_debug_empty_tcs_560_9811_p50MC 不到12h
+v15里取消了多模板的设计，用了全空模板，global；里取消了v128
+1 不中 
+22 23 不中
+18 不中
+2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 20 24 12 19 21 
+
+===========================================================================================
+/media/hdd_xj1/cp910_data/main_testing_v17_340_9811
+
+21 9 10 5 15 12 13 8 14 11 24 6 2 3 20
+2 3 4（两个都有） 5 6 7 8 9 10 11 12 13 14 15 20 21 24 16 17 19个
+22不中意料之内
+
+===========================================================================================
+/media/hdd_xj1/cp910_data/main_testing_v18_330_9811
+2 3 5 6 7 8 9 10 11 12 13 14 15 16 17 18 20 21 22 24 (wasm3 can execute ; unknown table????)
+18再看看，是不是幻觉； 16 17自己研究下
+4不中；19 不中
+19很难中
+
+
+===========================================================================================
+/media/hdd_xj1/cp910_data/main_testing_v18_330_9811_2
+2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 20 21 24 26
+4+
+
+
+
+
+2 3 4 4+ 5 
+6 7 8 9 10
+11 12 13 14 15
+16 17 18 20 21
+24 26 25
+
+
+不中：  1 19 22 23 保险起见，17不算了
+
+/media/hdd_xj1/cp910_data/main_testing_v18_330_9811_2/log_category_base/only_highlight_log_category/17.json ???????????
+
+https://anonymous.4open.science/r/cp912-78CE/ConstraintsTable.pdf
+
+
+
+| id   | runtime                                       | description                                                  |
+| ---- | --------------------------------------------- | ------------------------------------------------------------ |
+| 1*   | ic /  iwasm-fast(未报，但也有)     | the local number can be zero                                 |
+| 2*=   | ic /  iwasm-fast(未报，但应该也有) | code section size check                                      |
+| 3*=   | ic /  iwasm-fast(未报，但应该也有) | “handling opcode DROP_64/SELECT_64 in loader stage<br/>prepare_bytecode, as they are the modified opcodes of DROP/SELECT<br/>for optimization purpose, but not the opcodes defined by spec” <br />from developer |
+| 4*=   | (wasmtime) / wasmi / wasmer                   | wrong alignment                                              |
+| 5    | wasm3                                         | wrong alignment                                              |
+| 6    | WAVM                                          | wrong alignment                                              |
+| 7*=   | WasmEdge                                      | The `assert_exhaustion` error is not implemented yet. -- from developer (`call 0`这种递归的时候就炸了) |
+| 8   | wasm3*                                        | type mismatch                                                |
+| 9*=   | ic /  iwasm-fast*                  | ref.func 0不被识别的问题                                     |
+| 10   | wasm3                                         | local ty是0x40的时候不报错                                   |
+| 11?  | wasm3                                         | zero byte expected; rule10                                   |
+| 12?  | wasm3                                         | debug模式里有自定义的op   illegal opcode                     |
+| 13   | wasm3                                         | too large int                                                |
+| 14?   | wasm3                                         | unknown memory                                               |
+| 15   | wasm3                                         | section/ function size mismatch                              |
+| 16   | WAVM                                          | illegal opcode                                               |
+| 17?  | WAVM                                          | illegal opcode ？                                            |
+| 18   | WAVM                                          | type mismatch                                                |
+| 19 ?*| wasm3                                         | rule27 就报错了个Aborted，也没说原因，需要自己分析.报错指令：或许是select，可以看 |
+| 20?* | ic /  iwasm-fast                   | 按spec，是个OOB                                              |
+| 21*=  | ic /  iwasm-fast                   | data count section ； invalid section id                     |
+| 22   | wasm3                                         | export table OOB                                             |
+| 23   | WAVM                                          | wrong type code of v128_const                                |
+| 24*=  | WasmEdge                                      | function / section size mismatch                             |
+|      |                                               |                                                              |
+|      |                                               |                                                              |
+|      |                                               |                                                              |
+| ?    |                                               | 在调试template的时候发现的。不打算算作我们发现的bug，        |
+
+
+25= 修了
+wasmi select_ast /media/hdd_xj1/cp910_data/main_testing_v18_340_9811_no_mutation/diff_tcs/select_ast_6446.wasm 修了  
+这样的都是 
+((wasmer_default_dump, (stack_bytes_process_nan,)), (wasmi_interp, (stack_bytes_process_nan,)))
+(('WAVM_default', \"'i64'_False\"), ('WasmEdge_disableAOT_newer', \"'i64'_False\"), ('iwasm_classic_interp_dump', \"'i64'_False\"), ('iwasm_fast_interp_dump', \"'i64'_False\"), ('wasmer_default_dump', \"'i64'_False\"), ('wasmi_interp', \"'i64'_False\"))
+(('WAVM_default', \"'f32'_False_ninf\"), ('WasmEdge_disableAOT_newer', \"'f32'_False_ninf\"), ('iwasm_classic_interp_dump', \"'f32'_False_ninf\"), ('iwasm_fast_interp_dump', \"'f32'_False_ninf\"), ('wasmer_default_dump', \"'f32'_False_ninf\"), ('wasmi_interp', \"'f32'_False\"))
+(('WAVM_default', \"'f32'_False_inf\"), ('WasmEdge_disableAOT_newer', \"'f32'_False_inf\"), ('iwasm_classic_interp_dump', \"'f32'_False_inf\"), ('iwasm_fast_interp_dump', \"'f32'_False_inf\"), ('wasmer_default_dump', \"'f32'_False_inf\"), ('wasmi_interp', \"'f32'_False\"))
+包括：
+。。。
+
+
+
+26 wavm oob 报了
+
+
+
+
+
+
+
+
+
+
+[fixed](https://xxxxxxxxxxxxxxxx)
+
+
+
+
+| id   | runtime                     | description                                                  |
+| ---- | --------------------------- | ------------------------------------------------------------ |
+| 1    | ic /  iwasm-fast | the most significant bit of the arithmetic NaN's payload should be 1 |
+| 2    | ic /  iwasm-fast(未报，但应该也有) | the most significant bit of the arithmetic NaN's payload should be 1 |
+| 3 | wasmi | the most significant bit of the arithmetic NaN's payload should be 1 |
+| 4 | WasmEdge | the most significant bit of the arithmetic NaN's payload should be 1 |
+| 5 | wasm3 | the most significant bit of the arithmetic NaN's payload should be 1 |
+| 6 | WAVM | the most significant bit of the arithmetic NaN's payload should be 1 |
+| 7 | wasm3 | canonical NaN  sign（检查下spec，是不是误报） |
+
+
+
+
+
+
+
+
+
+
+这什么情况
+    "/media/hdd_xj1/cp910_data/main_testing_v17_340_9811/log_category_base/only_highlight_log_category/3.json<-->((WasmEdge_disableAOT_newer, (CanExecute,)),)": [
+        "((WAVM_default, invalid reference type encoding), (wasmer_default_dump, error: failed to run`│   1: module instantiati
+
+
+
+    "/media/hdd_xj1/cp910_data/main_testing_v17_340_9811/log_category_base/only_highlight_log_category/18.json<-->((WAVM_default, (CanExecute,)), (iwasm_classic_interp_dump, (CanExecute,)), (iwasm_fast_interp_dump, (CanExecute,)))": [
+        "((WasmEdge_disableAOT_newer, table OOB), (wasm3_dump, illegal/unknown opcode), (wasmer_default_dump, table OOB))"
+
+
+
+
+
+
+
+

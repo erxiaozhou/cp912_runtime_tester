@@ -7,3 +7,5 @@ from .debug_util import is_executable_by_iwasmlog
 from .debug_util import _std_iwasm_execute_core
 from .debug_util import is_executable_by_impl
 from .debug_util import get_log_by_impl
+from .debug_util import get_log_by_lastest_impl
+from .debug_util import is_executable_by_latest_impl

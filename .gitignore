@@ -28,3 +28,10 @@ tcs_v4
 tool_test/*
 .vscode
 .vscode/**
+tmp*.py
+executable_checking_result/**
+executable_checking_result
+tt.py
+executable_log_v125
+t_log
+some_logs

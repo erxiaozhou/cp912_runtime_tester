@@ -4,11 +4,19 @@ from data_comparer import are_different, at_least_one_can_execute, at_least_one_
 from exec_util import exec_one_tc, exec_one_tc_mth
 from file_util import check_dir, cp_file, get_time_string, remove_file_without_exception, rm_dir, save_json
 from get_imlps_util import get_std_imlps
+from get_imlps_util import get_std_release_impls
 from generate_tcs_by_mutation_util import generate_tcs
+from random import random
 
 
-def test_with_mutation(tested_dir, new_tc_dir, diff_tc_dir, dumped_data_base_dir, config_log_path, reason_dir, one_tc_limit = 6000, mutate_num = 60, except_dir='except_dir', skip_common_diff=False, add_mutation=True, check_result_dir_not_exist=True):
-    imlps = get_std_imlps()
+
+def test_with_mutation(tested_dir, new_tc_dir, diff_tc_dir, dumped_data_base_dir, config_log_path, reason_dir, one_tc_limit = 6000, mutate_num = 60, except_dir='except_dir', skip_common_diff=False, add_mutation=True, check_result_dir_not_exist=True, remove_tc=False, p10_mutate_coarse=None, use_release=False):
+    if p10_mutate_coarse is not None:
+        assert isinstance(p10_mutate_coarse, float)
+    if use_release:
+        imlps = get_std_release_impls()
+    else:
+        imlps = get_std_imlps()
     if check_result_dir_not_exist:
         assert not Path(dumped_data_base_dir).parent.exists(), print(dumped_data_base_dir.parent)
         assert not Path(dumped_data_base_dir).exists(), print(dumped_data_base_dir)
@@ -36,10 +44,10 @@ def test_with_mutation(tested_dir, new_tc_dir, diff_tc_dir, dumped_data_base_dir
         generated_tc_num = 0
         is_ori = True
         while possible_m:
-            tc_path = possible_m.pop()
-            tc_name = Path(tc_path).stem
-            tc_dumped_data_dir = check_dir(dumped_data_base_dir / tc_name)
             try:
+                tc_path = possible_m.pop()
+                tc_name = Path(tc_path).stem
+                tc_dumped_data_dir = check_dir(dumped_data_base_dir / tc_name)
                 print(tc_path)
                 dumped_results = exec_one_tc_mth(imlps, tc_path, tc_dumped_data_dir, tc_dumped_data_dir)
                 exec_info['all_exec_times'] += 1
@@ -60,7 +68,6 @@ def test_with_mutation(tested_dir, new_tc_dir, diff_tc_dir, dumped_data_base_dir
                         print(exec_info['mutation_times'])
                         if is_ori:
                             exec_info['mutation_ori_tc_num'] += 1
-                            is_ori = False
 
                 if difference_reason:
                     exec_info['difference_num'] += 1
@@ -74,11 +81,23 @@ def test_with_mutation(tested_dir, new_tc_dir, diff_tc_dir, dumped_data_base_dir
                 if Path(tc_path).is_relative_to(new_tc_dir):
                     remove_file_without_exception(tc_path)
                 
-            except AssertionError as e:
-                raise e
-            except Exception as e:
-                # raise e
+            # except AssertionError as e:
+            #     raise e
+            except RuntimeError as e:
+                is_ori = False
                 cp_file(tc_path, except_tc_dir)
+                # raise e
+            except Exception as e:
+                is_ori = False
+                cp_file(tc_path, except_tc_dir)
+                # raise e
+            # ! 一个很粗糙的版本，准备改
+            if is_ori:
+                is_ori = False
+                if (p10_mutate_coarse is not None) and (random() > p10_mutate_coarse):
+                    break
+        # if remove_tc:
+        #     remove_file_without_exception(tc_path)
     end_time = time.time()
     if exec_info['mutation_times'] == 0:
         mean_r = 0

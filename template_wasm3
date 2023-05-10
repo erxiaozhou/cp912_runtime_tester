@@ -1,0 +1,29 @@
+## Description
+
+### Current State
+Output: Result: -inf
+
+### Expected
+An exception indicating that "illegal opcode ef"
+
+## Environment
+- Code Version: git commit id 772f8f4648fcba75f77f894a6050db121e7651a2
+- Hardware Architecture: x86\_64 
+- Operating system: Ubuntu 20.04
+
+
+## Steps to Reproduce
+
+commands to build:
+```
+export CC=/usr/bin/clang-14
+export CXX=/usr/bin/clang++-14
+rm -rf build
+mkdir build
+cd build
+cmake -GNinja -DCMAKE_BUILD_TYPE=Debug .. 
+ninja
+```
+
+
+wasm3 --func to_test <test_case_name>

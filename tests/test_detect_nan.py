@@ -1,6 +1,8 @@
 import pytest
 from nan_detect_util import is_nan
 from nan_detect_util import is_anan
+from nan_detect_util import is_cnan
+from nan_detect_util import is_illegal_anan
 from nan_detect_util import process_f32_64
 from file_util import f322bytes, f642bytes
 from extract_dump.process_dump_data_util import get_f64, get_f32
@@ -24,6 +26,9 @@ ba_vals = [
     bytearray(b'\x20\x00\xff\x00\x00\x00\xf8\xff'),  # -a nan
     bytearray(b'\x20\x00\x1c\x00\x00\x00\xf8\x7f'),  # a nan
     bytearray(b'\x20\x00\x1c\x00\x00\x00\xf8\xff'),  # -a nan
+    # ['0x39', '0x0', '0x0', '0x0', '0x0', '0x0', '0xf0', '0x7f']
+    bytearray(b'\x39\x00\x00\x00\x00\x00\xf0\x7f'),  # a inf?
+    bytearray(b'\x39\x00\x00\x00\x00\x00\xf0\xff'),  # - a inf?
 ]
 
 
@@ -38,6 +43,8 @@ ba_vals_is_nan = [
     True,
     False,
     False,
+    True,
+    True,
     True,
     True,
     True,
@@ -63,7 +70,30 @@ ba_vals_is_anan = [
     True,
     True,
     True,
-    True
+    True,
+    False,
+    False
+]
+
+ba_vals_is_cnan = [
+    False,
+    False,
+    True,
+    True,
+    False,
+    False,
+    False,
+    False,
+    False,
+    False,
+    True,
+    True,
+    False,
+    False,
+    False,
+    False,
+    False,
+    False
 ]
 
 
@@ -92,6 +122,10 @@ def test_is_anan_on_ba(ba, r):
     assert is_anan(ba) == r
 
 
+@pytest.mark.parametrize('ba, r', zip(ba_vals, ba_vals_is_cnan))
+def test_is_cnan_on_ba(ba, r):
+    assert is_cnan(ba) == r
+
 @pytest.mark.parametrize('val', float_values)
 def test_is_nan_on_common_floats(val):
     assert not is_nan(f322bytes(val))
@@ -102,6 +136,8 @@ def test_is_nan_on_common_floats(val):
 def test_is_anan_on_common_floats(val):
     assert not is_anan(f322bytes(val))
     assert not is_anan(f642bytes(val))
+    assert not is_cnan(f322bytes(val))
+    assert not is_cnan(f642bytes(val))
 
 
 @pytest.mark.parametrize('val', float_values)
@@ -124,9 +160,25 @@ def test_process_f32_64_on_common_floats(val):
     assert not is_nan(process_f32_64(f642bytes(val)))
     assert not is_anan(process_f32_64(f322bytes(val)))
     assert not is_anan(process_f32_64(f642bytes(val)))
+    assert not is_cnan(process_f32_64(f322bytes(val)))
+    assert not is_cnan(process_f32_64(f642bytes(val)))
+
 
 
 @pytest.mark.parametrize('ba, r', zip(ba_vals, ba_vals_is_nan))
 def test_process_f32_64_on_ba(ba, r):
     assert is_nan(process_f32_64(ba)) == r
     assert not is_anan(process_f32_64(ba))
+
+@pytest.mark.parametrize('ba', ba_vals)
+def test_detect_nan_ty(ba):
+    s = 0
+    if is_nan(ba):
+        s += 1
+    if is_anan(ba):
+        s -= 1
+    if is_cnan(ba):
+        s -= 1
+    if is_illegal_anan(ba):
+        s -= 1
+    assert s == 0
