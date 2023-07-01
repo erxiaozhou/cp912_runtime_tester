@@ -1,5 +1,5 @@
 from debug_util import is_executable_by_impl
-from .analyze_data_util import analyze_data
+from .analyze_data_util import analyzeData
 from .std_exec_get_log import get_logs
 from debug_util import get_log_by_impl
 from debug_util import get_log_by_lastest_impl
@@ -16,7 +16,7 @@ def rule1():
     key = '((iwasm_classic_interp_dump, illegal/unknown opcode),)'
     path = '/media/ssd_wd1/cp910_data/main_testing_v125_250_9811/only_execution_log_category/log_category_only_highlight/1.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_250_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_logs()
 
 
@@ -28,7 +28,7 @@ def rule2():
     key = '((iwasm_classic_interp_dump, illegal/unknown type), (iwasm_fast_interp_dump, illegal/unknown type), (wasm3_dump, illegal/unknown type))'
     path = '/media/ssd_wd1/cp910_data/main_testing_v125_250_9811/only_execution_log_category/log_category_only_highlight/1.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_250_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
 
 
@@ -39,7 +39,7 @@ def rule3():
     key = '((iwasm_classic_interp_dump, undeclared function reference), (iwasm_fast_interp_dump, undeclared function reference))'
     path = '/media/ssd_wd1/cp910_data/main_testing_v125_250_9811/only_execution_log_category/log_category_only_highlight/1.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_250_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_logs(use_lastest=True)
 
 def rule4():
@@ -48,7 +48,7 @@ def rule4():
     key = '((wasm3_dump, illegal/unknown type),)'
     path = '/media/ssd_wd1/cp910_data/main_testing_v125_250_9811/only_execution_log_category/log_category_only_highlight/1.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_250_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
 
 
@@ -58,7 +58,7 @@ def rule5():
     key = '((iwasm_classic_interp_dump, illegal/unknown opcode), (iwasm_fast_interp_dump, illegal/unknown opcode), (wasm3_dump, illegal/unknown opcode))'
     path = '/media/ssd_wd1/cp910_data/main_testing_v125_250_9811/only_execution_log_category/log_category_only_highlight/1.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_250_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     print(analysis_base.illegal_iwasm_opcodes('iwasm_fast_interp_dump'))
     print(analysis_base.illegal_iwasm_opcodes('iwasm_classic_interp_dump'))
@@ -68,7 +68,7 @@ def rule6():
     key = '((iwasm_classic_interp_dump, invalid local count), (iwasm_fast_interp_dump, invalid local count), (wasm3_dump, Aborted))'
     path = '/media/ssd_wd1/cp910_data/main_testing_v125_250_9811/only_execution_log_category/log_category_only_highlight/1.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_250_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
 
 
@@ -77,9 +77,9 @@ def rule7():
     # not bug / wasm3
     # {'fc 0a', 'fc 0b'}这两个指令对应 memory.copy memory.fill
     key = '((WAVM_default, zero byte expected), (WasmEdge_disableAOT_newer, zero byte expected), (iwasm_classic_interp_dump, unsupported opcode fc), (iwasm_fast_interp_dump, unsupported opcode fc))'
-    path = 'some_logs/only_highlight_log_category/1.json'
+    path = 'useful_results/some_logs/only_highlight_log_category/1.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_350_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     print(analysis_base.illegal_iwasm_opcodes('iwasm_fast_interp_dump'))  # {'fc 0a', 'fc 0b'}
 
@@ -87,18 +87,18 @@ def rule8():
     # wrong alignment
     # * 已上报bug ; wasm3 bug; *应该在第一轮报过了
     key = '((WAVM_default, <wrong alignment>), (WasmEdge_disableAOT_newer, <wrong alignment>), (iwasm_classic_interp_dump, <wrong alignment>), (iwasm_fast_interp_dump, <wrong alignment>), (wasmi_interp, <wrong alignment>))'
-    path = 'some_logs/only_highlight_log_category/1.json'
+    path = 'useful_results/some_logs/only_highlight_log_category/1.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_350_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
 
 def rule9():
     # wrong local type 0x40
     # * 新上报 ; wasm3 bug
     key = '((WAVM_default, illegal/unknown type), (WasmEdge_disableAOT_newer, illegal/unknown type), (iwasm_classic_interp_dump, illegal/unknown type), (iwasm_fast_interp_dump, illegal/unknown type), (wasmer_default_dump, illegal/unknown type), (wasmi_interp, illegal/unknown type))'
-    path = 'some_logs/only_highlight_log_category/1.json'
+    path = 'useful_results/some_logs/only_highlight_log_category/1.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_350_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
 
     illegal_types = analysis_base.illegal_iwasm_local_types()
@@ -107,9 +107,9 @@ def rule9():
 def rule10():
     # * 新上报 ; wasm3 bug
     key = '((WAVM_default, zero byte expected), (WasmEdge_disableAOT_newer, zero byte expected), (iwasm_classic_interp_dump, zero byte expected), (iwasm_fast_interp_dump, zero byte expected))'
-    path = 'some_logs/only_highlight_log_category/1.json'
+    path = 'useful_results/some_logs/only_highlight_log_category/1.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_350_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log(process=True)
     # {'wasmer_default_dump': {'error: failed to run`│   1: module instantiation failed (compiler: cranelift)╰─▶ 2: Validation error: multi-memory not enabled '}, 'wasmi_interp': {'Error: failed to parse and validate Wasm module: multi-memory not enabled: zero byte expected '}, 'iwasm_classic_interp_dump': {'WASM module load failed: zero byte expected'}, 'iwasm_fast_interp_dump': {'WASM module load failed: zero byte expected'}, 'wasm3_dump': {''}, 'WasmEdge_disableAOT_newer': {' [error] loading failed: zero byte expected, [error]      [error]     At AST node: instruction [error]     At AST node: expression [error]     At AST node: code segment [error]     At AST node: code section [error]     At AST node: module [error]     File name:"'}, 'WAVM_default': {'Error loading WebAssembly binary file: Module was malformed: memory index reserved byte must be zero: loaded 32 but was expecting 0'}}
 
@@ -117,9 +117,9 @@ def rule11():
     # bug / wasm3
     # * 都是仅在debug模式下报错，只上报了ef
     key = '((WAVM_default, illegal/unknown opcode), (WasmEdge_disableAOT_newer, illegal/unknown opcode), (iwasm_classic_interp_dump, illegal/unknown opcode), (iwasm_fast_interp_dump, illegal/unknown opcode), (wasmer_default_dump, illegal/unknown opcode), (wasmi_interp, illegal/unknown opcode))'
-    path = 'some_logs/only_highlight_log_category/1.json'
+    path = 'useful_results/some_logs/only_highlight_log_category/1.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_350_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     opcodes = analysis_base.illegal_iwasm_opcodes('iwasm_fast_interp_dump')
     print(opcodes)  #  {'c7', 'f0', 'e1', 'ef', 'dd', 'ec'}
@@ -130,9 +130,9 @@ def rule12():
     # too large int (illegal int)
     # * 新上报 ; wasm3 bug
     key = '((WAVM_default, illegal int encoding), (WasmEdge_disableAOT_newer, illegal int encoding), (iwasm_classic_interp_dump, illegal int encoding), (iwasm_fast_interp_dump, illegal int encoding), (wasmer_default_dump, illegal int encoding), (wasmi_interp, illegal int encoding))'
-    path = 'some_logs/only_highlight_log_category/1.json'
+    path = 'useful_results/some_logs/only_highlight_log_category/1.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_350_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
 
 def rule13():
@@ -140,9 +140,9 @@ def rule13():
     # unkniwn memory
     # * 新上报 ; wasm3 bug
     key = '((WAVM_default, memory OOB), (WasmEdge_disableAOT_newer, unknown memory), (iwasm_classic_interp_dump, unknown memory), (iwasm_fast_interp_dump, unknown memory), (wasmer_default_dump, unknown memory), (wasmi_interp, unknown memory))'
-    path = 'some_logs/only_highlight_log_category/1.json'
+    path = 'useful_results/some_logs/only_highlight_log_category/1.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_350_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
 
 
@@ -156,9 +156,9 @@ def rule13_2():
     # section mismatch
     # * 新上报  ; wasm3 bug
     key = '((WAVM_default, <function or section size mismatch>), (WasmEdge_disableAOT_newer, <function or section size mismatch>), (iwasm_classic_interp_dump, <function or section size mismatch>), (iwasm_fast_interp_dump, <function or section size mismatch>), (wasmer_default_dump, <function or section size mismatch>), (wasmi_interp, <function or section size mismatch>))'
-    path = 'some_logs/only_highlight_log_category/1.json'
+    path = 'useful_results/some_logs/only_highlight_log_category/1.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_350_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     
     analysis_base.print_first_tc_log()
     print(analysis_base.first_tc_path)
@@ -171,9 +171,9 @@ def rule14():
     # {'fc 0a', 'fc 0b'}这两个指令对应 memory.copy memory.fill
     # not bug
     key = '((iwasm_classic_interp_dump, unsupported opcode fc), (iwasm_fast_interp_dump, unsupported opcode fc))'
-    path = 'some_logs/only_highlight_log_category/4.json'
+    path = 'useful_results/some_logs/only_highlight_log_category/4.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_350_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     opcodes = analysis_base.illegal_iwasm_opcodes('iwasm_fast_interp_dump')
     print(opcodes)
@@ -197,9 +197,9 @@ def rule15():
         '((WAVM_default, unknown function), (wasm3_dump, wasm3 stack overflow), (wasmer_default_dump, call stack exhausted), (wasmi_interp, call stack exhausted))',
         '((WAVM_default, unknown function), (wasmer_default_dump, call stack exhausted))'
     ]
-    path = 'some_logs/only_highlight_log_category/5.json'
+    path = 'useful_results/some_logs/only_highlight_log_category/5.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_350_9811/diff_tcs'
-    analysis_base = analyze_data(path, keys, tcs_base_dir)
+    analysis_base = analyzeData(path, keys, tcs_base_dir)
     analysis_base.check_call_0()
     analysis_base.print_first_tc_log()
 
@@ -214,9 +214,9 @@ def rule16():
     # * 决定不报了，认为这个是secntion  size的问题
     # * 好像被修复了。。。。。。也可能是section size造成的，新版上会报loading failed: unexpected content after last section
     key = '((WAVM_default, illegal/unknown opcode), (wasm3_dump, illegal/unknown opcode), (wasmer_default_dump, illegal/unknown opcode))'
-    path = 'some_logs/only_highlight_log_category/6.json'
+    path = 'useful_results/some_logs/only_highlight_log_category/6.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_350_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     opcodes = analysis_base.illegal_wasmer_opcodes()
     print(opcodes)
@@ -228,9 +228,9 @@ def rule17():
     # wasmedge的{'0xdb ', '0xd6 ', '0xc8 ', '0xcf ', '0xc6 ', '0xdf ', '0xcd ', '0xcc ', '0xcb ', '0xde ', '0xd3 ', '0xce ', '0xd8 ', '0xd7 '} opcode能运行，，
     # * 同上
     key = '((WAVM_default, illegal/unknown opcode), (wasmer_default_dump, illegal/unknown opcode))'
-    path = 'some_logs/only_highlight_log_category/6.json'
+    path = 'useful_results/some_logs/only_highlight_log_category/6.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_350_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     opcodes = analysis_base.illegal_wasmer_opcodes()
     print(opcodes)
@@ -257,9 +257,9 @@ def rule18():
     # TODO 看wasmedge实现
     # * 报了ec, 
     key = '((WasmEdge_disableAOT_newer, illegal/unknown opcode), (wasmer_default_dump, illegal/unknown opcode))'
-    path = 'some_logs/only_highlight_log_category/7.json'
+    path = 'useful_results/some_logs/only_highlight_log_category/7.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_350_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     opcodes = analysis_base.illegal_wasmer_opcodes()
     print(opcodes)
@@ -274,9 +274,9 @@ def rule19():
     '''
     # ? 最后也没有分析出结果，wasm2wat也没跑题。有时间再分析吧，现上报了
     key = '((WasmEdge_disableAOT_newer, illegal/unknown opcode), (wasmer_default_dump, unsupported opcode fd))'
-    path = 'some_logs/only_highlight_log_category/7.json'
+    path = 'useful_results/some_logs/only_highlight_log_category/7.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_350_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     analysis_base.print_first_tc_log(use_lastest=True)
     print(analysis_base.first_tc_path)
@@ -300,9 +300,9 @@ def rule19():
 def rule20():
     # 无bug，主要是不支持reference
     key = '((wasm3_dump, Aborted),)'
-    path = 'some_logs/only_highlight_log_category/8.json'
+    path = 'useful_results/some_logs/only_highlight_log_category/8.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v125_350_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
 
 
@@ -329,7 +329,7 @@ def rule21():
     key = '((WAVM_default, illegal/unknown opcode), (WasmEdge_disableAOT_newer, illegal/unknown opcode), (wasmer_default_dump, illegal/unknown opcode))'
     path = '/media/ssd_wd1/cp910_data/main_testing_v13_350_9811/log_category_base/only_highlight_log_category/7.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v13_350_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     opcodes = analysis_base.illegal_wasmer_opcodes()
     print(opcodes)
@@ -341,7 +341,7 @@ def rule22():
     key = '((WAVM_default, illegal/unknown opcode), (WasmEdge_disableAOT_newer, illegal/unknown opcode), (wasm3_dump, illegal/unknown opcode), (wasmer_default_dump, illegal/unknown opcode), (wasmi_interp, illegal/unknown opcode))'
     path = '/media/ssd_wd1/cp910_data/main_testing_v13_350_9811/log_category_base/only_highlight_log_category/7.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v13_350_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     opcodes = analysis_base.illegal_wasmer_opcodes()
     print(opcodes)
@@ -355,7 +355,7 @@ def rule23():
     key = '((WAVM_default, table OOB), (WasmEdge_disableAOT_newer, table OOB), (wasm3_dump, illegal/unknown opcode), (wasmer_default_dump, table OOB))'
     path = '/media/ssd_wd1/cp910_data/main_testing_v13_350_9811/log_category_base/only_highlight_log_category/7.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v13_350_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     print(analysis_base.first_tc_path)
     
@@ -368,7 +368,7 @@ def rule24():
     key = '((WasmEdge_disableAOT_newer, illegal/unknown opcode), (wasmer_default_dump, illegal/unknown opcode))'
     path = '/media/ssd_wd1/cp910_data/main_testing_v13_350_9811/log_category_base/only_highlight_log_category/4.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v13_350_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     opcodes = analysis_base.illegal_wasmer_opcodes()
     print(opcodes)  # {'0xec (at offset 75)', '0xf9 (at offset 76)', '0xf9 (at offset 75)'}
@@ -386,7 +386,7 @@ def rule25():
     key = '((WasmEdge_disableAOT_newer, type mismatch), (wasmer_default_dump, type mismatch))'
     path = '/media/ssd_wd1/cp910_data/main_testing_v13_350_9811/log_category_base/only_highlight_log_category/4.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v13_350_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     for log in get_logs(analysis_base.tc_paths,keys=['wasmer_default_dump'], process=True)['wasmer_default_dump']:
         print(log)
@@ -405,7 +405,7 @@ def rule26():
     key = '((WasmEdge_disableAOT_newer, table OOB), (wasm3_dump, illegal/unknown opcode), (wasmer_default_dump, table OOB))'
     path = '/media/ssd_wd1/cp910_data/main_testing_v13_350_9811/log_category_base/only_highlight_log_category/16.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v13_350_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     # for log in get_logs(analysis_base.tc_paths,keys=['wasmer_default_dump'], process=True)['wasmer_default_dump']:
     #     print(log)
@@ -417,7 +417,7 @@ def rule27():
     key = '((wasm3_dump, Aborted),)'
     path = '/media/ssd_wd1/cp910_data/main_testing_v13_350_9811/log_category_base/only_highlight_log_category/17.json'
     tcs_base_dir = '/media/ssd_wd1/cp910_data/main_testing_v13_350_9811/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     print(analysis_base.first_tc_path)
 

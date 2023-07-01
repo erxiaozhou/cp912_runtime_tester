@@ -1,5 +1,0 @@
-iwasm_1.wasm : 最新版iwasm的问题，编译后不能运行
-iwasm_2.wasm : iwasm中ref.func 0不识别的问题 
-wasm3_localty40.wasm : wasm3 运行了有illegal local type 0x40的case
-wasm3_select.wasm : wasm3运行了 其他runtime报错有 WASM module load failed: zero byte expected
-wasm3_illegalop_ef.wasm : wasm3运行了 其他runtime报错有 WASM module load failed: illegal opcode 0xef

@@ -1,5 +1,4 @@
-
-from exec_util import load_results_from_one_dumped_data_dir
+from load_results_util import load_results_from_one_dumped_data_dir
 
 
 def load_log_from_one_tc_result(one_tc_result_dir):

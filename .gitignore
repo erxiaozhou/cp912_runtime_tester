@@ -22,6 +22,7 @@ except_dir
 ori_tcs
 mutate_tcs
 special_tcs
+useful_results
 v1_main_script
 tcs_v5
 tcs_v4
@@ -34,4 +35,4 @@ executable_checking_result
 tt.py
 executable_log_v125
 t_log
-some_logs
+useful_results/some_logs

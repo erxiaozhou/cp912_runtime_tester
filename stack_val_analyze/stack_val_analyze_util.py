@@ -1,5 +1,5 @@
-from exec_util import load_results_from_one_dumped_data_dir
-from extract_dump import dump_data
+from load_results_util import load_results_from_one_dumped_data_dir
+from extract_dump import dumpData
 from file_util import check_dir, read_json, save_json
 from log_content_util import get_reason2result_dirs_from_reason_json
 from pathlib import Path
@@ -51,7 +51,7 @@ def group_tc_names_by_stack_key(tc_result_dirs):
     for tc_result_dir in tc_result_dirs:
         dumped_results = load_results_from_one_dumped_data_dir(tc_result_dir)
         # print('tc_result_dir', tc_result_dir)
-        stack_vals = cleaned_stack_vals.from_dumped_results(dumped_results, tc_result_dir)
+        stack_vals = cleanedStackVals.from_dumped_results(dumped_results, tc_result_dir)
         key = stack_vals.key
         name = Path(tc_result_dir).name
         if key not in stack_key2tc_names:
@@ -60,11 +60,11 @@ def group_tc_names_by_stack_key(tc_result_dirs):
     return stack_key2tc_names
 
 
-class cleaned_stack_vals:
+class cleanedStackVals:
     def __init__(self, dict_) -> None:
         self.stack_val_dict_ = dict_
         for v in dict_.values():
-            assert isinstance(v, cleaned_stack_val)
+            assert isinstance(v, cleanedStackVal)
 
     @property
     def key(self):
@@ -102,13 +102,13 @@ class cleaned_stack_vals:
 def get_stack_val_from_dumped_results(dumped_results):
     stack_val_dict = {}
     for r in dumped_results:
-        assert isinstance(r, dump_data)
+        assert isinstance(r, dumpData)
         if not r.failed_exec:
-            stack_val_dict[r.name] = cleaned_stack_val.from_dump_data(r)
+            stack_val_dict[r.name] = cleanedStackVal.from_dump_data(r)
     return stack_val_dict
 
 
-class cleaned_stack_val:
+class cleanedStackVal:
     def __init__(self, stack_num=-1, stack_types=None, stack_bytes=None, stack_infered_vals=None, stack_bytes_process_nan=None) -> None:
         self.stack_types = None
         self.stack_bytes = None
@@ -140,8 +140,6 @@ class cleaned_stack_val:
 
     @property
     def key(self):
-        # fmt = '{}_{}'
-        # key = fmt.format(self.stack_types, self.is_anan)
         assert self.stack_num != -1, print('Except', self.stack_num, self.stack_types, self.stack_bytes)
         if self.stack_num == 0:
             key = ''
@@ -164,7 +162,7 @@ class cleaned_stack_val:
 
     @classmethod
     def from_dump_data(cls, dump_data_obj):
-        assert isinstance(dump_data_obj, dump_data)
+        assert isinstance(dump_data_obj, dumpData)
         assert not dump_data_obj.failed_exec
         paras = {
             'stack_num': dump_data_obj.stack_num,

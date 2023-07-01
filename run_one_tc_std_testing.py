@@ -1,28 +1,28 @@
 #!/home/zph/anaconda3/bin/python
 from pathlib import Path
 import re
-from data_comparer import are_different, at_least_one_can_instantiate
+from extract_dump import are_different, at_least_one_can_instantiate
 from exec_util import exec_one_tc, exec_one_tc_mth
-from extract_dump import dump_data
+from extract_dump import dumpData
 from file_util import check_dir
 from file_util import print_ba
-from get_imlps_util import get_std_imlps
+from get_impls_util import get_std_impls
 import os
 import sys
-from stack_val_analyze.stack_val_analyze_util import cleaned_stack_val
-from data_comparer import _get_can_execute_num
-from get_imlps_util import get_std_release_impls
-debug_imlps = get_std_imlps()
+from stack_val_analyze.stack_val_analyze_util import cleanedStackVal
+from extract_dump.analyze_exec_instant import _get_can_execute_num
+from get_impls_util import get_std_release_impls
+debug_impls = get_std_impls()
 release_impls = get_std_release_impls()
 
 
 
 def test_env(tc_name, reload=False, reload_dir=None, use_release=False):
     if use_release:
-        imlps = release_impls
+        impls = release_impls
     else:
-        imlps = debug_imlps
-    for impl in imlps:
+        impls = debug_impls
+    for impl in impls:
         print(impl.executor.dump_cmd_fmt)
         print(impl.executor._result_paths)
     if Path(tc_name).exists():
@@ -41,8 +41,8 @@ def test_env(tc_name, reload=False, reload_dir=None, use_release=False):
         os.system('rm -rf {}'.format(result_base_dir))
         result_base_dir = check_dir(result_base_dir)
         tc_dumped_data_dir = check_dir(result_base_dir / tc_name)
-    dumped_results = exec_one_tc_mth(imlps, tc_path, tc_dumped_data_dir, tc_dumped_data_dir)
-    # dumped_results = exec_one_tc(imlps, tc_path, tc_dumped_data_dir, tc_dumped_data_dir)
+    dumped_results = exec_one_tc_mth(impls, tc_path, tc_dumped_data_dir, tc_dumped_data_dir)
+    # dumped_results = exec_one_tc(impls, tc_path, tc_dumped_data_dir, tc_dumped_data_dir)
     # print(dumped_results)
     difference_reason = are_different(dumped_results)
     # print(dumped_results)
@@ -56,7 +56,7 @@ def test_env(tc_name, reload=False, reload_dir=None, use_release=False):
     print(at_least_one_can_instantiate(dumped_results))
     print('=' * 50)
     for result in dumped_results:
-        assert isinstance(result, dump_data)
+        assert isinstance(result, dumpData)
         print('-' * 25)
         print(result.name)
         print(result.can_initialize)
@@ -93,5 +93,5 @@ if __name__ == '__main__':
     assert len(argv) == 2
     tc_path = argv[1]
     # test_env(tc_path, False, 'result/one',use_release=False)
-    test_env(tc_path, False, 'result/one',use_release=True)
+    test_env(tc_path, False, 'result/one',use_release=False)
 

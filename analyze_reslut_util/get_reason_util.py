@@ -1,5 +1,5 @@
-from data_comparer import are_different
-from exec_util import load_results_from_one_dumped_data_dir
+from extract_dump import are_different
+from load_results_util import load_results_from_one_dumped_data_dir
 from file_util import read_json, save_json, check_dir
 from pathlib import Path
 from functools import lru_cache

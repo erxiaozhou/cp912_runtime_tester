@@ -5,13 +5,13 @@ from nan_detect_util import process_f32_64
 from .process_dump_data_util import get_int, get_u64
 from .process_dump_data_util import get_f32
 from .process_dump_data_util import get_f64
-from .util import common_result_initializer
+from .util import fullDumpResultInitializer
 
 
-class wasmedge_dumped_data(common_result_initializer):
+class wasmedgeDumpedResult(fullDumpResultInitializer):
     def __init__(self, paths, has_timeout, features=None, log_content=None):
-        super().__init__(paths, has_timeout, features, log_content)
-        self.name = 'WasmEdge_disableAOT_newer'
+        name = 'WasmEdge_disableAOT_newer'
+        super().__init__(paths, has_timeout, features, log_content, name)
         if Path(self.vstack_path).exists():
             self._init_stack(self.vstack_path)
 

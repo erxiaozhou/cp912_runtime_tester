@@ -1,1 +1,0 @@
-Error: failed to parse and validate Wasm module tcs_v2/v128.xor_5.wasm: SIMD support is not enabled (at offset 0x1a)

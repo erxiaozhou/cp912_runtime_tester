@@ -2,14 +2,14 @@ from pathlib import Path
 from .process_dump_data_util import get_int, get_u64
 from .process_dump_data_util import get_f32
 from .process_dump_data_util import get_f64
-from .util import common_result_initializer
+from .util import fullDumpResultInitializer
 from nan_detect_util import process_f32_64
 
 
-class wasm3_dumped_data(common_result_initializer):
+class wasm3_dumped_data(fullDumpResultInitializer):
     def __init__(self, paths, has_timeout, features=None, log_content=None):
-        super().__init__(paths, has_timeout, features, log_content)
-        self.name = 'wasm3_dump'
+        name = 'wasm3_dump'
+        super().__init__(paths, has_timeout, features, log_content, name)
         if Path(self.vstack_path).exists():
             self._init_stack(self.vstack_path)
 

@@ -6,7 +6,7 @@ from .util import get_wasmer_illegal_opcode
 from tqdm import tqdm
 from debug_util import wasm2wat
 
-class analyze_data:
+class analyzeData:
     def __init__(self, path, key, tcs_base_dir):
         self.path = path
         assert isinstance(key, (str, list))

@@ -1,7 +1,28 @@
 from file_util import pickle_dump, pickle_load
 
 
-class dump_data:
+# class logData:
+#     def __init__(self):
+#         self.log_content = None
+#         self.log_has_failed_content = None
+#         self.failed_exec = None
+#         self.features = None
+#         self.name = None
+#         self.has_timeout = None
+
+#     @property
+#     def to_dict(self):
+#         data = self.__dict__.copy()
+#         return data
+    
+#     def dump(self, path):
+#         pickle_dump(path, self.to_dict)
+    
+#     def __repr__(self) -> str:
+#         return str(self.__dict__)
+
+
+class dumpData:
     def __init__(self):
         self.log_content = None
         self.log_has_failed_content = None
@@ -30,13 +51,13 @@ class dump_data:
         self.stack_bytes = []
         self.stack_bytes_process_nan = []
 
-    def to_dict(self, path=None):
-        # TODO
-        data = {}
-        data.update(self.__dict__)
-        if path is not None:
-            pickle_dump(path, data)
+    @property
+    def to_dict(self):
+        data = self.__dict__.copy()
         return data
+    
+    def dump(self, path):
+        pickle_dump(path, self.to_dict)
     
     def __repr__(self) -> str:
         return str(self.__dict__)
@@ -44,7 +65,7 @@ class dump_data:
 
 def get_extractor_from_pkl(path):
     obj = pickle_load(path)
-    result_obj = dump_data()
+    result_obj = dumpData()
     assert isinstance(obj, dict)
     if isinstance(obj, dict):
         result_obj.__dict__.update(obj)
@@ -77,8 +98,8 @@ _to_compare_attrs = [
 
 def get_diff_attr_names(data1, data2,
                         to_compare_attrs=None):
-    assert isinstance(data1, dump_data)
-    assert isinstance(data2, dump_data)
+    assert isinstance(data1, dumpData)
+    assert isinstance(data2, dumpData)
     if to_compare_attrs is None:
         to_compare_attrs = _to_compare_attrs
     different_attr_names = []

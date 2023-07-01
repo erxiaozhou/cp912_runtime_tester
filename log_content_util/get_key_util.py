@@ -20,8 +20,6 @@ def group_tc_names_by_log_key(tc_result_dirs, strategy):
         rewritten_content_key2tc_names = rewrite_dict(log_key2tc_names)
     else:
         rewritten_content_key2tc_names = log_key2tc_names
-    # for k in log_key2tc_names.keys():
-    #     print(k)
     rewritten_content_key2tc_names = {_dict2key(k):v for k,v in rewritten_content_key2tc_names.items()}
     return rewritten_content_key2tc_names
 
@@ -80,13 +78,13 @@ def _tc_name_key_pair_generator(tc_result_dirs, strategy):
 
 
 def _get_log_dict_repr_key_from_tc_result_dir(tc_result_dir, strategy):
-    log_dict_obj = log_dict_class.from_tc_result_dir(tc_result_dir)
+    log_dict_obj = logDict.from_tc_result_dir(tc_result_dir)
     dict_ = log_dict_obj.get_processed_log_dict(strategy)
     # key =_dict2key(dict_)
     return repr(dict_)
 
 
-class log_dict_class:
+class logDict:
     def __init__(self, log_dict) -> None:
         self.log_dict = log_dict
     
@@ -123,12 +121,12 @@ def _get_key_from_processed_log_dict_repr(processed_log_dict_repr):
 
 def _process_log_dict(log_dict, strategy):
     log_objs = {}
-    for key, s in log_dict.items():
-        obj = one_runtime_log(s,key)
-        log_objs[key] = obj
+    for runtime_name, s in log_dict.items():
+        obj = oneRuntimeLog(s,runtime_name)
+        log_objs[runtime_name] = obj
     # 
     data = {}
-    for key, obj in log_objs.items():
+    for runtime_name, obj in log_objs.items():
         if strategy == 'all':
             processed_log = obj.keyword_part
         elif strategy == 's1':
@@ -140,20 +138,20 @@ def _process_log_dict(log_dict, strategy):
         elif strategy in ['only_interesting', 'only_highlight']:
             processed_log = obj.summary_key_s3
         if processed_log:
-            data[key] = processed_log
+            data[runtime_name] = processed_log
     if strategy in ['only_interesting', 'only_highlight']:
-        for key, obj in log_objs.items():
+        for runtime_name, obj in log_objs.items():
             processed_log = obj.summary_key_s3
             if processed_log:
-                data[key] = processed_log
+                data[runtime_name] = processed_log
         # 
         vals = list(data.values())
         # func_sec_size_mismatch 是所有runtime都不支持的
         if 0 < vals.count(func_sec_size_mismatch) < len(vals):
-            for k in data.keys():
-                data[k] = '<masked because of {}>'.format(func_sec_size_mismatch)
+            for runtime_name in data.keys():
+                data[runtime_name] = '<masked because of {}>'.format(func_sec_size_mismatch)
         # 先把一些模糊的log通过其他runtime的报错推出来
-        keys = list(data.keys())
+        runtime_names = list(data.keys())
         has_fd = False
         # rule1: fd_opcode
         for v in data.values():
@@ -166,21 +164,19 @@ def _process_log_dict(log_dict, strategy):
                     has_fd = True
         # rule3: special runtimes
         if not has_fd:
-            for k in ['iwasm_classic_interp_dump', 'iwasm_fast_interp_dump']:
-                # print(keys)
-                # print(data.get(k))
-                if data.get(k) == fd_opcode:
+            for runtime_name in ['iwasm_classic_interp_dump', 'iwasm_fast_interp_dump']:
+                if data.get(runtime_name) == fd_opcode:
                     # assert 0
                     has_fd = True
         if has_fd:
-            for k in keys:
-                if data[k] == illegal_type:
+            for runtime_name in runtime_names:
+                if data[runtime_name] == illegal_type:
                     # assert 0
-                    data[k] = runtime_self_unsupport
-            for k in ['wasm3_dump', 'wasmi_interp', 'iwasm_classic_interp_dump', 'iwasm_fast_interp_dump']:
-                if data.get(k) == fd_opcode:
+                    data[runtime_name] = runtime_self_unsupport
+            for runtime_name in ['wasm3_dump', 'wasmi_interp', 'iwasm_classic_interp_dump', 'iwasm_fast_interp_dump']:
+                if data.get(runtime_name) == fd_opcode:
                     # assert 0
-                    data[k] = runtime_self_unsupport
+                    data[runtime_name] = runtime_self_unsupport
         # reference
         has_ref = False
         for obj in log_objs.values():
@@ -188,20 +184,20 @@ def _process_log_dict(log_dict, strategy):
                 has_ref = True
                 break
         if has_ref:
-            for k in keys:
-                if data[k] == illegal_type:
-                    data[k] = runtime_self_unsupport
+            for runtime_name in runtime_names:
+                if data[runtime_name] == illegal_type:
+                    data[runtime_name] = runtime_self_unsupport
 
         # 某些runtime理应不支持的
-        for k in keys:
-            if data[k] == runtime_self_unsupport:
-                data.pop(k)
+        for runtime_name in runtime_names:
+            if data[runtime_name] == runtime_self_unsupport:
+                data.pop(runtime_name)
     return data
 
 
-class one_runtime_log():
-    def __init__(self, s, key) -> None:
-        s = filter_normal_output(s, key)
+class oneRuntimeLog():
+    def __init__(self, s, runtime_name) -> None:
+        s = filter_normal_output(s, runtime_name)
         s = s.strip('\'"\n\\ ')
         self.filter_normal = s
 
@@ -224,13 +220,13 @@ class one_runtime_log():
 
 
 @lru_cache(maxsize=4096 * 4, typed=False)
-def filter_normal_output(s, key):
+def filter_normal_output(s, runtime_name):
     hex_p = r'0[xX][0-9a-fA-F]+'
     num_p = r'^[\-\+]?(?:(?:\d+)|(?:[\.\+\d]+e[\-\+]?\d+)|(?:\d+\.\d+)|(?:nan)|(?:inf))\n?$'
     wasm_path_p = r' [^ ]+\.wasm'
     offset_p = r'\(at offset (?:(?:\d+)|(?:0[xX][0-9a-fA-F]+))\)'
     time_p = r'\[[\-0-9]+ [\.:0-9]+\]'
-    if key == 'wasm3_dump':
+    if runtime_name == 'wasm3_dump':
         p = r' *Result: *\-?[0-9\.]+$'
         s = re.sub(p, '', s)
         p = r' *Result: *\-?0[xX][0-9a-fA-F]+$'
@@ -239,7 +235,7 @@ def filter_normal_output(s, key):
         s = re.sub(p, '', s)
         if 'Empty Stack' in s:
             s = ''
-    elif key == 'WasmEdge_disableAOT_newer':
+    elif runtime_name == 'WasmEdge_disableAOT_newer':
         s = re.sub(time_p, '', s)
         s = re.sub(wasm_path_p, '', s)
         p = r'Bytecode offset: 0[xX][0-9a-fA-F]+'
@@ -247,13 +243,13 @@ def filter_normal_output(s, key):
         p = r' Code: 0[xX][0-9a-fA-F]+'
         s = re.sub(p, '', s)
         s = re.sub(num_p, '', s)
-    elif key == 'wasmer_default_dump':
+    elif runtime_name == 'wasmer_default_dump':
         s = re.sub(offset_p, '', s)
         s = re.sub(wasm_path_p, '', s)
-    elif key == 'wasmi_interp':
+    elif runtime_name == 'wasmi_interp':
         s = re.sub(offset_p, '', s)
         s = re.sub(wasm_path_p, '', s)
-    elif key in ['iwasm_fast_interp_dump', 'iwasm_classic_interp_dump']:
+    elif runtime_name in ['iwasm_fast_interp_dump', 'iwasm_classic_interp_dump']:
         s = re.sub(r'^\n*$', '', s)
         p = r'^0x[a-f\d]+:i(?:(?:64)|(?:32))$'
         s = re.sub(p, '', s)
@@ -263,9 +259,9 @@ def filter_normal_output(s, key):
         s = re.sub(p, '', s)
         p = r'^(?:(?:func)|(?:extern)):ref\.null$'
         s = re.sub(p, '', s)
-    elif key == 'WAVM_default':
+    elif runtime_name == 'WAVM_default':
         pass
     else:
-        assert 0, print(key)
+        assert 0, print(runtime_name)
     s = re.sub('\n', '', s)
     return s

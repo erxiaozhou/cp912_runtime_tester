@@ -1,2 +1,2 @@
-from .wasm_impls import common_runtime
-from .uninst_imlps import uninst_runtime
+from .wasm_impls import fullDumpRuntime
+from .uninst_impls import uninstRuntime

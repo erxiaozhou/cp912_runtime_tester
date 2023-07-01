@@ -1,7 +1,7 @@
 from pathlib import Path
 from file_util import path_read
-from .dump_data_util import dump_data
-from path_group_util import imlp_result_path_group
+from .dump_data_util import dumpData
+from path_group_util import cmnImplResultPathGroup
 
 
 def is_failed_content(content):
@@ -23,32 +23,47 @@ def is_failed_content(content):
         return False
 
 
-class common_result_initializer(dump_data):
-    def __init__(self, paths, has_timeout, features=None, log_content=None):
+class uninstResultInitializer(dumpData):
+    def __init__(self, has_timeout, features=None, log_content=None, name=None):
         super().__init__()
-        assert isinstance(paths, imlp_result_path_group)
-        self.paths = paths
         self.has_timeout = has_timeout
-        self.features = features
         self.log_content = log_content
+        self.features = features.copy()
+        self.name = name
         self.common_initialize()
 
     def common_initialize(self):
         self._init_has_failed_content()
         self._init_failed_exec()
-        self._init_features()
         self._init_can_initialize()
-        self._init_has_instance()
     
     def _init_failed_exec(self):
         self.failed_exec = self.log_has_failed_content or self.has_timeout
 
     def _init_has_failed_content(self):
         self.log_has_failed_content = is_failed_content(self.log_content)
+    
+    def _init_can_initialize(self):
+        self.can_initialize = True
 
-    def _init_features(self):
-        features = {k:v for k, v in self.features.items()}
-        self.features = features
+
+class fullDumpResultInitializer(uninstResultInitializer):
+    def __init__(self, paths, has_timeout, features=None, log_content=None, name=None):
+        self.paths = paths
+        super().__init__(has_timeout, features, log_content, name)
+        assert isinstance(paths, cmnImplResultPathGroup)
+        # self.has_timeout = has_timeout
+        # self.features = features.copy()
+        # self.log_content = log_content
+        # self.name = name
+        # self.common_initialize()
+
+    def common_initialize(self):
+        self._init_has_failed_content()
+        self._init_failed_exec()
+        self._init_can_initialize()
+        self._init_has_instance()
+        # print('-----------------------')
     
     def _init_can_initialize(self):
         # ! 还是很奇怪
@@ -61,11 +76,13 @@ class common_result_initializer(dump_data):
     def _init_has_instance(self):
         self.has_instance = _has_instance(self.has_instance_path)
     
-    def to_dict(self, path=None):
-        new_data = dump_data()
+    @property
+    def to_dict(self):
+        # ! 这里早了一个对象，代价是不是有点高
+        new_data = dumpData()
         for k in new_data.__dict__.keys():
             new_data.__dict__[k] = self.__dict__[k]
-        return new_data.to_dict(path)
+        return new_data.to_dict
 
     # paths
     @property

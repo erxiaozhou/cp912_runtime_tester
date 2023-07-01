@@ -2,4 +2,4 @@ from .get_reason_util import dumped_data_base_dir2reason_summary_json
 from .get_reason_util import dumped_data_base_dir2reason_base_dir
 from .get_reason_util import reason_base_dir2reason_summary_json
 from .get_reason_util import reason_base_dir2reason_summary
-from .get_reason_summarys_util import get_reason_summarys
+from .get_reason_summarys_util import reasonSummary

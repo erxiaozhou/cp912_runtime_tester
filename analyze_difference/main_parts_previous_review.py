@@ -1,6 +1,6 @@
 
 from debug_util import is_executable_by_impl
-from .analyze_data_util import analyze_data
+from .analyze_data_util import analyzeData
 from .std_exec_get_log import get_logs
 from debug_util import get_log_by_impl
 from debug_util import get_log_by_lastest_impl
@@ -15,7 +15,7 @@ def prule1():
     key = '((WAVM_default, Error loading WebAssembly binary file: Module was invalid: invalid index: exportIt.index must be less than module.memories.size() (exportIt.index=26, module.memories.size()=1)), (WasmEdge_disableAOT_newer, unknown memory), (iwasm_classic_interp_dump, unknown memory), (iwasm_fast_interp_dump, unknown memory), (wasmer_default_dump, unknown memory), (wasmi_interp, unknown memory))'
     path = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/log_category_base/only_highlight_log_category/1.json'
     tcs_base_dir = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     analysis_base.print_first_tc_log(use_lastest=True)
 
@@ -26,7 +26,7 @@ def prule2():
     key = '((WAVM_default, Error loading WebAssembly binary file: Module was invalid: invalid index: exportIt.index must be less than module.tables.size() (exportIt.index=0, module.tables.size()=0)), (WasmEdge_disableAOT_newer, unknown table), (iwasm_classic_interp_dump, unknown table), (iwasm_fast_interp_dump, unknown table), (wasmer_default_dump, table OOB), (wasmi_interp, table OOB))'
     path = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/log_category_base/only_highlight_log_category/1.json'
     tcs_base_dir = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     analysis_base.print_first_tc_log(use_lastest=True)
 
@@ -36,7 +36,7 @@ def prule3():
     key = '((WAVM_default, Error loading WebAssembly binary file: Module was malformed: invalid initializer expression opcode), (WasmEdge_disableAOT_newer, unknown memory), (iwasm_classic_interp_dump, unknown memory), (iwasm_fast_interp_dump, unknown memory), (wasmer_default_dump, unknown memory), (wasmi_interp, unknown memory))'
     path = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/log_category_base/only_highlight_log_category/1.json'
     tcs_base_dir = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     analysis_base.print_first_tc_log(use_lastest=True)
 
@@ -47,7 +47,7 @@ def prule4():
     # 下面的path本来应当是2，但是2里面有simd什么的，iwasm还是不支持，所以就用3
     path = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/log_category_base/only_highlight_log_category/3.json'
     tcs_base_dir = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     analysis_base.print_first_tc_log(use_lastest=True)
 
@@ -57,7 +57,7 @@ def prule5():
     key = '((iwasm_classic_interp_dump, unknown memory), (iwasm_fast_interp_dump, unknown memory), (wasm3_dump, Error: [Fatal] repl_load: restricted opcodeError: restricted opcode))'
     path = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/log_category_base/only_highlight_log_category/9.json'
     tcs_base_dir = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     analysis_base.print_first_tc_log(use_lastest=True)
 
@@ -76,7 +76,7 @@ def prule6():
     key = '((WAVM_default, <function or section size mismatch>), (WasmEdge_disableAOT_newer, <function or section size mismatch>), (wasm3_dump, <function or section size mismatch>), (wasmer_default_dump, <function or section size mismatch>), (wasmi_interp, <function or section size mismatch>))'
     path = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/log_category_base/only_highlight_log_category/10.json'
     tcs_base_dir = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     analysis_base.print_first_tc_log(use_lastest=True)
 
@@ -87,7 +87,7 @@ def prule7():
     key = '((WAVM_default, <masked because of <function or section size mismatch>>), (WasmEdge_disableAOT_newer, <masked because of <function or section size mismatch>>), (iwasm_classic_interp_dump, <masked because of <function or section size mismatch>>), (iwasm_fast_interp_dump, <masked because of <function or section size mismatch>>), (wasm3_dump, <masked because of <function or section size mismatch>>), (wasmer_default_dump, <masked because of <function or section size mismatch>>))'
     path = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/log_category_base/only_highlight_log_category/15.json'
     tcs_base_dir = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     analysis_base.print_first_tc_log(use_lastest=True)
 
@@ -97,7 +97,7 @@ def prule8():
     key = '((WAVM_default, Error loading WebAssembly binary file: Module was malformed: invalid initializer expression opcode),)'
     path = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/log_category_base/only_highlight_log_category/16.json'
     tcs_base_dir = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     analysis_base.print_first_tc_log(use_lastest=True)
 
@@ -110,7 +110,7 @@ def prule9():
     path = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/log_category_base/only_highlight_log_category/19.json'
     tcs_base_dir = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/diff_tcs'
 
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     analysis_base.print_first_tc_log(use_lastest=True)
 
@@ -122,7 +122,7 @@ def prule10():
     path = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/log_category_base/only_highlight_log_category/20.json'
     tcs_base_dir = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/diff_tcs'
 
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     analysis_base.print_first_tc_log(use_lastest=True)
 
@@ -135,7 +135,7 @@ def prule11():
     path = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/log_category_base/only_highlight_log_category/24.json'
     tcs_base_dir = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/diff_tcs'
 
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_first_tc_log()
     analysis_base.print_first_tc_log(use_lastest=True)
     print(analysis_base.illegal_wasmer_opcodes())
@@ -148,7 +148,7 @@ def prule12():
     path = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/log_category_base/only_highlight_log_category/25.json'
     tcs_base_dir = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/diff_tcs'
 
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     analysis_base.print_logs()
 
 # ((iwasm_classic_interp_dump, (has_timeout,)), (iwasm_fast_interp_dump, (has_timeout,)))
@@ -158,7 +158,7 @@ def prule13():
     path = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/log_category_base/only_highlight_log_category/26.json'
     tcs_base_dir = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/diff_tcs'
 
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     runtimes = ['iwasm_classic_interp_dump', 'iwasm_fast_interp_dump']
     analysis_base.print_logs(keys=runtimes)
 
@@ -175,7 +175,7 @@ def prule14():
     key = '()'
     path = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/log_category_base/only_highlight_log_category/29.json'
     tcs_base_dir = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     runtimes = ['iwasm_classic_interp_dump', 'iwasm_fast_interp_dump', 'WasmEdge_disableAOT_newer']
     analysis_base.print_logs(keys=runtimes)
 
@@ -185,7 +185,7 @@ def prule15():
     key = '((WasmEdge_disableAOT_newer, memory OOB), (wasm3_dump, illegal/unknown opcode), (wasmer_default_dump, memory OOB))'
     path = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/log_category_base/only_highlight_log_category/38.json'
     tcs_base_dir = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     runtimes = ['iwasm_classic_interp_dump', 'iwasm_fast_interp_dump', 'WAVM_default']
     analysis_base.print_logs(keys=runtimes)
 
@@ -195,6 +195,6 @@ def prule15():
     key = '((iwasm_classic_interp_dump, <masked because of <function or section size mismatch>>), (iwasm_fast_interp_dump, <masked because of <function or section size mismatch>>), (wasm3_dump, <masked because of <function or section size mismatch>>), (wasmer_default_dump, <masked because of <function or section size mismatch>>))'
     path = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/log_category_base/only_highlight_log_category/40.json'
     tcs_base_dir = '/media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/diff_tcs'
-    analysis_base = analyze_data(path, key, tcs_base_dir)
+    analysis_base = analyzeData(path, key, tcs_base_dir)
     runtimes = ['WasmEdge_disableAOT_newer', 'wasmi_interp', 'WAVM_default']
     analysis_base.print_logs(keys=runtimes)
