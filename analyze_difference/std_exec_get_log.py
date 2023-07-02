@@ -2,7 +2,7 @@ from pathlib import Path
 from get_impls_util import get_lastest_uninst_impls, get_std_uninst_impls
 from wasm_impl_util import uninstRuntime
 
-from log_content_util.get_key_util import filter_normal_output
+from log_content_util.one_runtime_log_util import filter_normal_output_common
 
 def check_whether_failed():
     pass
@@ -23,7 +23,7 @@ def get_logs(tc_paths, keys=None, process=False, use_lastest=False):
             assert Path(tc_path).exists()
             log = runtime.execute_and_collect_txt(tc_path)
             if process:
-                log = filter_normal_output(log, runtime.name)
+                log = filter_normal_output_common(log, runtime.name)
             logs[runtime.name].add(log)
     return logs
 

@@ -13,9 +13,10 @@ def log_content_categorize_by_one_reason_path(reason_json_path, dumped_data_base
     log_categorize_dir = check_dir(log_categorize_dir)
     reason_content_pair2path = {}
     path2reason_content_pair = {}
-    for file_idx, reason_key in enumerate(reason2tc_result_dirs, start=1):
-        # save content_key2tc_names
-        tc_result_dirs = reason2tc_result_dirs[reason_key]
+    for file_idx, (reason_key, tc_result_dirs) in enumerate(reason2tc_result_dirs.items(), start=1):
+        # 
+        # save_json(f'./tt/tc_result_dirs/{file_idx}.json', [str(x) for x in tc_result_dirs])
+        # 
         content_key2tc_names = group_tc_names_by_log_key(tc_result_dirs, strategy_mode)
         assert isinstance(content_key2tc_names, dict)
         content_key2tc_names_path = str(log_categorize_dir / f'{file_idx}.json')
