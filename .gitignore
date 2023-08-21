@@ -29,7 +29,7 @@ tcs_v4
 tool_test/*
 .vscode
 .vscode/**
-tmp*.py
+# tmp*.py
 executable_checking_result/**
 executable_checking_result
 tt.py
