@@ -10,23 +10,9 @@ assert len(argv) == 2
 tc_path = argv[1]
 
 std_uinst_impls = get_std_uninst_impls(set_out2out_err=True)
-# lastest_uninst_impls = get_lastest_uninst_impls()
 for impl in std_uinst_impls:
     assert isinstance(impl, uninstRuntime)
     print('===== {} ====='.format(impl.name))
     txt = impl.execute_and_collect_txt(tc_path)
-    # print(txt)
     r = impl.execute_and_collect(tc_path)
     print(r.has_crash, r.log_content)
-
-
-# print('Lastest:', '-' * 30)
-
-# for impl in lastest_uninst_impls:
-#     assert isinstance(impl, uninstRuntime)
-#     print('===== {} ====='.format(impl.name))
-#     cmd = impl.cmd_fmt.format(tc_path)
-#     try:
-#         subprocess.run(cmd,timeout=10, shell=True)
-#     except subprocess.TimeoutExpired:
-#         print('From python z: timeout')

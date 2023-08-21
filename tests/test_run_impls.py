@@ -128,24 +128,6 @@ def test_inst_runtime_mth_lastest(wasm_path, expected_result):
     std_expected_result = std_results(expected_result)
     assert std_different_result == std_expected_result
 
-# ref_v128_tcs = [
-#     '/home/runtime_tester/tests/testing_data/ref_null.wasm',
-#     '/home/runtime_tester/tests/testing_data/v128_const.wasm',
-# ]
-
-# uninst_expected_results = [
-#     {'wasm3_dump': ['CannotExecute']},
-#     {'wasm3_dump': ['CannotExecute']}
-# ]
-
-# @pytest.mark.parametrize('wasm_path, expected_result', zip(ref_v128_tcs, uninst_expected_results))
-# def test_uninst_runtimes_mtx_lastest_on_ref_v128(wasm_path, expected_result):
-#     impls = get_lastest_uninst_impls()
-#     results = _get_mth_result_core(impls, wasm_path)
-#     std_different_result = std_results(are_different(results))
-#     std_expected_result = std_results(expected_result)
-#     assert std_different_result == std_expected_result
-
 
 def _get_no_mth_result_core(impls, wasm_path):
     results = exec_one_tc(impls, wasm_path, 'tt/testing_inst_results', 'tt/testing_inst_results')

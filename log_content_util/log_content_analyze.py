@@ -11,66 +11,25 @@ def log_content_categorize_by_one_reason_path(reason_json_path, dumped_data_base
     reason2tc_result_dirs = get_reason2result_dirs_from_reason_json(reason_json_path, dumped_data_base_dir)
     assert isinstance(reason2tc_result_dirs, dict)
     log_categorize_dir = check_dir(log_categorize_dir)
-    # reason_content_pair2path = {}
     path2reason_content_pair = {}
-    # 
 
-    # 
     sigs = set()
     for file_idx, (reason_key, tc_result_dirs) in enumerate(reason2tc_result_dirs.items(), start=1):
         content_key2tc_names = group_tc_names_by_log_key(tc_result_dirs, strategy_mode, reason_key)
         assert isinstance(content_key2tc_names, dict)
         content_key2tc_names_path = str(log_categorize_dir / f'{file_idx}.json')
         save_json(content_key2tc_names_path, content_key2tc_names)
-        # save content_key and reason_key
-        # 
-        # print(reason_key, eval(reason_key))
-        # 
         
         for log_key in tqdm(content_key2tc_names.keys(), total=len(content_key2tc_names)):
-            # assert 0, print(type(log_key))
-            # generate 0_xxx.json log
             # TODO 不太喜欢目前的clean的方法，太底层了，太凭感觉，而且从文件取出后很难复用
             cleaned_reason_key = clean_reason_key(reason_key)
-            # reason_log_pair = repr((cleaned_reason_key, '===', log_key))
-            # reason_content_pair2path[reason_log_pair] = content_key2tc_names_path
-            # generate 0_xxx_inv_xxx.json
             inv_key = f'{content_key2tc_names_path}<-->{cleaned_reason_key}'
             path2reason_content_pair.setdefault(inv_key, []).append(log_key)
             sigs.add(log_key)
 
-    # save_json(log_categorize_dir / '0_reason_content_pair_log.json', reason_content_pair2path)
     save_json(log_categorize_dir / '0_reason_content_pair_inv_log.json', path2reason_content_pair)
     save_json(log_categorize_dir / '0_sigs.json', list(sigs))
 
-# def log_content_categorize_by_one_reason_path(reason_json_path, dumped_data_base_dir, log_categorize_dir, strategy_mode):
-#     assert strategy_mode in supported_modes
-#     reason2tc_result_dirs = get_reason2result_dirs_from_reason_json(reason_json_path, dumped_data_base_dir)
-#     assert isinstance(reason2tc_result_dirs, dict)
-#     log_categorize_dir = check_dir(log_categorize_dir)
-#     reason_content_pair2path = {}
-#     path2reason_content_pair = {}
-#     for file_idx, (reason_key, tc_result_dirs) in enumerate(reason2tc_result_dirs.items(), start=1):
-#         # 
-#         # save_json(f'./tt/tc_result_dirs/{file_idx}.json', [str(x) for x in tc_result_dirs])
-#         # 
-#         content_key2tc_names = group_tc_names_by_log_key(tc_result_dirs, strategy_mode)
-#         assert isinstance(content_key2tc_names, dict)
-#         content_key2tc_names_path = str(log_categorize_dir / f'{file_idx}.json')
-#         save_json(content_key2tc_names_path, content_key2tc_names)
-#         # save content_key and reason_key
-#         for log_key in tqdm(content_key2tc_names.keys(), total=len(content_key2tc_names)):
-#             # generate 0_xxx.json log
-#             # TODO 不太喜欢目前的clean的方法，太底层了，太凭感觉，而且从文件取出后很难复用
-#             cleaned_reason_key = clean_reason_key(reason_key)
-#             reason_log_pair = repr((cleaned_reason_key, '===', log_key))
-#             reason_content_pair2path[reason_log_pair] = content_key2tc_names_path
-#             # generate 0_xxx_inv_xxx.json
-#             inv_key = f'{content_key2tc_names_path}<-->{cleaned_reason_key}'
-#             path2reason_content_pair.setdefault(inv_key, []).append(log_key)
-
-#     save_json(log_categorize_dir / '0_reason_content_pair_log.json', reason_content_pair2path)
-#     save_json(log_categorize_dir / '0_reason_content_pair_inv_log.json', path2reason_content_pair)
 
 def clean_reason_key(reason_key):
     return re.sub(r'[\'"]', '', reason_key)

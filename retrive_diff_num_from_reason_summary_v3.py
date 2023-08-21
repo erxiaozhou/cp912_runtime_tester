@@ -28,56 +28,38 @@ def cal_each_inst_info_nadiff():
         counters_dict[row_name] = {}
 
         can_exec_inst_counter, cannot_exec_inst_counter = no_mutation_reason.cal_execution_diff(row_name,get_ori_names=True)
-        # assert 0, print(can_execute_names)    # {'wasm3_dump': {'global.set', 'local.set'}, 'wasmer_default_dump': set(), 'WasmEdge_disableAOT_newer': set(), 'WAVM_default': set(), 'iwasm_classic_interp_dump': set(), 'iwasm_fast_interp_dump': set()}
-        # counters_dict[row_name]['execution_inst_n'] = can_exec_inst_counter
-        # counters_dict[row_name]['abortion_inst_n'] = cannot_exec_inst_counter
         na_diff_inst_names = no_mutation_reason.count_na_diff(row_name, get_ori_names=True)
         counters_dict[row_name]['na_diff_inst_n'] = na_diff_inst_names
         counters_dict[row_name]['c_diff_inst_n'],skp_num = no_mutation_reason.count_c_diff(row_name, get_ori_names=True)
         counters_dict[row_name]['exec_diff_inst_n'],skp_num = no_mutation_reason.count_exec_state_diff(row_name, get_ori_names=True)
         total_c_diff_inst_n = set()
         total_na_diff_inst_n = set()
-        # total_execution_inst_n = set()
-        # total_abortion_inst_n = set()
         total_exec_state_inst_n = set()
         for runtime in runtimes:
             total_c_diff_inst_n |= counters_dict[row_name]['c_diff_inst_n'].get(runtime, set())
             total_na_diff_inst_n |= counters_dict[row_name]['na_diff_inst_n'].get(runtime, set())
-            # total_execution_inst_n |= counters_dict[row_name]['execution_inst_n'].get(runtime, set())
-            # total_abortion_inst_n |= counters_dict[row_name]['abortion_inst_n'].get(runtime, set())
             total_exec_state_inst_n |= counters_dict[row_name]['exec_diff_inst_n'].get(runtime, set())
 
         counters_dict[row_name]['c_diff_inst_n']['Total'] = total_c_diff_inst_n
         counters_dict[row_name]['na_diff_inst_n']['Total'] = total_na_diff_inst_n
-        # counters_dict[row_name]['execution_inst_n']['Total'] = total_execution_inst_n
-        # counters_dict[row_name]['abortion_inst_n']['Total'] = total_abortion_inst_n
         counters_dict[row_name]['exec_diff_inst_n']['Total'] = total_exec_state_inst_n
-    # counters_dict['Total'] = {}
 
     runtime_total = {
         'na_diff_inst_n': Counter({v: 0 for v in runtimes+ ['Total']}),
-        # 'execution_inst_n': Counter({v: 0 for v in runtimes+ ['Total']}),
-        # 'abortion_inst_n': Counter({v: 0 for v in runtimes+ ['Total']}),
         'c_diff_inst_n': Counter({v: 0 for v in runtimes+ ['Total']}),
         'exec_diff_inst_n': Counter({v: 0 for v in runtimes+ ['Total']})
     }
-    # print
     for row_name in rows:
         items = []
         items.append('    ' + title_info[row_name])
         for runtime in runtimes + ['Total']:
             na_diff_inst_num = len(counters_dict[row_name]['na_diff_inst_n'].get(runtime, set()))
-            # execution_inst_num = len(counters_dict[row_name]['execution_inst_n'].get(runtime, set()))
-            # abortion_inst_num = len(counters_dict[row_name]['abortion_inst_n'].get(runtime, set()))
             c_diff_inst_num = len(counters_dict[row_name]['c_diff_inst_n'].get(runtime, set()))
             exec_state_inst_name = len(counters_dict[row_name]['exec_diff_inst_n'].get(runtime, set()))
             runtime_total['na_diff_inst_n'][runtime] += na_diff_inst_num
-            # runtime_total['execution_inst_n'][runtime] += execution_inst_num
-            # runtime_total['abortion_inst_n'][runtime] += abortion_inst_num
             runtime_total['c_diff_inst_n'][runtime] += c_diff_inst_num
             runtime_total['exec_diff_inst_n'][runtime] += exec_state_inst_name
 
-            # cell = f'{c_diff_inst_num:,} / {execution_inst_num:,} / {abortion_inst_num:,} / {na_diff_inst_num:,}'
             cell = f'{c_diff_inst_num:,} / {exec_state_inst_name:,} / {na_diff_inst_num:,}'
             
             items.append(cell)
@@ -95,56 +77,4 @@ def cal_each_inst_info_nadiff():
 
 
 if __name__ == '__main__':
-    # get_contain_reffunc0_names_main(no_mutation_result_base, './retrive_diff_num_from_reason_summary_util/to_skip_names.json')
-
     cal_each_inst_info_nadiff()
-    # cal_smy_info_nadiff()
-'''
-\cmidrule(r){1-9}
-    Variable instruction & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 2 / 2 / 0 / 0 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 2 / 2 / 0 / 0 \\ 一样
-    Variable instruction & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 2 / 2 / 0 / 0 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 2 / 2 / 0 / 0 \\
-\cmidrule(r){1-9}
-    Memory instruction & 2 / 2 / 0 / 0 & 2 / 0 / 2 / 0 & 2 / 0 / 2 / 0 & 2 / 0 / 2 / 0 & 23 / 23 / 0 / 0 & 2 / 2 / 0 / 0 & 4 / 4 / 0 / 0 & 27 / 25 / 2 / 0 \\ WasmEdge 在memory.init上的diff应该是被盖住了,即 init上存在其他diff ; iwasm与wasmi不能执行的 是
-    Memory instruction & 2 / 2 / 0 / 0 & 2 / 0 / 2 / 0 & 2 / 0 / 2 / 0 & 2 / 0 / 2 / 0 & 23 / 23 / 0 / 0 & 2 / 2 / 0 / 0 & 6 / 6 / 0 / 0 & 27 / 25 / 2 / 0 \\
-\cmidrule(r){1-9}
-    SIMD instruction & 236 / 236 / 0 / 4 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 236 / 236 / 0 / 0 & 236 / 236 / 0 / 2 & 236 / 236 / 0 / 6 \\       # 有差别，没有质的影响
-\cmidrule(r){1-9}
-    Reference instruction & 1 / 1 / 0 / 0 & 3 / 0 / 3 / 0 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 3 / 0 / 3 / 0 & 1 / 1 / 0 / 0 & 1 / 1 / 0 / 0 & 3 / 1 / 3 / 0 \\       新的应该是更正确的。wasmi wasm3应该全部不能执行
-    Reference instruction & 1 / 1 / 0 / 0 & 2 / 0 / 2 / 0 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 2 / 0 / 2 / 0 & 1 / 1 / 0 / 0 & 1 / 1 / 0 / 0 & 2 / 1 / 2 / 0 \\
-\cmidrule(r){1-9}
-    Table instruction & 0 / 0 / 0 / 0 & 8 / 0 / 8 / 0 & 2 / 1 / 0 / 0 & 2 / 1 / 0 / 0 & 8 / 0 / 8 / 0 & 1 / 0 / 0 / 0 & 1 / 1 / 0 / 0 & 8 / 1 / 8 / 0 \\       # 有差别， WasmEdge 的1 因为table.init里的crash，iwasm的两个是因为crash
-    Table instruction & 0 / 0 / 0 / 0 & 5 / 0 / 5 / 0 & 1 / 1 / 0 / 0 & 1 / 1 / 0 / 0 & 5 / 0 / 5 / 0 & 0 / 0 / 0 / 0 & 1 / 1 / 0 / 0 & 5 / 1 / 5 / 0 \\
-\cmidrule(r){1-9}
-    Numeric instruction & 8 / 0 / 0 / 4 & 2 / 0 / 0 / 2 & 6 / 0 / 0 / 6 & 2 / 0 / 0 / 2 & 136 / 136 / 0 / 4 & 8 / 0 / 0 / 8 & 2 / 0 / 0 / 2 & 136 / 136 / 0 / 8 \\       # 有差别, wasm3多了一个,问题不大
-    Numeric instruction & 8 / 0 / 0 / 4 & 2 / 0 / 0 / 2 & 6 / 0 / 0 / 6 & 2 / 0 / 0 / 2 & 135 / 135 / 0 / 4 & 8 / 0 / 0 / 8 & 2 / 0 / 0 / 2 & 135 / 135 / 0 / 8 \\      # 要调研下差的wasm3是是很么情况
-\cmidrule(r){1-9}
-    Parametric instruction & 3 / 3 / 0 / 0 & 2 / 0 / 2 / 1 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 3 / 1 / 2 / 0 & 3 / 3 / 0 / 0 & 3 / 3 / 0 / 0 & 3 / 3 / 2 / 1 \\  drop+ref 与 select_1C+ref 导致两个不能执行的diff; select+ ref大家都不能执行
-    Parametric instruction & 3 / 3 / 0 / 0 & 1 / 0 / 0 / 1 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 2 / 1 / 1 / 0 & 3 / 3 / 0 / 0 & 3 / 3 / 0 / 0 & 3 / 3 / 1 / 1 \\   select+ref是不是出了问题
-\cmidrule(r){1-9}
-    Control instruction & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 1 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 1 / 0 / 0 / 0 \\ 一样
-    Control instruction & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 1 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 1 / 0 / 0 / 0 \\
-    \cmidrule(r){1-9}
-    Total & 250 / 242 / 0 / 8 & 17 / 0 / 15 / 3 & 10 / 1 / 2 / 6 & 6 / 1 / 2 / 2 & 175 / 162 / 13 / 4 & 252 / 242 / 0 / 8 & 247 / 245 / 0 / 4 & 416 / 404 / 15 / 15 \\
-
-'''
-'''
-\cmidrule(r){1-9}
-    Variable instruction & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 2 / 2 / 0 / 0 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 2 / 2 / 0 / 0 \\
-\cmidrule(r){1-9}
-    Memory instruction & 2 / 2 / 0 / 0 & 2 / 0 / 2 / 0 & 2 / 0 / 2 / 0 & 2 / 0 / 2 / 0 & 24 / 23 / 0 / 1 & 3 / 2 / 0 / 0 & 3 / 3 / 0 / 0 & 28 / 25 / 2 / 1 \\
-\cmidrule(r){1-9}
-    SIMD instruction & 236 / 236 / 0 / 4 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 236 / 236 / 0 / 1 & 236 / 236 / 0 / 3 & 236 / 236 / 0 / 6 \\
-\cmidrule(r){1-9}
-    Reference instruction & 1 / 1 / 0 / 0 & 3 / 0 / 3 / 0 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 3 / 0 / 3 / 0 & 1 / 1 / 0 / 0 & 1 / 1 / 0 / 0 & 3 / 1 / 3 / 0 \\
-\cmidrule(r){1-9}
-    Table instruction & 0 / 0 / 0 / 0 & 8 / 0 / 8 / 0 & 2 / 1 / 0 / 0 & 2 / 1 / 0 / 0 & 8 / 0 / 8 / 0 & 1 / 0 / 0 / 0 & 1 / 1 / 0 / 0 & 8 / 1 / 8 / 0 \\
-\cmidrule(r){1-9}
-    Numeric instruction & 8 / 0 / 0 / 4 & 2 / 0 / 0 / 2 & 6 / 0 / 0 / 6 & 2 / 0 / 0 / 2 & 136 / 136 / 0 / 4 & 8 / 0 / 0 / 8 & 2 / 0 / 0 / 2 & 136 / 136 / 0 / 8 \\
-\cmidrule(r){1-9}
-    Parametric instruction & 3 / 3 / 0 / 0 & 2 / 0 / 2 / 1 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 3 / 1 / 2 / 0 & 3 / 3 / 0 / 0 & 3 / 3 / 0 / 0 & 3 / 3 / 2 / 1 \\
-\cmidrule(r){1-9}
-    Control instruction & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 1 / 0 / 0 / 0 & 0 / 0 / 0 / 0 & 1 / 0 / 0 / 0 \\
-\cmidrule(r){1-9}
-    Total & 250 / 242 / 0 / 8 & 17 / 0 / 15 / 3 & 10 / 1 / 2 / 6 & 6 / 1 / 2 / 2 & 176 / 162 / 13 / 5 & 253 / 242 / 0 / 9 & 246 / 244 / 0 / 5 & 417 / 404 / 15 / 16 \\
-
-'''
