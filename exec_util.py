@@ -10,7 +10,6 @@ def exec_one_tc(impls, tc_path, tc_result_dir, tc_tgt_dump_dir):
         result = exec_one_runtime(impl, tc_result_dir, tc_path)
         assert isinstance(result, dumpData)
         dumped_results.append(result)
-        # ! 先写成一定要把result dump下来，后面可能考虑换个地方dump
         dumped_path = _get_default_dumped_path(tc_tgt_dump_dir, result.name)
         result.dump(dumped_path)
     return dumped_results
@@ -28,7 +27,6 @@ def exec_one_tc_mth(impls, tc_path, tc_result_dir, tc_tgt_dump_dir):
             result = future.result()
             assert isinstance(result, dumpData)
             dumped_results.append(result)
-            # ! 先写成一定要把result dump下来，后面可能考虑换个地方dump
             dumped_path = _get_default_dumped_path(tc_tgt_dump_dir, result.name)
             result.dump(dumped_path)
     return dumped_results

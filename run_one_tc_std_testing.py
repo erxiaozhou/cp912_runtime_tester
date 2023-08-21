@@ -42,9 +42,7 @@ def test_env(tc_name, reload=False, reload_dir=None, use_release=False):
         result_base_dir = check_dir(result_base_dir)
         tc_dumped_data_dir = check_dir(result_base_dir / tc_name)
     dumped_results = exec_one_tc_mth(impls, tc_path, tc_dumped_data_dir, tc_dumped_data_dir)
-    # dumped_results = exec_one_tc(impls, tc_path, tc_dumped_data_dir, tc_dumped_data_dir)
-    # print(dumped_results)
-    # 
+
     for dumped_result in  dumped_results:
         print(f'dumped_result.name: {dumped_result.name};;dumped_result.can_initialize: {dumped_result.can_initialize} ;; dumped_result.has_crash: {dumped_result.has_crash} {dumped_result.log_has_failed_content}')
         print(dumped_result.stack_bytes_process_nan)
@@ -56,9 +54,9 @@ def test_env(tc_name, reload=False, reload_dir=None, use_release=False):
             print('wasmer_default_dump')
             print(dumped_result.default_mem_length, dumped_result.mem_num, dumped_result.default_mem_page_num)
     print('---' * 10)
-    # 
+
     difference_reason = are_different(dumped_results)
-    # print(dumped_results)
+
     diff_keys = []
     if not isinstance(difference_reason, bool):
         for r in difference_reason.values():
@@ -68,21 +66,11 @@ def test_env(tc_name, reload=False, reload_dir=None, use_release=False):
     print('=' * 50)
     print(diff_keys)
     print(at_least_one_can_instantiate(dumped_results))
-    print('=' * 50)
-    # for result in dumped_results:
-    #     assert isinstance(result, dumpData)
-    #     print('-' * 25)
-    #     print(result.name)
-    #     print(result.can_initialize)
-    #     print(result.log_content)
-    # print(_get_can_execute_num(dumped_results))
-    
 
 
 if __name__ == '__main__':
     argv = sys.argv
     assert len(argv) == 2
     tc_path = argv[1]
-    # test_env(tc_path, False, 'result/one',use_release=False)
     test_env(tc_path, False, 'result/one',use_release=False)
 

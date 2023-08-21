@@ -10,11 +10,9 @@ from pathlib import Path
 
 runtimes_base_dir = '/home/std_runtime_test/lastest_runtimes'
 runtimes_base_dir = Path(runtimes_base_dir)
-# TODO  先编译通，再改config
 
 impl_paras_lastest = {
     'wasmer_default_dump':{
-        # TODO externrf / funcref 的 dump 没写完
         'dump_dir': runtimes_base_dir / 'ld_wasmer_lastest',
         'standard_dir': runtimes_base_dir / 'ori_wasmer_lastest',
         'bin_relative_path': 'target/release/wasmer',
@@ -28,7 +26,6 @@ impl_paras_lastest = {
         'support_v128': True
     },
     'wasmi_interp': {
-        # TODO externrf / funcref 的 dump 没写
         'dump_dir': runtimes_base_dir / 'ld_wasmi_lastest',
         'standard_dir': runtimes_base_dir / 'ori_wasmi_lastest',
         'bin_relative_path': 'target/debug/wasmi_cli',
@@ -42,9 +39,6 @@ impl_paras_lastest = {
         'support_v128': False
     },
     'iwasm_classic_interp_dump':{
-        # TODO externrf / funcref 的 dump 可能要检查
-        # TODO 支持  v128 和 multi-mem 的编译版本
-        # 
         'dump_dir': runtimes_base_dir / 'ld_iwasm_interp_classic_lastest',
         'standard_dir': runtimes_base_dir / 'ori_iwasm_interp_classic_lastest',
         'bin_relative_path': 'product-mini/platforms/linux/build/iwasm',
@@ -58,7 +52,6 @@ impl_paras_lastest = {
         'support_v128': False  # ?
     },
     'iwasm_fast_interp_dump':{
-        # TODO externrf / funcref 的 dump 可能要检查
         'dump_dir': runtimes_base_dir / 'ld_iwasm_interp_fast_lastest',
         'standard_dir': runtimes_base_dir / 'ori_iwasm_interp_fast_lastest',
         'bin_relative_path': 'product-mini/platforms/linux/build/iwasm',
@@ -72,7 +65,6 @@ impl_paras_lastest = {
         'support_v128': False  # ?
     },
     'iwasm_multi_jit_dump':{
-        # TODO externrf / funcref 的 dump 可能要检查
         'dump_dir': runtimes_base_dir / 'ld_iwasm_jit_lastest',
         'standard_dir': runtimes_base_dir / 'ori_iwasm_jit_lastest',
         'bin_relative_path': 'product-mini/platforms/linux/build/iwasm',

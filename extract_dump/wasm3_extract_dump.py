@@ -84,15 +84,10 @@ class wasm3FullDumpData(fullDumpResultInitializer, wasm3HalfDumpData):
                 self.table_num = 1
             else:
                 self.table_num = 0
-            # ! 先硬写成1,因为看起来只有一个memory
             self.mem_num = 1
-            # if default_mem_length
             default_mem_length = get_u64(f.read(8))
             if default_mem_length == 0:
                 self.mem_num = 0
-                # self.default_mem_length =
-                # self.default_mem_page_num = get_int(f.read(4))
-                # self.default_mem_data = f.read(self.default_mem_length)
             else:
                 self.mem_num = 1
                 self.default_mem_length = default_mem_length
