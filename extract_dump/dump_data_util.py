@@ -1,27 +1,6 @@
 from file_util import pickle_dump, pickle_load
 
 
-# class logData:
-#     def __init__(self):
-#         self.log_content = None
-#         self.log_has_failed_content = None
-#         self.failed_exec = None
-#         self.features = None
-#         self.name = None
-#         self.has_timeout = None
-
-#     @property
-#     def to_dict(self):
-#         data = self.__dict__.copy()
-#         return data
-    
-#     def dump(self, path):
-#         pickle_dump(path, self.to_dict)
-    
-#     def __repr__(self) -> str:
-#         return str(self.__dict__)
-
-
 class dumpData:
     def __init__(self):
         self.log_content = None
@@ -31,6 +10,7 @@ class dumpData:
         self.name = None
         self.can_initialize = None
         self.has_timeout = None
+        self.has_crash = None
         self.has_instance = None
 
         self.global_bytes = []
@@ -89,11 +69,15 @@ _to_compare_attrs = [
     'stack_num',
     'stack_types',
     'stack_bytes_process_nan',
+
     # 'stack_bytes',
     # 'stack_infered_vals',
-    'log_has_failed_content',
-    'has_timeout',
+    # 'log_has_failed_content',
+    # 'has_timeout',
+    # 'has_crash'
 ]
+exec_state_attrs = ['log_has_failed_content', 'has_timeout', 'has_crash']
+no_exec_state_attrs = [x for x in _to_compare_attrs if x not in exec_state_attrs]
 
 
 def get_diff_attr_names(data1, data2,

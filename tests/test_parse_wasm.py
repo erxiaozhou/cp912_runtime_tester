@@ -1,5 +1,5 @@
 from file_util import read_bytes
-from generate_wasm_tc_util import get_wasm_bytes_from_dict, prepare_template
+from generate_tcs_by_mutation_util.generate_wasm_tc_util import get_wasm_bytes_from_dict, prepare_template
 import pytest
 
 

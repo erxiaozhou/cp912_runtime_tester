@@ -11,7 +11,7 @@ import numpy as np
 from nan_detect_util import is_anan, is_cnan, is_illegal_anan, is_nan
 
 
-def category_stack(reason_json_path, dumped_data_base_dir, result_dir):
+def category_stack(reason_json_path, dumped_data_base_dir, result_dir, ignore_all_nan=True):
     reason2tc_result_dirs = get_reason2result_dirs_from_reason_json(
         reason_json_path, dumped_data_base_dir)
     assert isinstance(reason2tc_result_dirs, dict)
@@ -19,11 +19,10 @@ def category_stack(reason_json_path, dumped_data_base_dir, result_dir):
     reason_log_pair2path = {}
     path2reason_log_pair = {}
     for i, reason_key in enumerate(reason2tc_result_dirs, start=1):
-        # for reason, tc_result_dirs in reason2tc_result_dirs.items():
         if reason_key == '()':
             continue
         tc_result_dirs = reason2tc_result_dirs[reason_key]
-        stack_key2tc_names = group_tc_names_by_stack_key(tc_result_dirs)
+        stack_key2tc_names = group_tc_names_by_stack_key(tc_result_dirs, ignore_all_nan)
         stack_key2tc_names_path = str(result_dir / '{}.json'.format(i))
         save_json(stack_key2tc_names_path, stack_key2tc_names)
 
@@ -46,12 +45,13 @@ def category_stack(reason_json_path, dumped_data_base_dir, result_dir):
     save_json(reason_content_pair_log_inv_path, path2reason_log_pair)
 
 
-def group_tc_names_by_stack_key(tc_result_dirs):
+def group_tc_names_by_stack_key(tc_result_dirs, ignore_all_nan):
     stack_key2tc_names = {}
     for tc_result_dir in tc_result_dirs:
         dumped_results = load_results_from_one_dumped_data_dir(tc_result_dir)
-        # print('tc_result_dir', tc_result_dir)
         stack_vals = cleanedStackVals.from_dumped_results(dumped_results, tc_result_dir)
+        if ignore_all_nan and stack_vals.all_nan:
+            continue
         key = stack_vals.key
         name = Path(tc_result_dir).name
         if key not in stack_key2tc_names:
@@ -70,12 +70,20 @@ class cleanedStackVals:
     def key(self):
         sorted_list = []
         for k, v in self.stack_val_dict_.items():
-            # print('in cleaned_stack_vals.key', k)
             impl_repr = (k, v.key)
             sorted_list.append(impl_repr)
         sorted_list = sorted(sorted_list, key=lambda x: x[0])
         key = repr(tuple(sorted_list))
         return key
+    
+    @property
+    def all_nan(self):
+        for v in self.stack_val_dict_.values():
+            if not v.is_nan:
+                return False
+        if len(self.stack_val_dict_) == 0:
+            return False
+        return True
 
     @classmethod
     def from_dumped_results(cls, dumped_results, tc_result_dir):
@@ -85,18 +93,6 @@ class cleanedStackVals:
             print('tc_result_dir', tc_result_dir)
             raise e 
         return r
-
-
-# @lru_cache(maxsize=4096 * 4, typed=False)
-# def _get_key_from_processed_log_dict_repr(processed_log_dict_repr):
-#     processed_log_dict = eval(processed_log_dict_repr)
-#     sorted_list = []
-#     for k, v in processed_log_dict.items():
-#         impl_repr = (k, v)
-#         sorted_list.append(impl_repr)
-#     sorted_list = sorted(sorted_list, key= lambda x : x[0])
-#     key = repr(tuple(sorted_list))
-#     return key
 
 
 def get_stack_val_from_dumped_results(dumped_results):
@@ -117,14 +113,12 @@ class cleanedStackVal:
         self.stack_num = stack_num
         self.nan_ty =None
         self.is_nan = None
-        # self.is_inf = None
         if self.stack_num > 0:
             assert self.stack_num == 1, print(self.stack_num)
             self.stack_types = stack_types
             self.stack_bytes = stack_bytes
             self.stack_infered_vals = stack_infered_vals
             self.stack_bytes_process_nan = stack_bytes_process_nan
-            # 
             if self.stack_types[0] in ['f32', 'f64']:
                 self.is_nan = is_nan(self.stack_bytes[0])
                 if self.is_nan:
@@ -147,17 +141,23 @@ class cleanedStackVal:
             try:
                 key = repr(self.stack_types[0])
             except:
-                # print(self.stack_types, self.stack_num, self.stack_bytes)
                 raise
             key = repr(self.stack_types[0])
-        key += '_{}'.format(self.is_nan)
         if self.is_nan:
-            key += '_{}'.format(self.nan_ty)
+            key = f'{key}_is_nan'
+        else:
+            key = f'{key}_not_nan'
+        # key += '_{}'.format(self.is_nan)
+        # if self.is_nan:
+        #     key += '_{}'.format(self.nan_ty)
         if self.stack_infered_vals is not None:
-            if self.stack_infered_vals[0] == np.inf:
-                key += '_inf'
-            elif self.stack_infered_vals[0] == -np.inf:
-                key += '_ninf'
+            try:
+                if self.stack_infered_vals[0] == np.inf:
+                    key += '_inf'
+                elif self.stack_infered_vals[0] == -np.inf:
+                    key += '_ninf'
+            except RuntimeWarning:
+                print(self.stack_infered_vals)
         return key
 
     @classmethod

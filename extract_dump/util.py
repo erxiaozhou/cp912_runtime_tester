@@ -1,5 +1,5 @@
 from pathlib import Path
-from file_util import path_read
+from abc import abstractclassmethod
 from .dump_data_util import dumpData
 from path_group_util import cmnImplResultPathGroup
 
@@ -15,8 +15,8 @@ def is_failed_content(content):
         return True
     elif 'aborted' in content:
         return True
-    elif 'fault' in content:
-        return True
+    # elif 'fault' in content:
+    #     return True
     elif 'aborting' in content:
         return True
     else:
@@ -24,9 +24,10 @@ def is_failed_content(content):
 
 
 class uninstResultInitializer(dumpData):
-    def __init__(self, has_timeout, features=None, log_content=None, name=None):
+    def __init__(self, has_timeout, has_crash, features=None, log_content=None, name=None):
         super().__init__()
         self.has_timeout = has_timeout
+        self.has_crash = has_crash
         self.log_content = log_content
         self.features = features.copy()
         self.name = name
@@ -38,7 +39,7 @@ class uninstResultInitializer(dumpData):
         self._init_can_initialize()
     
     def _init_failed_exec(self):
-        self.failed_exec = self.log_has_failed_content or self.has_timeout
+        self.failed_exec = self.log_has_failed_content or self.has_timeout or self.has_crash
 
     def _init_has_failed_content(self):
         self.log_has_failed_content = is_failed_content(self.log_content)
@@ -46,32 +47,25 @@ class uninstResultInitializer(dumpData):
     def _init_can_initialize(self):
         self.can_initialize = True
 
-
-class fullDumpResultInitializer(uninstResultInitializer):
-    def __init__(self, paths, has_timeout, features=None, log_content=None, name=None):
+class halfDumpResultInitializer(uninstResultInitializer):
+    def __init__(self, paths, has_timeout, has_crash, features=None, log_content=None, name=None):
         self.paths = paths
-        super().__init__(has_timeout, features, log_content, name)
+        super().__init__(has_timeout, has_crash, features, log_content, name)
         assert isinstance(paths, cmnImplResultPathGroup)
-        # self.has_timeout = has_timeout
-        # self.features = features.copy()
-        # self.log_content = log_content
-        # self.name = name
-        # self.common_initialize()
+        if Path(self.vstack_path).exists():
+            self._init_stack(self.vstack_path)
+
+    @abstractclassmethod
+    def _init_stack(self, *args, **kwargs): pass
 
     def common_initialize(self):
         self._init_has_failed_content()
         self._init_failed_exec()
         self._init_can_initialize()
         self._init_has_instance()
-        # print('-----------------------')
     
     def _init_can_initialize(self):
-        # ! 还是很奇怪
-        if Path(self.store_path).exists():
-            if Path(self.vstack_path).exists():
-                self.can_initialize = True
-                return
-        self.can_initialize = False
+        self.can_initialize = Path(self.vstack_path).exists()
 
     def _init_has_instance(self):
         self.has_instance = _has_instance(self.has_instance_path)
@@ -84,11 +78,6 @@ class fullDumpResultInitializer(uninstResultInitializer):
             new_data.__dict__[k] = self.__dict__[k]
         return new_data.to_dict
 
-    # paths
-    @property
-    def store_path(self):
-        return self.paths.store_path
-
     @property
     def vstack_path(self):
         return self.paths.vstack_path
@@ -97,6 +86,21 @@ class fullDumpResultInitializer(uninstResultInitializer):
     def has_instance_path(self):
         return self.paths.inst_path
 
+class fullDumpResultInitializer(halfDumpResultInitializer):
+    def __init__(self, paths, has_timeout, has_crash, features=None, log_content=None, name=None):
+        super().__init__(paths, has_timeout, has_crash, features, log_content, name)
+        if Path(self.store_path).exists():
+            self._init_store(self.store_path)
+
+    @abstractclassmethod
+    def _init_store(self, *args, **kwargs): pass
+
+    def _init_can_initialize(self):
+        self.can_initialize = Path(self.store_path).exists() and Path(self.vstack_path).exists()
+
+    @property
+    def store_path(self):
+        return self.paths.store_path
 
 def _has_instance(path):
     has_instance_ = False

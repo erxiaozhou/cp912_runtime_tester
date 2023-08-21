@@ -1,5 +1,5 @@
 import pytest
-from get_imlps_util import get_std_imlps  # may error; should check the name again
+from get_impls_util import get_std_impls  # may error; should check the name again
 # a path to a .wasm file which is executable; there is no local, global, memory within it
 executable_wasm_path1 = None
 # a path to a .wasm file which is executable; there exist local, global, memory ...
@@ -44,10 +44,10 @@ paras = [
     }]
 ]
 
-
+# ! 为什么删掉了，感觉应该加上
 # @pytest.mark.parametrize('wasm_path, expected_data_dict', paras)
 # def test_executable_paths(wasm_path, expected_data_dict):
-#     impls = get_std_imlps()
+#     impls = get_std_impls()
 #     for impl in impls:
 #         for attr_name, value in expected_data_dict.items():
 #             assert getattr(impl, attr_name) == value

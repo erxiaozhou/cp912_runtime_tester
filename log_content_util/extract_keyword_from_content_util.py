@@ -4,6 +4,7 @@ from functools import lru_cache
 reference_unsupport = 'reference unsupport'
 multi_memory_unsupport = 'multi memory'
 too_many_local = 'too many local'
+invalid_local_count = 'invalid local count'
 stack_operand_overflow = 'stack operand overflow'  # wasm3的，常和too_many_local一起出现
 SIMD_unsupport = 'SIMD unsupport'
 
@@ -29,7 +30,8 @@ elem_seg_oob = 'element segment OOB'
 wasm3_stack_overflow = 'wasm3 stack overflow'
 unknown_function = 'unknown function'
 function_OOB = 'function OOB'
-
+# zero byte expected
+zero_byte_expected = 'zero byte expected'
 
 # check and make it failed
 type_mismatch = 'type mismatch'
@@ -47,7 +49,8 @@ illegal_opcode = 'illegal/unknown opcode'
 # ! multi memory，为什么会出现：有runtime报这个错的同时，其他runtime有的还能运行？要统一下这个设定
 
 categorize_info_coarse = {
-    'memory index reserved byte must be zero': 'zero byte expected',
+    'memory index reserved byte must be zero': zero_byte_expected,
+    'zero byte expected': zero_byte_expected,
     'operators remaining after end of function': func_sec_mismatch,
     'expected data but found end of stream': func_sec_mismatch,
     'unexpected end of section or function': func_sec_mismatch,
@@ -108,6 +111,7 @@ categorize_info_coarse = {
     'locals exceed maximum': too_many_local,
     'local count too large': too_many_local,
     'too many locals': too_many_local,
+    'invalid local count': invalid_local_count,
     'outOfBoundsElemSegmentAccess': elem_seg_oob,
     'elemSegmentIndex must be less than module.elemSegments.size()': elem_seg_oob,
     'compiling function overran its stack height limit': stack_operand_overflow,
@@ -146,10 +150,6 @@ categorize_info_fine = {
     illegal_type: illegal_type,
     illegal_local_type: illegal_type,
 }
-categorize_info_level3 = {
-    wrong_alignment:''
-}
-
 
 
 # 低虚警的错误类型，指，如果检测出来，则证明极大概率是作对了。比如mismatch
@@ -166,7 +166,6 @@ content_relation0_list = [
     'trailing bytes at end of section',
     'integer too large',
     'Invalid signed LEB encoding',
-    'section size mismatch',
     'unsupported opcode fd',
     'unsupported opcode fc',
     'Unknown opcode',
@@ -216,8 +215,6 @@ content_relation0_list = [
     'tail calls support is not enabled',
     'multi-memory not enabled',
     'outOfBoundsTableAccess',
-    'v128 value type requires simd feature',
-    'compiling function overran its stack height limit',
     'Unknown 0xfe subopcode',
     'type index out of bounds',
     'section overrun while parsing Wasm binary',
@@ -228,7 +225,6 @@ content_relation0_list = [
     'branch depth too large',
     'no compiler found for opcode',
     'no operation found for opcode',
-    'unknown value type',
     'unknown value_type',
     'invalid value type',
     'Invalid type',
@@ -266,8 +262,6 @@ content_relation2 = {
     'Unknown 0xfd subopcode': '<common reason>',
     ' wasm operand stack overflow': '<common reason>',
     'Validation error: locals exceed maximum': '<common reason>',
-    'compiling function overran its stack height limit': '<common reason>',
-    'v128 value type requires simd feature': '<common reason>',
     'wasm operand stack overflow': '<common reason>',
     'compiling function overran its stack height limit': '<common reason>',
     'v128 value type requires simd feature': '<common reason>'

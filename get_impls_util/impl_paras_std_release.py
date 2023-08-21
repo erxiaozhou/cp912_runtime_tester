@@ -1,10 +1,10 @@
-from extract_dump import iwasmClassicInterpDumpedResult
-from extract_dump import wasmiDumpedResult
-from extract_dump import wasm3_dumped_data
-from extract_dump import wasmedgeDumpedResult
-from extract_dump import wasmerDumpedResult
-from extract_dump import iwasmFastInterpDumpedResult
-from extract_dump import wavmDumpedResult
+from extract_dump import iwasmFullClassicInterpDumpData
+from extract_dump import wasmiFullDumpData
+from extract_dump import wasm3FullDumpData
+from extract_dump import wasmedgeFullDumpData
+from extract_dump import wasmerFullDumpData
+from extract_dump import iwasmFullFastInterpDumpData
+from extract_dump import wavmFullDumpData
 from pathlib import Path
 
 
@@ -24,7 +24,7 @@ impl_paras_std_release = {
         'dump_instante_rpath': 'dump_instantiation',
         'err_channel': 'stderr',
         'std_cmd': '{} {}  --invoke to_test',
-        'dump_extractor': wasmerDumpedResult,
+        'dump_extractor': wasmerFullDumpData,
         'support_multi_mem': True,
         'support_ref': True,
         'support_v128': True
@@ -42,7 +42,7 @@ impl_paras_std_release = {
         'dump_instante_rpath': 'dump_instantiation',
         'err_channel': 'stderr',
         'std_cmd': '{} {}  to_test',
-        'dump_extractor': wasmiDumpedResult,
+        'dump_extractor': wasmiFullDumpData,
         'support_multi_mem': False,
         'support_ref': False,
         'support_v128': False
@@ -58,7 +58,7 @@ impl_paras_std_release = {
         'dump_instante_rpath': 'dump_instantiation',
         'err_channel': 'stdout',
         'std_cmd': '{} --heap-size=0 -f to_test {}',
-        'dump_extractor': iwasmClassicInterpDumpedResult,
+        'dump_extractor': iwasmFullClassicInterpDumpData,
         'support_multi_mem': False,
         'support_ref': True,
         'support_v128': False  # ?
@@ -74,7 +74,7 @@ impl_paras_std_release = {
         'dump_instante_rpath': 'dump_instantiation',
         'err_channel': 'stdout',
         'std_cmd': '{} --heap-size=0 -f to_test {}',
-        'dump_extractor': iwasmFastInterpDumpedResult,
+        'dump_extractor': iwasmFullFastInterpDumpData,
         'support_multi_mem': False,
         'support_ref': True,
         'support_v128': False  # ?
@@ -98,7 +98,7 @@ impl_paras_std_release = {
         'dump_instante_rpath': 'dump_instantiation',
         'err_channel': 'stderr',
         'std_cmd': '{} --func to_test {}',
-        'dump_extractor': wasm3_dumped_data,
+        'dump_extractor': wasm3FullDumpData,
         'support_multi_mem': True,
         'support_ref': True,
         'support_v128': False
@@ -117,7 +117,7 @@ impl_paras_std_release = {
         'dump_instante_rpath': 'dump_result/dump_instantiation',
         'err_channel': 'stdout',
         'std_cmd': '{} --reactor {} to_test',
-        'dump_extractor': wasmedgeDumpedResult,
+        'dump_extractor': wasmedgeFullDumpData,
         'support_multi_mem': True,
         'support_ref': True,
         'support_v128': True
@@ -135,7 +135,7 @@ impl_paras_std_release = {
         'dump_instante_rpath': 'dump_instantiation',
         'err_channel': 'stderr',
         'std_cmd': '{} run --function=to_test {}',
-        'dump_extractor': wavmDumpedResult,
+        'dump_extractor': wavmFullDumpData,
         'support_multi_mem': True,
         'support_ref': True,
         'support_v128': True

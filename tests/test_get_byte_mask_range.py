@@ -1,7 +1,7 @@
 import pytest
-from generate_tcs_by_mutation_util import _code_secion
-from generate_wasm_tc_util import prepare_template
-from get_mask_util.get_mask import get_byte_mask_range
+from generate_tcs_by_mutation_util.generate_tcs_by_mutation_util import _code_secion
+from generate_tcs_by_mutation_util.generate_wasm_tc_util import prepare_template
+from generate_tcs_by_mutation_util.get_mask_util.get_mask import get_byte_mask_range
 
 
 paras = [

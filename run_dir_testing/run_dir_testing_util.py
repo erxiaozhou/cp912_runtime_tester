@@ -7,19 +7,24 @@ from analyze_reslut_util import reasonSummary
 from stack_val_analyze import category_stack
 from .testing_paras_util import mutationParas
 from .tester_util import testerExecPaths
+from path_group_util import analyzeResultDirs
 
 
-def test_and_analyze(result_base_dir, analyze_paths, paras):
+def test_and_analyze(result_base_dir, paras, impls):
     test_with_mutation(paras)
     exec_paths = paras.tester_exec_paths
-    detect_canrun_cannotdump(exec_paths, result_base_dir)
+    detect_canrun_cannotdump(exec_paths, result_base_dir, impls)
+    analyze(result_base_dir, exec_paths)
+
+def analyze(result_base_dir, exec_paths):
+    analyze_paths = analyzeResultDirs(result_base_dir)
     reason_summary = reasonSummary(analyze_paths.reason_summary_base_dir, exec_paths.reason_dir)
-    log_content_categorize(reason_summary.only_exec_smry_path, analyze_paths.log_category_base_dir, exec_paths.dumped_data_base_dir, ['only_interesting', 'only_highlight'])
+    log_content_categorize(reason_summary.only_exec_smry_path, analyze_paths.log_category_base_dir, exec_paths.dumped_data_base_dir, ['all', 'only_interesting', 'only_highlight'])
     category_stack(reason_summary.stack_smry_path, exec_paths.dumped_data_base_dir, analyze_paths.stack_category_base_dir)
 
 
 
-def detect_canrun_cannotdump(exec_paths, result_base_dir):
+def detect_canrun_cannotdump(exec_paths, result_base_dir, impls):
     assert isinstance(exec_paths, testerExecPaths)
     canrun_cannotdump_tc_names = []
     # init canrun_cannotdump_tc_names
@@ -46,13 +51,11 @@ def detect_canrun_cannotdump(exec_paths, result_base_dir):
         tc_reason_path = Path(exec_paths.reason_dir) / f'{tc_name}.json'
         if tc_reason_path.exists():
             tc_reason_path.unlink()
-    paras = mutationParas.get_no_mutation_paras(result_base_dir, new_dir, exec_paths)
+    paras = mutationParas.get_no_mutation_paras(result_base_dir, new_dir, impls=impls,  tester_exec_paths=exec_paths)
     test_with_mutation(paras)
 
 
-def log_content_categorize(reason_summary_path, log_category_base_dir, dumped_data_base_dir, modes=None):
-    if modes is None:
-        modes = ['all', 's1', 's2', 's3', 'only_interesting', 'only_highlight']
+def log_content_categorize(reason_summary_path, log_category_base_dir, dumped_data_base_dir, modes):
     log_category_base_dir = check_dir(log_category_base_dir)
     for mode in modes:
         sub_log_category_dir = log_category_base_dir / f'{mode}_log_category'

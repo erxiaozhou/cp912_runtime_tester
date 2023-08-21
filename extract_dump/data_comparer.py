@@ -18,16 +18,25 @@ def are_different(dumped_results):
     assert isinstance(base, dumpData)
     # ! 下面这行检查features只是权宜之计，暂时没有更好的办法
     assert base.features['support_ref'] and base.features['support_v128'] and True  # multiple memory
-    if base.log_has_failed_content:
+    if base.failed_exec:
+        if base.log_has_failed_content:
+            # compare_result[base.name] = ["CannotExecute"]
+            pass
+        elif base.has_timeout:
+            compare_result[base.name] = ["has_timeout"]
+        elif base.has_crash:
+            compare_result[base.name] = ["has_crash"]
         re_compare_runtimes = []
         for to_compare in dumped_results[1:]:
             assert isinstance(to_compare, dumpData)
             if not to_compare.log_has_failed_content:
-                if not to_compare.has_timeout:
+                if to_compare.has_timeout:
+                    compare_result[to_compare.name] = ["has_timeout"]
+                elif to_compare.has_crash:
+                    compare_result[to_compare.name] = ["has_crash"]
+                else:
                     compare_result[to_compare.name] = ["CanExecute"]
                     re_compare_runtimes.append(to_compare)
-                else:
-                    compare_result[to_compare.name] = ["has_timeout"]
         # 这个时候应该换个base继续跑
         # re compare
         if len(re_compare_runtimes) > 1:
@@ -47,6 +56,10 @@ def are_different(dumped_results):
             assert isinstance(to_compare, dumpData)
             if to_compare.log_has_failed_content:
                 compare_result[to_compare.name] = ["CannotExecute"]
+            elif to_compare.has_timeout:
+                compare_result[to_compare.name] = ["has_timeout"]
+            elif to_compare.has_crash:
+                compare_result[to_compare.name] = ["has_crash"]
             else:
                 cur_different_attrs = get_diff_attr_names(base, to_compare)
                 # ! 这里是不是有问题
@@ -62,18 +75,18 @@ def are_different(dumped_results):
     for result in dumped_results:
         # 下面检查下逻辑
         # print(result.log_has_failed_content, result.name)
-        if (not result.log_has_failed_content) and (
+        if (not result.failed_exec) and (
                 not result.can_initialize):
             if result.name not in compare_result:
                 compare_result[result.name] = []
             compare_result[result.name].append('CanRun_CannotDump')
     # log whether timeout
-    # ! 这个再观察下，看着很奇怪，好像有has_timeout就够了，这个准备删掉
     for result in dumped_results:
+        # ! 这个再观察下，看着很奇怪，好像有has_timeout就够了，这个准备删掉
         if result.has_timeout:
-            if result.name not in compare_result:
-                compare_result[result.name] = []
-            compare_result[result.name].append('has_timeout')
+            compare_result.setdefault(result.name, []).append('has_timeout')
+        if result.has_crash:
+            compare_result.setdefault(result.name, []).append('has_crash')
     if len(compare_result):
         return compare_result
     else:

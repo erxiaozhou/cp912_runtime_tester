@@ -1,6 +1,6 @@
 import pytest
-from byte_seq_mask_mutator import _delete_op, _get_pos_outof_masks, _get_pos_outof_masks_insert, _in_masks, _insert_op
-from byte_seq_mask_mutator import _replace_op
+from generate_tcs_by_mutation_util.byte_seq_mask_mutator import _delete_op, _get_pos_outof_masks, _get_pos_outof_masks_insert, _in_masks, _insert_op
+from generate_tcs_by_mutation_util.byte_seq_mask_mutator import _replace_op
 
 
 masks1 = [[0, 11], [12, 15]]

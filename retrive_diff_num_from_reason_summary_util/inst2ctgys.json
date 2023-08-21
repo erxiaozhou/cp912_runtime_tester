@@ -12,7 +12,7 @@
     "ref.func": "Reference",
     "drop": "Parametric",
     "select": "Parametric",
-    "select_ast": "Parametric",
+    "select_1C~t": "Parametric",
     "local.get": "Variable",
     "local.set": "Variable",
     "local.tee": "Variable",

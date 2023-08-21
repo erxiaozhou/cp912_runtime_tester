@@ -6,6 +6,7 @@ import time
 from pathlib import Path
 import pickle
 import chardet
+import logging
 
 
 def pickle_dump(path, data):
@@ -112,11 +113,6 @@ def remove_file_without_exception(path):
         pass
 
 
-def combine_path(p1, p2):
-    s = Path(p1) / p2
-    return str(s)
-
-
 def print_ba(ba):
     ba = bytearray(ba)
     print([hex(x) for x in ba])
@@ -159,7 +155,23 @@ def byte2str(bs):
     result = chardet.detect(bs)
     encoding = result['encoding']
     if encoding is not None:
-        s = bs.decode(encoding)
+        try:
+            s = bs.decode(encoding)
+        except UnicodeDecodeError as e:
+            # ! 等 log 部分能妥善处理乱码再不去 raise
+            raise e
+            s = str(bs)
     else:
         s = str(bs)
     return s
+
+
+def get_logger(logger_name, log_file_name):
+    logger = logging.getLogger(logger_name)
+    logger.setLevel('DEBUG')
+    file = logging.FileHandler(log_file_name, mode='w', encoding='utf8')
+    fmt = logging.Formatter(
+        fmt="%(levelname)-9s - %(filename)-8s : %(lineno)s line - %(message)s")
+    file.setFormatter(fmt)
+    logger.addHandler(file)
+    return logger

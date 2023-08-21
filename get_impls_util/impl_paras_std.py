@@ -1,10 +1,10 @@
-from extract_dump import iwasmClassicInterpDumpedResult
-from extract_dump import wasmiDumpedResult
-from extract_dump import wasm3_dumped_data
-from extract_dump import wasmedgeDumpedResult
-from extract_dump import wasmerDumpedResult
-from extract_dump import iwasmFastInterpDumpedResult
-from extract_dump import wavmDumpedResult
+from extract_dump import iwasmFullClassicInterpDumpData
+from extract_dump import wasmiFullDumpData
+from extract_dump import wasm3FullDumpData
+from extract_dump import wasmedgeFullDumpData
+from extract_dump import wasmerFullDumpData
+from extract_dump import iwasmFullFastInterpDumpData
+from extract_dump import wavmFullDumpData
 from pathlib import Path
 
 runtimes_base_dir = '/home/zph/DGit/wasm_projects/std_runtime_test'
@@ -26,10 +26,8 @@ impl_paras_std = {
         'dump_instante_rpath': 'dump_instantiation',
         'std_cmd': '{} {} -i to_test',
         'lastest_cmd': '{} {} -i to_test',
-        'dump_cmd':  '{} {} -i to_test 2> {}',
         'err_channel': 'stderr',
-        'dump_cmd_v2':  '{} {} -i to_test',
-        'dump_extractor': wasmerDumpedResult,
+        'dump_extractor': wasmerFullDumpData,
         'support_multi_mem': True,
         'support_ref': True,
         'support_v128': True
@@ -49,10 +47,8 @@ impl_paras_std = {
         'dump_instante_rpath': 'dump_instantiation',
         'std_cmd': '{} {}  to_test',
         'lastest_cmd': '{} {}  to_test',
-        'dump_cmd':  '{} {}  to_test 2> {}',
         'err_channel': 'stderr',
-        'dump_cmd_v2':  '{} {}  to_test',
-        'dump_extractor': wasmiDumpedResult,
+        'dump_extractor': wasmiFullDumpData,
         'support_multi_mem': False,
         'support_ref': False,
         'support_v128': False
@@ -70,10 +66,8 @@ impl_paras_std = {
         'dump_instante_rpath': 'dump_instantiation',
         'std_cmd': '{} --heap-size=0 -f to_test {}',
         'lastest_cmd': '{} --heap-size=0 -f to_test {}',
-        'dump_cmd':  '{} --heap-size=0 -f to_test {} > {}',
         'err_channel': 'stdout',
-        'dump_cmd_v2':  '{} --heap-size=0 -f to_test {}',
-        'dump_extractor': iwasmClassicInterpDumpedResult,
+        'dump_extractor': iwasmFullClassicInterpDumpData,
         'support_multi_mem': False,
         'support_ref': True,
         'support_v128': False  # ?
@@ -91,10 +85,8 @@ impl_paras_std = {
         'dump_instante_rpath': 'dump_instantiation',
         'std_cmd': '{} --heap-size=0 -f to_test {}',
         'lastest_cmd': '{} --heap-size=0 -f to_test {}',
-        'dump_cmd':  '{} --heap-size=0 -f to_test {} > {}',
         'err_channel': 'stdout',
-        'dump_cmd_v2':  '{} --heap-size=0 -f to_test {}',
-        'dump_extractor': iwasmFastInterpDumpedResult,
+        'dump_extractor': iwasmFullFastInterpDumpData,
         'support_multi_mem': False,
         'support_ref': True,
         'support_v128': False  # ?
@@ -120,10 +112,8 @@ impl_paras_std = {
         'dump_instante_rpath': 'dump_instantiation',
         'std_cmd': '{} --func to_test {}',
         'lastest_cmd': '{} --func to_test {}',
-        'dump_cmd':  '{} --func to_test {} 2> {}',
         'err_channel': 'stderr',
-        'dump_cmd_v2':  '{} --func to_test {}',
-        'dump_extractor': wasm3_dumped_data,
+        'dump_extractor': wasm3FullDumpData,
         'support_multi_mem': True,
         'support_ref': True,
         'support_v128': False
@@ -144,10 +134,8 @@ impl_paras_std = {
         'dump_instante_rpath': 'dump_result/dump_instantiation',
         'std_cmd': '{} --reactor {} to_test',
         'lastest_cmd': '{} --reactor {} to_test',
-        'dump_cmd':  '{} --reactor {} to_test > {}',
         'err_channel': 'stdout',
-        'dump_cmd_v2':  '{} --reactor {} to_test',
-        'dump_extractor': wasmedgeDumpedResult,
+        'dump_extractor': wasmedgeFullDumpData,
         'support_multi_mem': True,
         'support_ref': True,
         'support_v128': True
@@ -167,10 +155,8 @@ impl_paras_std = {
         'dump_instante_rpath': 'dump_instantiation',
         'std_cmd': '{} run --function=to_test {}',
         'lastest_cmd': '{} run --function=to_test {}',
-        'dump_cmd':  '{} run --function=to_test {} 2> {}',
         'err_channel': 'stderr',
-        'dump_cmd_v2':  '{} run --function=to_test {}',
-        'dump_extractor': wavmDumpedResult,
+        'dump_extractor': wavmFullDumpData,
         'support_multi_mem': True,
         'support_ref': True,
         'support_v128': True

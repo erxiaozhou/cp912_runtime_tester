@@ -1,6 +1,7 @@
 
 from .extract_keyword_from_content_util import extract_keyword_from_content, keyword_part2possible_common_reason, get_categorize_info_coarse_summary, get_categorize_info_fine_summary
 from functools import lru_cache
+from abc import abstractclassmethod
 import re
 
 
@@ -12,7 +13,8 @@ def get_one_runtime_log(s, runtime_name):
         'wasmer_default_dump': oneWasmerRuntimeLog,
         'WAVM_default': oneWAVMRuntimeLog,
         'iwasm_fast_interp_dump': oneIwasmRuntimeLog,
-        'iwasm_classic_interp_dump': oneIwasmRuntimeLog
+        'iwasm_classic_interp_dump': oneIwasmRuntimeLog,
+        'iwasm_multi_jit_dump': oneIwasmRuntimeLog
     }
     assert runtime_name in runtime_name2class
     return runtime_name2class[runtime_name](s, runtime_name)
@@ -27,8 +29,9 @@ class oneRuntimeLog():
         self.filter_normal = self.filter_normal.strip('\'"\n\\ ')
         self._keyword_part = None
     
+    @abstractclassmethod
     def _filter_normal_output(self, s):
-        raise NotImplementedError
+        pass
 
 
     def keyword_part(self):
@@ -43,7 +46,9 @@ class oneRuntimeLog():
         return get_categorize_info_coarse_summary(self.keyword_part())
 
     def summary_key_s3(self):
-        return get_categorize_info_fine_summary(self.keyword_part())
+        s = get_categorize_info_fine_summary(self.keyword_part())
+        s = re.sub(r'\d{1,}', '<num>', s)
+        return s
     
     def __hash__(self) -> int:
         return hash(self.s)
@@ -78,6 +83,8 @@ class oneIwasmRuntimeLog(oneRuntimeLog):
         p = r'^\d:ref\.func$'
         s = re.sub(p, '', s)
         p = r'^(?:(?:func)|(?:extern)):ref\.null$'
+        s = re.sub(p, '', s)
+        p = r'^<0x[a-f0-9]{16} 0x[a-f0-9]{16}>:v128$'
         s = re.sub(p, '', s)
         return s
     

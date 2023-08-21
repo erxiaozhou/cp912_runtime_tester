@@ -13,13 +13,13 @@ from stack_val_analyze.stack_val_analyze_util import cleanedStackVal
 from extract_dump.analyze_exec_instant import _get_can_execute_num
 from get_impls_util import get_std_release_impls
 debug_impls = get_std_impls()
-release_impls = get_std_release_impls()
-
+# release_impls = get_std_release_impls()
 
 
 def test_env(tc_name, reload=False, reload_dir=None, use_release=False):
     if use_release:
-        impls = release_impls
+        # impls = release_impls
+        pass
     else:
         impls = debug_impls
     for impl in impls:
@@ -44,6 +44,19 @@ def test_env(tc_name, reload=False, reload_dir=None, use_release=False):
     dumped_results = exec_one_tc_mth(impls, tc_path, tc_dumped_data_dir, tc_dumped_data_dir)
     # dumped_results = exec_one_tc(impls, tc_path, tc_dumped_data_dir, tc_dumped_data_dir)
     # print(dumped_results)
+    # 
+    for dumped_result in  dumped_results:
+        print(f'dumped_result.name: {dumped_result.name};;dumped_result.can_initialize: {dumped_result.can_initialize} ;; dumped_result.has_crash: {dumped_result.has_crash} {dumped_result.log_has_failed_content}')
+        print(dumped_result.stack_bytes_process_nan)
+        if dumped_result.name == 'wasm3_dump':
+            print('wasm3_dump')
+            print(dumped_result.default_mem_length, dumped_result.mem_num, dumped_result.default_mem_page_num)
+            print('------------------')
+        if dumped_result.name == 'wasmer_default_dump':
+            print('wasmer_default_dump')
+            print(dumped_result.default_mem_length, dumped_result.mem_num, dumped_result.default_mem_page_num)
+    print('---' * 10)
+    # 
     difference_reason = are_different(dumped_results)
     # print(dumped_results)
     diff_keys = []
@@ -52,43 +65,21 @@ def test_env(tc_name, reload=False, reload_dir=None, use_release=False):
             diff_keys.extend(r)
         print('Difference reason:')
         print(difference_reason)
+    print('=' * 50)
     print(diff_keys)
     print(at_least_one_can_instantiate(dumped_results))
     print('=' * 50)
-    for result in dumped_results:
-        assert isinstance(result, dumpData)
-        print('-' * 25)
-        print(result.name)
-        print(result.can_initialize)
-        # print(result.name, result.has_instance, result.default_table_len)
-        # print(result.stack_types)
-        print(result.log_content)
-        # if not result.failed_exec:
-        #     print_ba(result.stack_bytes[0])
-        #     # print(result.stack_infered_vals[0])
-        #     print(cleaned_stack_val.from_dump_data(result).key)
-        #     print(result.failed_exec)
-    print(_get_can_execute_num(dumped_results))
+    # for result in dumped_results:
+    #     assert isinstance(result, dumpData)
+    #     print('-' * 25)
+    #     print(result.name)
+    #     print(result.can_initialize)
+    #     print(result.log_content)
+    # print(_get_can_execute_num(dumped_results))
     
-        # print(result.stack_bytes)
-        # if result.stack_bytes:
-        #     print([hex(x) for x in result.stack_bytes[0]])
-        # print('Content ', '-' * 30)
-        
-        # for diff_key in diff_keys:
-        #     print('>    {}: {}'.format(diff_key, getattr(result, diff_key)))
 
 
 if __name__ == '__main__':
-    # test_env('i32.store16_465')
-    # test_env('/home/zph/DGit/wasm_projects/runtime_tester/diff_tcs/i64.ge_u_4_98_98_99_99_96_97_80_98_95_96_87_95_69.wasm')
-    # test_env('./test_nan/tt.wasm')
-    # test_env('diff_tcs/i32.rotl_83_90_96_99_96_85_98_58.wasm')
-    # test_env('diff_tcs4/f64.max_151_4_13_18_2_17_18_19_16_13_16_0_12_14_12_1.wasm')
-    # test_env('./diff_tcs4/i32.store_1160_8_1_0_16_4_13_0_19_9_11_12_17_19_18_6_7_7_5.wasm')
-    # test_env('tt.wasm')
-    # test_env('./diff_tcs/i32.rotl_88_96_93_98_95_99_93_97_99_97_98_97_91_90_99_98_94_88_99_98_99_98_95_93_96_96_93_86_48_88_0_35.wasm')
-    # test_env('/media/hdd_xj1/all_tcs/test_std_new_tcs/i32.add_0_7_16744796413940542.wasm', False, 'result/one')
     argv = sys.argv
     assert len(argv) == 2
     tc_path = argv[1]

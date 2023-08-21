@@ -1,6 +1,6 @@
 import pytest
-from exec_util import load_results_from_one_dumped_data_dir
-from data_comparer import _get_can_execute_num
+from load_results_util import load_results_from_one_dumped_data_dir
+from extract_dump.analyze_exec_instant import _get_can_execute_num
 
 
 paras = [

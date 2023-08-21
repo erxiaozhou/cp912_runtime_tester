@@ -1,10 +1,10 @@
-from extract_dump import iwasmClassicInterpDumpedResult
-from extract_dump import wasmiDumpedResult
-from extract_dump import wasm3_dumped_data
-from extract_dump import wasmedgeDumpedResult
-from extract_dump import wasmerDumpedResult
-from extract_dump import iwasmFastInterpDumpedResult
-from extract_dump import wavmDumpedResult
+from extract_dump import iwasmFullClassicInterpDumpData
+from extract_dump import wasmiFullDumpData
+from extract_dump import wasm3FullDumpData
+from extract_dump import wasmedgeFullDumpData
+from extract_dump import wasmerFullDumpData
+from extract_dump import iwasmFullFastInterpDumpData
+from extract_dump import wavmFullDumpData
 impl_paras = {
     'wasmer_default_dump':{
         'dump_dir': '/home/zph/DGit/wasm_projects/runtime_test/wasmer_default',
@@ -15,7 +15,7 @@ impl_paras = {
         'cmd': '{} {} -i to_test',
         'dump_cmd':  '{} {} -i to_test 2> {}',
         'ori_log_path': 'dpd_wasmer_err_log',
-        'dump_extractor': wasmerDumpedResult,
+        'dump_extractor': wasmerFullDumpData,
         'support_multi_mem': True,
         'support_ref': True,
         'support_v128': True
@@ -29,7 +29,7 @@ impl_paras = {
         'cmd': '{} {} to_test',
         'dump_cmd':  '{} {} to_test 2> {}',
         'ori_log_path': 'dpd_wasmi_err_log',
-        'dump_extractor': wasmiDumpedResult,
+        'dump_extractor': wasmiFullDumpData,
         'support_multi_mem': False,
         'support_ref': False,
         'support_v128': False
@@ -43,7 +43,7 @@ impl_paras = {
         'cmd': '{} --heap-size=0 -f to_test {}',
         'dump_cmd':  '{} --heap-size=0 -f to_test {} > {}',
         'ori_log_path': 'dpd_iwasm_classic_err_log',
-        'dump_extractor': iwasmClassicInterpDumpedResult,
+        'dump_extractor': iwasmFullClassicInterpDumpData,
         'support_multi_mem': False,
         'support_ref': True,
         'support_v128': False  # ?
@@ -57,7 +57,7 @@ impl_paras = {
         'cmd': '{} --heap-size=0 -f to_test {}',
         'dump_cmd':  '{} --heap-size=0 -f to_test {} > {}',
         'ori_log_path': 'dpd_iwasm_fast_err_log',
-        'dump_extractor': iwasmFastInterpDumpedResult,
+        'dump_extractor': iwasmFullFastInterpDumpData,
         'support_multi_mem': False,
         'support_ref': True,
         'support_v128': False  # ?
@@ -71,7 +71,7 @@ impl_paras = {
         'cmd': '{} --func to_test {}',
         'dump_cmd':  '{} --func to_test {} 2> {}',
         'ori_log_path': 'dpd_wasm3_err_log',
-        'dump_extractor': wasm3_dumped_data,
+        'dump_extractor': wasm3FullDumpData,
         'support_multi_mem': True,
         'support_ref': True,
         'support_v128': False
@@ -98,7 +98,7 @@ impl_paras = {
         'cmd': '{} --reactor {} to_test',
         'dump_cmd':  '{} --reactor {} to_test > {}',
         'ori_log_path': 'dpd_wasmedge_err_log',
-        'dump_extractor': wasmedgeDumpedResult,
+        'dump_extractor': wasmedgeFullDumpData,
         'support_multi_mem': True,
         'support_ref': True,
         'support_v128': True
@@ -113,7 +113,7 @@ impl_paras = {
         'cmd': '{} run --function=to_test {}',
         'dump_cmd':  '{} run --function=to_test {} 2> {}',
         'ori_log_path': 'dpd_wavm_err_log',
-        'dump_extractor': wavmDumpedResult,
+        'dump_extractor': wavmFullDumpData,
         'support_multi_mem': True,
         'support_ref': True,
         'support_v128': True

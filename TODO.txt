@@ -33,13 +33,8 @@ wasmi的报错：print reference的时候会报错，这个要修一下
 "(\"(('WAVM_default', ('CanRun_CannotDump', 'Timeout', 'default_mem_data', 'default_mem_length', 'default_mem_page_num', 'global_bytes', 'global_types', 'mem_num', 'stack_bytes', 'stack_bytes_process_nan', 'stack_num')), ('WasmEdge_disableAOT_newer', ('has_timeout',)), ('iwasm_classic_interp_dump', ('CannotExecute',)), ('iwasm_fast_interp_dump', ('CannotExecute',)), ('wasm3_dump', ('CannotExecute',)), ('wasmer_default_dump', ('Timeout',)), ('wasmi_interp', ('CannotExecute',)))\", '===', \"(('WAVM_default', ''), ('WasmEdge_disableAOT_newer', ''), ('iwasm_classic_interp_dump', 'WASM module load failed: unknown value type\\\\n'), ('iwasm_fast_interp_dump', 'WASM module load failed: unknown value type\\\\n'), ('wasm3_dump', 'Error: [Fatal] repl_load: unknown value_typeError: unknown value_type'), ('wasmer_default_dump', ''), ('wasmi_interp', 'SIMD support is not enabled'))\")": "/media/hdd_xj1/cp910_data/main_testing_v9.4/log_category/19.json",
 
 
-can_initialize 用法再检查下
-
 
 /media/hdd_xj1/cp910_data/main_testing_v12_550/log_category_s1/56.json
-
-
-wasmedge timeout的报错变了，需要看一下为什么，影响大不大
 
 
 wasm 混淆有的做
@@ -54,15 +49,10 @@ wasm 混淆有的做
 3. 均无bug下，全报错
 
 
-2. iwasm里有几个不支持的指令，看看怎么能让他们跑起来
 3. table里内容的compare
 
 6. v128专项测试：目前发现v128的special value可能不够有代表性
 7. i32.add i64.add f32.add f64.add或许可以作为一个较小的集合，去测mutation策略
-8. coverage实验跑通
-9. 
-
-
 
 /media/hdd_xj1/cp910_data/existing_diff_tcs_result_0331/diff_tcs/select_4151_4_16789392011871257.wasm
 这里观察下，wasmedge的stack_type是不是i64，，，，
@@ -70,26 +60,42 @@ wasm 混淆有的做
 
 哪些会在release下存在？这个要看看
 
-run_five等跑cmd的方法处理不好timeout，要修下
-
-
-
-select_ast
-Then the instruction is valid with type [𝑡 * 𝑡 * i32] → [𝑡 * ]
-
-local.tee
-
-
-global.set mutability
-
-store / load 的 alignment
-
-
-
-data section / element section的调研；
-wasmi instance里面没有这两个东西
-wasmer instance里面没有这两个东西
-iwasm没有
 
 
 先分析下为什么debug wasmi / wasmer 里面没有alignment的问题
+
+
+clang++的版本再调一下
+
+
+
+script_cloc需要改下了
+
+
+
+
+测试的时候，会不会产生覆盖的问题，还需要再研究下
+
+
+
+
+
+需要调研下 crash 信息，不要被 content_relation0_list 覆盖掉
+
+
+方法：召集以前的tcs，让iwasm和WAVM去跑，收集 stderr 上的输出 （之后看看是不是需要别的runtime也去跑），然后看看这些输出会不会被 content_relation0_list 简化掉
+
+
+
+wasmer run 的 subcommand 可以选择用什么编译器， 比如选 llvm 还是什么
+
+
+iwasm 的 -DWASM_ENABLE_BULK_MEMORY=1 都加上
+
+注意检查 Release / Debug 设定 ，memory什么的设定
+
+
+rule23 很可能也是个bug
+
+
+

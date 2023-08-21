@@ -1,4 +1,3 @@
-#!/home/zph/anaconda3/bin/python
 import re
 import sys, getopt
 from pathlib import Path
@@ -88,9 +87,6 @@ def _run_all_runtime(result_base_dir, ori_tcs_dir, runtime_configs):
     with futures.ProcessPoolExecutor(max_workers=10) as executor:
         for runtime_config in runtime_configs:
             executor.submit(_run_one_runtime, result_base_dir, ori_tcs_dir, runtime_config)
-    # for result_base_dir, ori_tcs_dir in zip(result_base_dirs, ori_tcs_dirs):
-    #     for runtime_config in runtime_configs:
-    #         _run_one_runtime(result_base_dir, ori_tcs_dir, runtime_config)
 
 
 def _get_paras():

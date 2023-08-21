@@ -1,12 +1,12 @@
-from get_impls_util import get_std_impls
-from get_impls_util import get_std_release_impls
 from pathlib import Path
 from file_util import save_json
 from time import time
 from .tester import Tester
 from .tester_util import testerExecInfo
 from .tester_util import testerExecPaths
-from .tester import noMutationTester, randomByteMutationTester
+from .no_mutation_tester import noMutationTester
+from .random_byte_mutation_tester import randomByteMutationTester
+from .random_byte_mutation_LimitbyLog_tester import randomByteMutationLimitbyLogTester
 
 
 class testingInfoSaver:
@@ -40,41 +40,41 @@ class testingInfoSaver:
 
 
 class mutationParas:
-    def __init__(self, tester, tester_exec_paths, tested_dir, use_release) -> None:
+    def __init__(self, tester, tester_exec_paths, tested_dir, impls) -> None:
         self.tester = tester
         assert isinstance(tester_exec_paths, testerExecPaths)
         self.tester_exec_paths = tester_exec_paths
         self.tested_dir = tested_dir
-        # ! use_release写的不好，耦合太重，准备改
-        self.use_release = use_release
-        # ! 在这里获取impls是好的，但是这个写法有点凑合，还要再想想
-        if use_release:
-            impls = get_std_release_impls()
-        else:
-            impls = get_std_impls()
         self.impls = impls
     
     @classmethod
-    def get_paras_with_mutation(cls, tested_dir, result_base_dir, one_tc_limit=50, mutate_num=5, mutate_prob=1, use_release=False, tester_exec_paths=None):
-        paras = {
-            'tested_dir': tested_dir,
-            'use_release': use_release,
-            'tester_exec_paths': get_tester_exec_paths(result_base_dir, tester_exec_paths),
-            'tester': randomByteMutationTester(one_tc_limit=one_tc_limit, mutate_num=mutate_num, mutate_prob=mutate_prob)
-        }
-    
-        return cls(**paras)
+    def get_paras_with_mutation(cls, tested_dir, result_base_dir, impls, one_tc_limit=50, mutate_num=5, mutate_prob=1, tester_exec_paths=None):
+        return cls(
+            tested_dir=tested_dir,
+            tester=randomByteMutationTester(one_tc_limit=one_tc_limit, mutate_num=mutate_num, mutate_prob=mutate_prob),
+            impls=impls,
+            tester_exec_paths=get_tester_exec_paths(result_base_dir, tester_exec_paths)
+        )
     
     @classmethod
-    def get_no_mutation_paras(cls, result_base_dir, tested_dir, tester_exec_paths=None):
-        paras = {
-            'tested_dir': tested_dir,
-            'tester': noMutationTester(),
-            'use_release': False,
-            'tester_exec_paths': get_tester_exec_paths(result_base_dir, tester_exec_paths)
-        }
-        return cls(**paras)
+    def get_no_mutation_paras(cls, result_base_dir, tested_dir, impls, tester_exec_paths=None, check_not_exist=True):
+        return cls(
+            tested_dir=tested_dir,
+            tester=noMutationTester(),
+            impls=impls,
+            tester_exec_paths=get_tester_exec_paths(result_base_dir, tester_exec_paths, check_not_exist)
+        )
     
+    @classmethod
+    def get_random_byte_mutation_limit_by_log_paras(cls, tested_dir, result_base_dir, impls, mutate_num=50, max_log_appear_num=20, reuse_no_mutation_info_dir=None, tester_exec_paths=None):
+        return cls(
+            tested_dir=tested_dir,
+            tester=randomByteMutationLimitbyLogTester(mutate_num=mutate_num, 
+            max_log_appear_num=max_log_appear_num, reuse_no_mutation_info_dir=reuse_no_mutation_info_dir),
+            impls=impls,
+            tester_exec_paths=get_tester_exec_paths(result_base_dir, tester_exec_paths)
+        )
+
     @property
     def to_dict_for_save(self):
         d = {}
@@ -94,7 +94,7 @@ class mutationParas:
         return d
 
 
-def get_tester_exec_paths(result_base_dir, tester_exec_paths=None):
+def get_tester_exec_paths(result_base_dir, tester_exec_paths=None, check_not_exist=True):
     if tester_exec_paths is None:
-        tester_exec_paths = testerExecPaths.from_result_base_dir(result_base_dir)
+        tester_exec_paths = testerExecPaths.from_result_base_dir(result_base_dir, check_not_exist)
     return tester_exec_paths
