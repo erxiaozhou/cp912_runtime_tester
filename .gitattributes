@@ -1,3 +1,4 @@
 tmp*.py merge=ours
 TODO.txt merge=ours
 .gitignore merge=ours
+useful_results merge=ours
