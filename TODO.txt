@@ -99,3 +99,5 @@ rule23 很可能也是个bug
 
 
 
+优化testr
+准备找个有py接口的wat2wasm什么的
