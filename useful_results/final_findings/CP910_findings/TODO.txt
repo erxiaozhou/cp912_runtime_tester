@@ -1,0 +1,8 @@
+iwasm 在编译时候加上-DWAMR_BUILD_BULK_MEMORY=1 https://github.com/bytecodealliance/wasm-micro-runtime/issues/1769
+
+iwasm的fast-jit模式要试一下
+-DWAMR_BUILD_BULK_MEMORY=1 -DWAMR_BUILD_FAST_JIT=1
+https://github.com/bytecodealliance/wasm-micro-runtime/issues/1727
+
+
+

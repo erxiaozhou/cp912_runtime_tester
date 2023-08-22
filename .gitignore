@@ -22,7 +22,7 @@ except_dir
 ori_tcs
 mutate_tcs
 special_tcs
-useful_results
+# useful_results
 v1_main_script
 tcs_v5
 tcs_v4
