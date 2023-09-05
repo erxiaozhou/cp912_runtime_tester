@@ -2,7 +2,6 @@
 
 from collections import Counter
 from retrive_diff_num_from_reason_summary import names2counter, reasonRelatedC, wrap_one_num
-from tmp_script_detect_reffunc0 import get_contain_reffunc0_names_main
 
 no_mutation_result_base = '/host_data/rewrite/v18_no_mutation'
 no_mutation_result_base = '/host_data/rewrite/v19.2_no_mutation'

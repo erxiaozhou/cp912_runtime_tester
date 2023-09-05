@@ -2,7 +2,6 @@
 
 from collections import Counter
 from retrive_diff_num_from_reason_summary import names2counter, reasonRelatedC, wrap_one_num
-from tmp_script_detect_reffunc0 import get_contain_reffunc0_names_main
 
 no_mutation_result_base = '/host_data/rewrite/v18_no_mutation'
 no_mutation_result_base = '/host_data/rewrite/v19.2_no_mutation'
@@ -26,7 +25,8 @@ def cal_each_inst_info_nadiff():
     fmt = '{} & {} & {} & {} & {} & {} & {} & {} & {} \\\\'
     for row_name in rows:
         counters_dict[row_name] = {}
-
+        # if row_name != 'Numeric':
+        #     continue
         can_exec_inst_counter, cannot_exec_inst_counter = no_mutation_reason.cal_execution_diff(row_name,get_ori_names=True)
         na_diff_inst_names = no_mutation_reason.count_na_diff(row_name, get_ori_names=True)
         counters_dict[row_name]['na_diff_inst_n'] = na_diff_inst_names

@@ -36,21 +36,27 @@ class reasonRelatedC:
     
     def count_exec_state_diff(self, ctgy_name=None, get_ori_names=True):
         assert get_ori_names
-        not_sure_keys, runtime_counter, to_skip_list, to_skip_num = self.only_can_cannot_execute(ctgy_name, get_ori_names)
+        not_sure_keys, runtime_counter, to_skip_list, to_skip_num = self.only_can_exec_state_by_key(ctgy_name, get_ori_names)
         compare_based_c = self.count_by_compare_exec_state(not_sure_keys, ctgy_name, get_ori_names)
-        if get_ori_names:
-            
-            for k in all_runtime_names:
-                if k not in runtime_counter:
-                    runtime_counter[k] = set()
-                runtime_counter[k].update(compare_based_c.get(k, set()))
-        else:
-            runtime_counter+=compare_based_c
+        for k in all_runtime_names:
+            if k not in runtime_counter:
+                runtime_counter[k] = set()
+            runtime_counter[k].update(compare_based_c.get(k, set()))
+        if ctgy_name == 'Memory':
+            print(runtime_counter['wasm3_dump'])
+            # assert 0
+        #     print('==============================')
+        #     for k, v in runtime_counter.items():
+        #         print(k, v)
+        #     assert 0
         return runtime_counter, to_skip_num
 
 
     def count_c_diff(self, ctgy_name=None, get_ori_names=False):
         not_sure_keys, runtime_counter, to_skip_list, to_skip_num = self.only_can_cannot_execute(ctgy_name, get_ori_names)
+        if ctgy_name == 'Numeric':
+            print('*******' *30)
+            # assert 0, print(runtime_counter['wasmer_default_dump'])
         compare_based_c = self.count_by_compare(not_sure_keys, ctgy_name, get_ori_names)
         if get_ori_names:
             
@@ -63,6 +69,130 @@ class reasonRelatedC:
         return runtime_counter, to_skip_num
 
     def only_can_cannot_execute(self, ctgy_name=None, get_ori_names=False):
+        # not_sure_list = []
+        not_sure_keys = []
+        to_skip_list = []
+        to_skip_num = 0
+        runtime_counter = Counter()
+        name_dict = dict()
+        execute_related_tuple = set(['CanExecute', 'CannotExecute', 'has_timeout', 'has_crash'])
+        for k, v in self.reason_summary.items():
+            tc_num = self.count_tc_num_with(v, ctgy_name)
+            tcs = self.tc_num_with(v, ctgy_name)
+            if 'CanRun_CannotDump' in k:
+                to_skip_list.append(k)
+                continue
+            
+            # elif k.count('has_timeout') != k.count("('WasmEdge_disableAOT_newer', ('has_timeout',))"):
+            #     not_sure_keys.append(k)
+            #     to_skip_num += tc_num
+            #     continue
+            k_obj = key_(k)
+            other_kwds = [v for v in k_obj.kwds_list if v not in execute_related_tuple]
+            execute_related_keys = [v for v in k_obj.kwds_list if v in execute_related_tuple]
+            assert len(other_kwds) + len(execute_related_keys) > 0
+            # if (len(other_kwds) <= 3 and len(execute_related_keys) == 0) or (len(execute_related_keys)  <=3 and len(other_kwds) == 0):
+            if (len(execute_related_keys)  <=3 and len(other_kwds) == 0):
+                print(f'only_can_cannot_execute == 3 num rule: {k}')
+                for runtime_name in k_obj.runtime_names:
+                    if get_ori_names:
+                        if runtime_name not in name_dict:
+                            name_dict[runtime_name] = set()
+                        name_dict[runtime_name].update(tcs)
+                    else:
+                        runtime_counter[runtime_name] += tc_num
+                continue
+            elif 'stack_bytes_process_nan' in k:
+                not_sure_keys.append(k)
+                continue
+            
+            elif k_obj.kws.issubset(execute_related_tuple):
+                assert len(k_obj.kws) == 1, print(k_obj.kws, k_obj.data)
+                if len(k_obj.kwds_list) <=3:
+                    print(f'Cannot Can rule: {k}')
+                    for runtime_name in k_obj.runtime_names:
+                        if get_ori_names:
+                            if runtime_name not in name_dict:
+                                name_dict[runtime_name] = set()
+                            name_dict[runtime_name].update(tcs)
+                        else:
+                            runtime_counter[runtime_name] += tc_num
+                else:
+                    print(f'Cannot Can revise rule: f{k}')
+                    revised_list =[v for v in all_runtime_names if v not in k_obj.runtime_names]
+                    for runtime_name in revised_list:
+                        if get_ori_names:
+                            if runtime_name not in name_dict:
+                                name_dict[runtime_name] = set()
+                            name_dict[runtime_name].update(tcs)
+                        else:
+                            runtime_counter[runtime_name] += tc_num
+                continue
+            print('?????????????????????????????')
+            not_sure_keys.append(k)
+        if get_ori_names:
+            return not_sure_keys, name_dict, to_skip_list, to_skip_num
+        else:
+            return not_sure_keys, runtime_counter, to_skip_list, to_skip_num
+    def only_can_exec_state_by_key(self, ctgy_name=None, get_ori_names=False):
+        not_sure_keys = []
+        to_skip_list = []
+        to_skip_num = 0
+        runtime_counter = Counter()
+        name_dict = dict()
+        execute_related_tuple = set(['CanExecute', 'CannotExecute', 'has_timeout', 'has_crash'])
+        for k, v in self.reason_summary.items():
+            tc_num = self.count_tc_num_with(v, ctgy_name)
+            tcs = self.tc_num_with(v, ctgy_name)
+            if 'CanRun_CannotDump' in k:
+                to_skip_list.append(k)
+                continue
+            k_obj = key_(k)
+            execute_related_keys = [v for v in k_obj.kwds_list if v in execute_related_tuple]
+            if 0<len(execute_related_keys)  <=3:
+                print(f'only_can_exec_state_by_key == 3 num rule: {k}')
+                for runtime_name in k_obj.runtime_names_with_spec_kwds(execute_related_keys):
+                    if get_ori_names:
+                        if runtime_name not in name_dict:
+                            name_dict[runtime_name] = set()
+                        name_dict[runtime_name].update(tcs)
+                    else:
+                        runtime_counter[runtime_name] += tc_num
+                continue
+            elif 'stack_bytes_process_nan' in k:
+                not_sure_keys.append(k)
+                continue
+            
+            elif k_obj.kws.issubset(execute_related_tuple):
+                assert len(k_obj.kws) == 1, print(k_obj.kws, k_obj.data)
+                if len(k_obj.kwds_list) <=3:
+                    print(f'Cannot Can rule: {k}')
+                    for runtime_name in k_obj.runtime_names:
+                        if get_ori_names:
+                            if runtime_name not in name_dict:
+                                name_dict[runtime_name] = set()
+                            name_dict[runtime_name].update(tcs)
+                        else:
+                            runtime_counter[runtime_name] += tc_num
+                else:
+                    print(f'Cannot Can revise rule: {k}')
+                    revised_list =[v for v in all_runtime_names if v not in k_obj.runtime_names]
+                    for runtime_name in revised_list:
+                        if get_ori_names:
+                            if runtime_name not in name_dict:
+                                name_dict[runtime_name] = set()
+                            name_dict[runtime_name].update(tcs)
+                        else:
+                            runtime_counter[runtime_name] += tc_num
+                continue
+            print('?????????????????????????????')
+            not_sure_keys.append(k)
+        if get_ori_names:
+            return not_sure_keys, name_dict, to_skip_list, to_skip_num
+        else:
+            return not_sure_keys, runtime_counter, to_skip_list, to_skip_num
+        
+    def only_can_cannot_execute_ori(self, ctgy_name=None, get_ori_names=False):
         # not_sure_list = []
         not_sure_keys = []
         to_skip_list = []
@@ -213,6 +343,7 @@ class reasonRelatedC:
         else:
             return c
     def count_by_compare_exec_state(self, keys, ctgy=None, get_ori_names=False):
+        # assert 0, print(ctgy)
         name_p = re.compile(r'^(.*)_\d+$')
         c = Counter()
         name_dict = dict()
@@ -226,11 +357,15 @@ class reasonRelatedC:
         for tc in tqdm(tcs):
             dumped_dir = self.dumped_data_dir / tc
             names = analyze_a_tc_exec_state(dumped_dir)
+            # assert not len(names)
             for name in names:
                 c[name] += 1
                 if name not in name_dict:
                     name_dict[name] = set()
                 name_dict[name].add(name_p.findall(tc)[0])
+                if ctgy == 'Numeric':
+                    assert 0, print(names, ctgy)
+        
         if get_ori_names:
             return name_dict
         else:
@@ -387,6 +522,9 @@ class key_:
     @property
     def runtime_names(self):
         return list(self.data)
+
+    def runtime_names_with_spec_kwds(self, kwds):
+        return [_k for _k, _v in self.data.items() if len(set(_v).intersection(kwds)) > 0]
 
 def retrive_k(k):
     t = eval(k)
