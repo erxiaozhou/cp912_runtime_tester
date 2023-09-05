@@ -72,9 +72,9 @@ _to_compare_attrs = [
 
     # 'stack_bytes',
     # 'stack_infered_vals',
-    # 'log_has_failed_content',
-    # 'has_timeout',
-    # 'has_crash'
+    'log_has_failed_content',
+    'has_timeout',
+    'has_crash'
 ]
 exec_state_attrs = ['log_has_failed_content', 'has_timeout', 'has_crash']
 no_exec_state_attrs = [x for x in _to_compare_attrs if x not in exec_state_attrs]

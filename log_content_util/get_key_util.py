@@ -216,8 +216,8 @@ def rewrite_dict(log_key2tc_names):
         for log_key, c in log_key2log_key_freq.items():
             if c.get(kwd, -5) >= max_v:
                 max_v = c[kwd]
-        if max_v < 0.5:
-            continue
+        # if max_v < 0.5:
+        #     continue
         for log_key, c in log_key2log_key_freq.items():
             if c.get(kwd, -5) == max_v:
                 to_save_log_keys.add(log_key)
