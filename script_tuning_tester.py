@@ -119,22 +119,6 @@ def run_limit_by_log_mutation_config2(repeat_num=1):
     logLimitMutationTuner(repeat_num, 'limitByLogMutation_lastest2', 20, 20, impls).run()
 
 if __name__ == '__main__':
-    # run_no_mutation()
-    # run_raw_mutation_config1(5)
-    # run_raw_mutation_config2(5)
-    # run_raw_mutation_config3(5)
-    # run_raw_mutation_config4(5)
-    # run_raw_mutation_config5(5)
-    # run_raw_mutation_config6(5)
-
-    # run_limit_by_log_mutation_config1(3)
-    # run_limit_by_log_mutation_config2(3)
-    # run_limit_by_log_mutation_config3(3)
-    # run_limit_by_log_mutation_config4(3)
-    # run_limit_by_log_mutation_config5(5)
-    # run_limit_by_log_mutation_config6(5)
-    # run_limit_by_log_mutation_config7(5)
-    # run_limit_by_log_mutation_config8(5)
     # run_limit_by_log_mutation_config9(5)
     run_limit_by_log_mutation_config2(3)
     

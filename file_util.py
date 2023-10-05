@@ -158,7 +158,6 @@ def byte2str(bs):
         try:
             s = bs.decode(encoding)
         except UnicodeDecodeError as e:
-            # ! 等 log 部分能妥善处理乱码再不去 raise
             raise e
             s = str(bs)
     else:

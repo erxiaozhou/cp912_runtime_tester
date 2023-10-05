@@ -119,7 +119,6 @@ class iwasmFullClassicInterpDumpData(fullDumpResultInitializer, iwasmHalfClassic
                 else:
                     assert 0, print(ty)
             stack_len = get_int(f.read(4))
-                # stack_bytes = bytearray()
             for i in range(stack_len):
                 f.read(4)
 
@@ -127,59 +126,4 @@ class iwasmFullClassicInterpDumpData(fullDumpResultInitializer, iwasmHalfClassic
             if self.mem_num > 0:
                 self.default_mem_length = get_u64(f.read(8))
                 self.default_mem_page_num = get_int(f.read(4))
-                    # print(self.mem_num, self.default_mem_page_num)
                 self.default_mem_data = f.read(self.default_mem_length)
-
-
-    # def _init_stack(self, stack_path):
-    #     with open(stack_path, 'rb') as f:
-    #         self.stack_num = get_int(f.read(8))
-    #         for i in range(self.stack_num):
-    #             ty = f.read(1)
-    #             processed_ba = None
-    #             if ty == b'\x7F':
-    #                 self.stack_types.append('i32')
-    #                 cur_bytes = f.read(4)
-    #                 self.stack_infered_vals.append(get_int(cur_bytes))
-    #             elif ty == b'\x7E':
-    #                 self.stack_types.append('i64')
-    #                 cur_bytes = f.read(8)
-    #                 self.stack_infered_vals.append(get_int(cur_bytes))
-    #             elif ty == b'\x7D':
-    #                 self.stack_types.append('f32')
-    #                 cur_bytes = f.read(4)
-    #                 self.stack_infered_vals.append(get_f32(cur_bytes))
-    #                 processed_ba = process_f32_64(cur_bytes)
-    #             elif ty == b'\x7C':
-    #                 self.stack_types.append('f64')
-    #                 cur_bytes = f.read(8)
-    #                 self.stack_infered_vals.append(get_f64(cur_bytes))
-    #                 processed_ba = process_f32_64(cur_bytes)
-    #             elif ty == b'\x7B':
-    #                 self.stack_types.append('v128')
-    #                 cur_bytes = f.read(16)
-    #                 self.stack_infered_vals.append([x for x in bytearray(cur_bytes)])
-    #             elif ty == b'\x70':
-    #                 cur_bytes = bytearray([])
-    #                 self.stack_infered_vals.append([])
-    #                 self.stack_types.append('funcref')
-    #                 # cur_bytes = f.read(4)
-    #                 # func_idx = get_int(cur_bytes)
-    #                 # is_null_bytes = f.read(4)
-    #                 # is_null = get_int(is_null_bytes)
-    #                 # processed_ba = bytearray(cur_bytes) + bytearray(is_null_bytes)
-    #                 # self.stack_infered_vals.append((func_idx, is_null))
-    #             elif ty == b'\x6F':
-    #                 cur_bytes = bytearray([])
-    #                 self.stack_infered_vals.append([])
-    #                 self.stack_types.append('externref')
-    #                 # cur_bytes = f.read(4)
-    #                 # content_as_int = get_int(cur_bytes)
-    #                 # is_null_bytes = f.read(4)
-    #                 # is_null = get_int(is_null_bytes)
-    #                 # processed_ba = bytearray(cur_bytes) + bytearray(is_null_bytes)
-    #                 # self.stack_infered_vals.append((content_as_int, is_null))
-    #             self.stack_bytes.append(cur_bytes)
-    #             if processed_ba is None:
-    #                 processed_ba = bytearray(cur_bytes)
-    #             self.stack_bytes_process_nan.append(processed_ba)

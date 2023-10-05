@@ -15,33 +15,24 @@ supported_modes = ['all', 's1', 's2', 's3', 'only_interesting', 'only_highlight'
 def group_tc_names_by_log_key(tc_result_dirs, strategy, reason_key=None):
     if reason_key is not None:
         reason_key = eval(reason_key)
-        # print('reason_key', reason_key, '===', reason_key[0])
         new_key = {}
         for k, v in reason_key:
             if v == ('CannotExecute',):
                 continue
             new_key[k] = v
         reason_key = new_key
-        # assert 0
     runtime_logs2tc_names = {}
     for tc_result_dir in tc_result_dirs:
         tc_name = Path(tc_result_dir).name
         runtime_logs = get_runtime_logs_from_dir(tc_result_dir, strategy)
-        # assert 0, print('runtime_logs', type(runtime_logs), runtime_logs)
         runtime_logs2tc_names.setdefault(runtime_logs, []).append(tc_name)
     if strategy == 'only_highlight':
-        # ! rewrite_dict 还没改
         tmp_log_key2tc_names = rewrite_dict(runtime_logs2tc_names)
         log_key2tc_names = {}
         for log_key, tc_names in tmp_log_key2tc_names.items():
-            # print('log_key', type(log_key), log_key)
-            # assert 0
-            
             if reason_key is not None:
-                # TODO
                 log_key.update_processed_log_dict(reason_key)
             log_key = log_key.processed_key
-            # log_key = log_dict2key(log_key)
             log_key2tc_names[log_key] = tc_names
     else:
         log_key2tc_names = {}
@@ -97,9 +88,6 @@ class runtimeLogs:
         if self._processed_log_dict is None:
             self._processed_log_dict = new_processed_log_dict.copy()
         else:
-            # print(type(new_processed_log_dict))
-            # print(type(self._processed_log_dict))
-            # print('-----------')
             self._processed_log_dict.update(new_processed_log_dict)
     
     @property
@@ -162,10 +150,8 @@ class onlyInterestingRuntimeLogs(runtimeLogs):
     def _process_log_dict(self, log_dict):
         processed_log_dict = _no_cross_process_log_dict(oneRuntimeLog.summary_key_s3, log_dict)
         vals = list(processed_log_dict.values())
-        # func_sec_size_mismatch 是所有runtime都不支持的
         if 0 < vals.count(func_sec_size_mismatch) < len(vals):
             for runtime_name in processed_log_dict.keys():
-                # processed_log_dict[runtime_name] = f'<masked because of {func_sec_size_mismatch}>'
                 processed_log_dict[runtime_name] = func_sec_size_mismatch
         # 先把一些模糊的log通过其他runtime的报错推出来
         runtime_names = list(processed_log_dict.keys())
@@ -204,7 +190,7 @@ class onlyInterestingRuntimeLogs(runtimeLogs):
                 if processed_log_dict[runtime_name] == illegal_type:
                     processed_log_dict[runtime_name] = runtime_self_unsupport
 
-        # 某些runtime理应不支持的
+        # some features are not supported by some runtimes, which is as expected
         for runtime_name in runtime_names:
             if processed_log_dict[runtime_name] == runtime_self_unsupport:
                 processed_log_dict.pop(runtime_name)
@@ -214,7 +200,6 @@ class onlyHighlightRuntimeLogs(onlyInterestingRuntimeLogs):
     pass
 
 def rewrite_dict(log_key2tc_names):
-    # log_key2tc_names = {k.get_key:v for k, v in log_key2tc_names.items()}
     log_key2log_key_freq = {}
 
     log_kwds = set()
@@ -231,8 +216,8 @@ def rewrite_dict(log_key2tc_names):
         for log_key, c in log_key2log_key_freq.items():
             if c.get(kwd, -5) >= max_v:
                 max_v = c[kwd]
-        if max_v < 0.5:
-            continue
+        # if max_v < 0.5:
+        #     continue
         for log_key, c in log_key2log_key_freq.items():
             if c.get(kwd, -5) == max_v:
                 to_save_log_keys.add(log_key)

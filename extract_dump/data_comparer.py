@@ -84,9 +84,13 @@ def are_different(dumped_results):
     for result in dumped_results:
         # ! 这个再观察下，看着很奇怪，好像有has_timeout就够了，这个准备删掉
         if result.has_timeout:
-            compare_result.setdefault(result.name, []).append('has_timeout')
+            compare_result.setdefault(result.name, [])
+            if 'has_timeout' not in compare_result[result.name]:
+                compare_result[result.name].append('has_timeout')
         if result.has_crash:
-            compare_result.setdefault(result.name, []).append('has_crash')
+            compare_result.setdefault(result.name, [])
+            if 'has_crash' not in compare_result[result.name]:
+                compare_result[result.name].append('has_crash')
     if len(compare_result):
         return compare_result
     else:

@@ -40,9 +40,6 @@ class wavmHalfDumpData(halfDumpResultInitializer):
                     cur_bytes = bytearray([])
                     self.stack_infered_vals.append([])
                     self.stack_types.append('funcref')
-                    # cur_bytes = f.read(8)
-                    # if bytearray(cur_bytes) == bytearray([0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff]):
-                    #     is_null = True
                 elif ty == b'\x6F':
                     cur_bytes = bytearray([])
                     self.stack_infered_vals.append([])

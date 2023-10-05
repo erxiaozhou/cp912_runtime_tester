@@ -50,55 +50,8 @@ def run_no_mutation(tested_dir):
     impls = get_std_impls()
     paras = mutationParas.get_no_mutation_paras(result_base_dir, tested_dir, impls=impls)
     common_runner(result_base_dir, paras, impls)
-'''
-# def run_limit_by_log_mutation_config1(repeat_num=1, start_num=0):
-#     impls = get_std_impls()
-#     logLimitMutationTuner(repeat_num, start_num, 'limit_by_log_mutation_v21', 3, 10, impls).run()
-
-# def run_limit_by_log_mutation_config2(repeat_num=1, start_num=0):
-#     impls = get_std_impls()
-#     logLimitMutationTuner(repeat_num, start_num, 'limit_by_log_mutation_v22', 5, 10, impls).run()
-
-# def run_limit_by_log_mutation_config3(repeat_num=1, start_num=0):
-#     impls = get_std_impls()
-#     logLimitMutationTuner(repeat_num, start_num, 'limit_by_log_mutation_v23', 10, 10, impls).run()
-
-# def run_limit_by_log_mutation_config4(repeat_num=1, start_num=0):
-#     impls = get_std_impls()
-#     logLimitMutationTuner(repeat_num, start_num, 'limit_by_log_mutation_v24', 3, 20, impls).run()
-
-# def run_limit_by_log_mutation_config5(repeat_num=1, start_num=0):
-#     impls = get_std_impls()
-#     logLimitMutationTuner(repeat_num, start_num, 'limit_by_log_mutation_v25', 20, 50, impls).run()
 
 
-# def run_limit_by_log_mutation_config1(repeat_num=1):
-#     impls = get_lastest_halfdump_impls()
-#     logLimitMutationTuner(repeat_num, 'limitByLogMutation_lastest1', 10, 10, impls).run()
-
-# def run_limit_by_log_mutation_config2(repeat_num=1):
-#     impls = get_lastest_halfdump_impls()
-#     impls = [impl for impl in impls if 'wasm3' not in impl.name]
-#     logLimitMutationTuner(repeat_num, 'limitByLogMutation_lastest2', 20, 20, impls).run()
-'''
 if __name__ == '__main__':
     run_no_mutation(tested_dir='/host_data/rerun_to_analyze_log/except_dir')
-    # run_no_mutation()
-    # run_raw_mutation_config1(5)
-    # run_raw_mutation_config2(5)
-    # run_raw_mutation_config3(5)
-    # run_raw_mutation_config4(5)
-    # run_raw_mutation_config5(5)
-    # run_raw_mutation_config6(5)
-
-    # run_limit_by_log_mutation_config1(2, 1)
-    # run_limit_by_log_mutation_config2(3)
-    # run_limit_by_log_mutation_config3(3)
-    # run_limit_by_log_mutation_config4(3)
-    # run_limit_by_log_mutation_config5(5)
-    # run_limit_by_log_mutation_config6(5)
-    # run_limit_by_log_mutation_config7(5)
-    # run_limit_by_log_mutation_config8(5)
-    # run_limit_by_log_mutation_config9(5)
-    # run_limit_by_log_mutation_config2(3)
     

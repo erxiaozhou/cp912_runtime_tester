@@ -199,7 +199,7 @@ content_relation0_list = [
     'zero byte expected',
     'out of bounds memory access',
     'outOfBoundsMemoryAccess',
-    'reachedUnreachable',
+    # 'reachedUnreachable',
     'Unknown 0xfc subopcode',
     'memoryIndex must be less than module.memories.size',
     'exportIt.index must be less than module.memories.size',
@@ -215,6 +215,7 @@ content_relation0_list = [
     'tail calls support is not enabled',
     'multi-memory not enabled',
     'outOfBoundsTableAccess',
+    'outOfBoundsDataSegmentAccess',
     'Unknown 0xfe subopcode',
     'type index out of bounds',
     'section overrun while parsing Wasm binary',
@@ -230,7 +231,8 @@ content_relation0_list = [
     'Invalid type',
     'malformed value type',
     'invalid result arity',
-    'unreachable executed',
+    # 'unreachable executed',
+    'unreachable',
     'non-typed select operands must have the same numeric type',
     'Invalid unsigned LEB encoding',
     'typed select must have exactly one result',
@@ -260,13 +262,12 @@ content_relation2 = {
     'reference types support is not enabled': '<common reason>',
     'Unknown 0xfc subopcode': '<common reason>',
     'Unknown 0xfd subopcode': '<common reason>',
-    ' wasm operand stack overflow': '<common reason>',
+    'wasm operand stack overflow': '<common reason>',
     'Validation error: locals exceed maximum': '<common reason>',
     'wasm operand stack overflow': '<common reason>',
     'compiling function overran its stack height limit': '<common reason>',
     'v128 value type requires simd feature': '<common reason>'
 }
-
 
 
 @lru_cache(maxsize=4096, typed=False)
